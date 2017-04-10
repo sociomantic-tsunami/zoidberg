@@ -1,0 +1,24 @@
+{
+  "name": "Zoidberg",
+  "version": "1.0.0",
+  "description": "CSS animation engine",
+  "main": "index.js",
+  "repository": "git@github.com:sociomantic/zoidberg.git",
+  "author": "Sociomantic Labs GmbH <tsunami@sociomantic.com>",
+  "license": "MIT",
+  "scripts": {
+  	"compile": "webpack --config config/webpack.config.js",
+  	"watch": "webpack --config --watch config/webpack.config.js"
+  },
+  "dependencies": {
+    "redux": "^3.6.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "sinon": "^2.1.0",
+    "webpack": "^2.3.3"
+  }
+}
