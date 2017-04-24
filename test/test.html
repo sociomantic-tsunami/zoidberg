@@ -2,23 +2,17 @@
   <head>
     <meta charset="utf-8"/>
     <title>Zoidberg Tests</title>
-    <link rel="stylesheet" href="/node_modules/mocha.css"/>
+    <link rel="stylesheet" href="/node_modules/mocha/mocha.css"/>
   </head>
   <body>
     <div id="mocha"></div>
-    <div id="fixtures" style="visibility: hidden; display: none;"></div>
 
     <script src="/node_modules/mocha/mocha.js"></script>
     <script src="/node_modules/chai/chai.js"></script>
     <script src="/node_modules/sinon/pkg/sinon.js"></script>
     <script src="/node_modules/source-map-support/browser-source-map-support.js"></script>
-
     <script>
         var expect = chai.expect;
-
-        if (typeof initMochaPhantomJS === 'function') {
-            initMochaPhantomJS()
-        }
 
         mocha.setup("bdd");
 
@@ -27,7 +21,8 @@
 
         sourceMapSupport.install();
     </script>
-
-    <script src="/dist/zoidberg.js" ></script>
+    <script src="/test/test.js"></script>
+    <script>mocha.run()</script>
+    <script src="/dist/zoidberg.js"></script>
   </body>
 </html>

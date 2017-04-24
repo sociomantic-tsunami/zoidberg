@@ -1,11 +1,5 @@
 // require all the test specs
-var req = require.context("./specs", true, /.+spec\.js$/ );
+var context = require.context( './specs', true, /\.js$/ );
 
-req.keys().forEach( function( key )
-{
-    req( key );
-} );
+context.keys().forEach( context );
 
-const runner = window.mochaPhantomJS || mocha;
-
-runner.run();
