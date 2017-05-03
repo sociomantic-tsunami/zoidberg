@@ -16,6 +16,13 @@ module.exports =
         'mocha' : 'mocha',
         'sinon' : 'sinon'
     },
+    resolve :
+    {
+        modules :
+        [
+            resolve( 'src/js' )
+        ]
+    },
     module :
     {
         loaders :
