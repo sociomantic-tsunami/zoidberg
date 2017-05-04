@@ -1,4 +1,4 @@
-import { cloneDeep } from 'util/helpers';
+import { cloneDeep } from 'util/utilHelpers';
 
 
 describe( 'Util helpers', () =>

@@ -4,7 +4,7 @@ import
 	isString,
 	isObject,
 	isArray
-} from 'util/validator/helpers';
+} from 'util/validator/validatorHelpers';
 
 
 export default

@@ -1,4 +1,4 @@
-import { isArray, isObject, isShallowCopy } from 'util/validator/helpers';
+import { isArray, isObject, isShallowCopy } from 'util/validator/validatorHelpers';
 
 
 /**

@@ -9,7 +9,7 @@ import
     isMarker,
     isShallowCopy
 
-} from 'util/validator/helpers';
+} from 'util/validator/validatorHelpers';
 
 
 describe( 'Validation helpers', () =>

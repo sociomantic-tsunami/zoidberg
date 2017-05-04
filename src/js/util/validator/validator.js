@@ -1,15 +1,41 @@
 import validation from 'constant/validation';
 import { validationMsg } from 'constant/info';
-import { isFunction } from 'util/validator/helpers';
+import { isFunction, isArray } from 'util/validator/validatorHelpers';
+
+
+/**
+* Validates an array by using its validator on each element.
+*
+* @param {Array}            val                     array of values
+* @param {String}           prop                    name of prop to be validated
+*
+* @return {Boolean}                                 true, if valid
+*/
+const validateArray = function ( val, prop )
+{
+    console.log( 'called!' );
+
+    const validated = [];
+
+    for( let i=0; i<val.length; i++ )
+    {
+        if( validate( val[i], prop ) )
+        {
+            validated.push( val[i] );
+        }
+    }
+
+    return validated.every( Boolean );
+}
 
 
 /**
 * Validates a prop using its validator.
 *
-* @param any                val                     value
-* @param str                prop                    name of prop to be validated
+* @param {*}                val                     value
+* @param {String}           prop                    name of prop to be validated
 *
-* @return bool                                      true, if valid
+* @return {Boolean}                                 true, if valid
 */
 export const validate = function ( val, prop )
 {
@@ -30,17 +56,17 @@ export const validate = function ( val, prop )
 * Returns the error state of a validated property. Includes whether the prop
 * is valid and an array of what errors may exist.
 *
-* @param any                val                     value
-* @param str                prop                    name of prop to be validated
-* @param arr                oldErrors               pre-existing errors
+* @param {*}                val                     value
+* @param {String}           prop                    name of prop to be validated
+* @param {Array}            oldErrors               pre-existing errors
 *
-* @return obj                                       error state
+* @return {Object}                                  error state
 */
-export const getErrorState = function( val, prop, oldErrors )
+export const getErrorState = function ( val, prop, oldErrors )
 {
     let errors;
 
-    const valid = validate( val, prop );
+    const valid = isArray( val ) ? validateArray( val, prop ) : validate( val, prop );
 
     if( valid )
     {
