@@ -8,7 +8,7 @@ describe( 'Base Factory', () =>
     beforeEach( () =>
     {
         state = {};
-        subFactory = ( state, set, get, valid ) =>
+        subFactory = ( set, get, valid ) =>
         {
             const getState = () => { return state };
 

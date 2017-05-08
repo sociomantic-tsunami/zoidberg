@@ -33,7 +33,7 @@ const KeyframeState = () =>
 *
 * @return {Object}                          keyframe
 */
-const KeyframeFactory = function ( state, set, get, valid, options )
+const KeyframeFactory = function ( set, get, valid, options )
 {
 
     /**
