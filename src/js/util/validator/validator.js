@@ -1,47 +1,21 @@
-import validation from 'constant/validation';
+import { validation, iteration } from 'constant/validation';
 import { validationMsg } from 'constant/info';
-import { isFunction, isArray } from 'util/validator/validatorHelpers';
-
-
-/**
-* Validates an array by using its validator on each element.
-*
-* @param {Array}            val                     array of values
-* @param {String}           prop                    name of prop to be validated
-*
-* @return {Boolean}                                 true, if valid
-*/
-const validateArray = function ( val, prop )
-{
-    console.log( 'called!' );
-
-    const validated = [];
-
-    for( let i=0; i<val.length; i++ )
-    {
-        if( validate( val[i], prop ) )
-        {
-            validated.push( val[i] );
-        }
-    }
-
-    return validated.every( Boolean );
-}
+import isFunction from 'lodash';
 
 
 /**
 * Validates a prop using its validator.
 *
-* @param {*}                val                     value
 * @param {String}           prop                    name of prop to be validated
+* @param {*}                val                     value
 *
 * @return {Boolean}                                 true, if valid
 */
-export const validate = function ( val, prop )
+export const validate = function ( prop, val )
 {
     const validator = validation[prop] && validation[prop].validator;
 
-    if( isFunction( validator ) )
+    if( _.isFunction( validator ) )
     {
         return validator( val );
     }
@@ -56,17 +30,18 @@ export const validate = function ( val, prop )
 * Returns the error state of a validated property. Includes whether the prop
 * is valid and an array of what errors may exist.
 *
-* @param {*}                val                     value
 * @param {String}           prop                    name of prop to be validated
+* @param {*}                val                     value
 * @param {Array}            oldErrors               pre-existing errors
 *
 * @return {Object}                                  error state
 */
-export const getErrorState = function ( val, prop, oldErrors )
+export const getErrorState = function ( prop, val, oldErrors )
 {
     let errors;
 
-    const valid = isArray( val ) ? validateArray( val, prop ) : validate( val, prop );
+    const iterate = iteration[prop];
+    const valid   = iterate ? iterate( prop, val ) : validate( prop, val );
 
     if( valid )
     {

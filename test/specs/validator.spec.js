@@ -7,15 +7,15 @@ describe( 'Validator', () =>
     {
         it( 'should throw an error if the validator is not a function', () =>
         {
-            expect( () => { validate( 'today', 'date' ) } ).to.throw( Error, 'Validator does not exist' );
+            expect( () => { validate( 'date', 'today' ) } ).to.throw( Error, 'Validator does not exist' );
         } );
 
         it( 'should return a boolean regarding the outcome of validation', () =>
         {
-            expect( validate( 'I am a name', 'name' ) ).to.be.true;
-            expect( validate( 9, 'name' ) ).to.be.false;
+            expect( validate( 'name', 'I am a name' ) ).to.be.true;
+            expect( validate( 'name', 9 ) ).to.be.false;
         } );
-    } )
+    } );
 
     describe( 'getErrorState', () =>
     {
@@ -32,7 +32,7 @@ describe( 'Validator', () =>
 
         it( 'If prop is valid, should return an object that has valid set as true and an errors array with related errors removed', () =>
         {
-            const state = getErrorState( 'Jolene', 'name', oldErrors );
+            const state = getErrorState( 'name', 'Jolene', oldErrors );
 
             expect( state.errors ).to.have.length( 1 );
             expect( state.valid ).to.be.true;
@@ -40,7 +40,7 @@ describe( 'Validator', () =>
 
         it( 'If prop is invalid, should return an object that has valid set as false and an errors array with related errors added', () =>
         {
-            const state = getErrorState( '11%', 'markers', oldErrors );
+            const state = getErrorState( 'markers', '11%', oldErrors );
 
             expect( state.errors ).to.have.length( 3 );
             expect( state.valid ).to.be.false;

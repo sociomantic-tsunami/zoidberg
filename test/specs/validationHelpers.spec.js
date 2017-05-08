@@ -1,50 +1,15 @@
 import
 {
-    isArray,
-    isObject,
-    isString,
-    isFunction,
     isPercent,
     isFromTo,
     isMarker,
-    isShallowCopy
+    validateArray
 
 } from 'util/validator/validatorHelpers';
 
 
 describe( 'Validation helpers', () =>
 {
-
-    it( 'should return true if value is an array', () =>
-    {
-		expect( isArray( [] ) ).to.be.true;
-		expect( isArray( {} ) ).to.be.false;
-    } );
-
-    it( 'should return true if value is an object literal', () =>
-    {
-        expect( isObject( {} ) ).to.be.true;
-        expect( isObject( [] ) ).to.be.false;
-    } );
-
-    it( 'should return true if value is a shallow copy', () =>
-    {
-        expect( isShallowCopy( [] ) ).to.be.true;
-        expect( isShallowCopy( {} ) ).to.be.true;
-        expect( isShallowCopy( 2 ) ).to.be.false;
-    } )
-
-    it( 'should return true if value is a string', () =>
-    {
-        expect( isString( 'I am the string' ) ).to.be.true;
-        expect( isObject( 9 ) ).to.be.false;
-    } );
-
-    it( 'should return true if value is a function', () =>
-    {
-        expect( isFunction( () => {} ) ).to.be.true;
-        expect( isFunction( 'I am not a function hehe' ) ).to.be.false;
-    } );
 
     it( 'should return true if value string with a percent', () =>
     {
@@ -69,6 +34,11 @@ describe( 'Validation helpers', () =>
         expect( isMarker( 10 ) ).to.be.false;
     } );
 
+    it( 'should return true if every item in the array is valid', () =>
+    {
+        expect( validateArray( 'marker', ['10%', '12%'] ) ).to.be.true;
+        expect( validateArray( 'marker', [10, '12%'] ) ).to.be.false;
+    } );
 } );
 
 

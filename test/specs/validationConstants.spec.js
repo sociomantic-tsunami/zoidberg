@@ -1,4 +1,4 @@
-import validation from 'constant/validation';
+import { validation, iteration, regex } from 'constant/validation';
 
 
 describe( 'Validation constants', () =>

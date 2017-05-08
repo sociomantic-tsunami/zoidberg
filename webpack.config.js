@@ -16,7 +16,8 @@ module.exports =
     {
         modules :
         [
-            resolve( 'src/js' )
+            resolve( 'src/js' ),
+            resolve( 'node_modules' )
         ]
     },
     module :
@@ -26,7 +27,7 @@ module.exports =
             loader : 'babel-loader',
             exclude :
             [
-                resolve( '/node_modules' )
+                resolve( 'node_modules' )
             ],
             query  :
             {

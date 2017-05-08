@@ -1,7 +1,19 @@
 import { getErrorState } from 'util/validator/validator';
-import { cloneDeep } from 'util/utilHelpers';
+import cloneDeep from 'lodash/cloneDeep';
 
 
+/**
+* Factory
+*
+* Contains utility methods for getting, setting and validation accessable to the
+* sub-factory.
+*
+* @param {Object}      state                sub-factory state
+* @param {callbackFn}  subFactory           sub-factory callback
+* @param {Object}      options              props to set in sub-factory state
+*
+* @return {Object}                          exposed methods of the sub-factory
+*/
 export default function Factory ( state, subFactory, options )
 {
 
@@ -13,7 +25,7 @@ export default function Factory ( state, subFactory, options )
     */
     const set = function ( prop, value )
     {
-        state[prop] = value;
+        state[prop] = cloneDeep( value );
     }
 
 
@@ -39,10 +51,10 @@ export default function Factory ( state, subFactory, options )
     *
     * @return {Boolean}                                 true, if valid
     */
-    const valid = function ( val, prop )
+    const valid = function ( prop, val )
     {
         const oldErrors  = get( 'errors' );
-        const errorState = getErrorState( val, prop, oldErrors );
+        const errorState = getErrorState( prop, val, oldErrors );
         const newErrors  = errorState.errors;
         const valid      = errorState.valid;
 
@@ -51,6 +63,6 @@ export default function Factory ( state, subFactory, options )
         return valid;
     }
 
-    return subFactory( set, get, valid, options );
-}
 
+    return subFactory( state, set, get, valid, options );
+}

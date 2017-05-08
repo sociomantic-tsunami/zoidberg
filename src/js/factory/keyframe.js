@@ -4,24 +4,27 @@ import Factory from 'factory/factory';
 /**
 * State
 *
-* @typedef  {Object}   state
+* Returns a new keyframe state.
 *
-* @property {String}   state.name           name of the animation to which the keyframe belongs
-* @property {Array}    state.props          time markers; can be from, to or a string percent value
-* @property {Array}    state.markers        css prop/value pairs
-* @property {Array}    state.errors         error objects containing prop, value and error messages
+* @return   {Object}                          keyframe state
+* @property {String}   keyframeState.name     name of the animation to which the keyframe belongs
+* @property {Array}    keyframeState.props    time markers; can be from, to or a string percent value
+* @property {Array}    keyframeState.markers  css prop/value pairs
+* @property {Array}    keyframeState.errors   error objects containing prop, value and error messages
 */
-const state =
+const KeyframeState = () =>
 {
-    name    : '',
-    props   : {},
-    markers : [],
-    errors  : []
-};
+    return {
+        name    : '',
+        props   : {},
+        markers : [],
+        errors  : []
+    }
+}
 
 
 /**
-* Keyframe
+* Keyframe Factory
 *
 * Creates a new keyframe object. A keyframe stores information about the keyframes
 * timemarker, styling properties and name. Styling properties are key/value pairs.
@@ -30,7 +33,7 @@ const state =
 *
 * @return {Object}                          keyframe
 */
-const KeyframeFactory = function ( set, get, valid, options )
+const KeyframeFactory = function ( state, set, get, valid, options )
 {
 
     /**
@@ -112,7 +115,7 @@ const KeyframeFactory = function ( set, get, valid, options )
     */
     const setName = name =>
     {
-        if( valid( name, 'name' ) )
+        if( valid( 'name', name ) )
         {
             set( 'name', name );
         }
@@ -126,7 +129,7 @@ const KeyframeFactory = function ( set, get, valid, options )
     */
     const setMarkers = marks =>
     {
-        if( valid( marks, 'markers' ) && valid( marks, 'marker' ) )
+        if( valid( 'markers', marks ) && valid( 'marker', marks ) )
         {
             set( 'markers', marks );
         }
@@ -141,15 +144,14 @@ const KeyframeFactory = function ( set, get, valid, options )
     const setProps = props =>
     {
         // validation of CSS would happen here during a conditional set
-        if( valid( props, 'props' ) )
+        if( valid( 'props', props ) )
         {
             const oldProps = get( 'props' );
-            const newProps = { ...oldProps, [prop] : value };
+            const newProps = { ...oldProps, ...props };
 
             set( 'props', newProps );
         }
     }
-
 
     setKeyframe( options );
 
@@ -166,4 +168,4 @@ const KeyframeFactory = function ( set, get, valid, options )
 
 }
 
-export default ( options ) => Factory( state, KeyframeFactory, options );
+export default ( options ) => Factory( KeyframeState(), KeyframeFactory, options );
