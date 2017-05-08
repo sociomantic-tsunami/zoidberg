@@ -2,7 +2,7 @@ import Factory from 'factory/factory';
 
 
 /**
-* State
+* Keyframe State
 *
 * Returns a new keyframe state.
 *
@@ -29,11 +29,14 @@ const KeyframeState = () =>
 * Creates a new keyframe object. A keyframe stores information about the keyframes
 * timemarker, styling properties and name. Styling properties are key/value pairs.
 *
-* @param {Object}      options              options
+* @param {callbackFn}      set              set callback
+* @param {callbackFn}      get              get callback
+* @param {callbackFn}      valid            validation callback
+* @param {callbackFn}      options          state to set
 *
 * @return {Object}                          keyframe
 */
-const KeyframeFactory = function ( state, set, get, valid, options )
+const KeyframeFactory = function ( set, get, valid, options )
 {
 
     /**

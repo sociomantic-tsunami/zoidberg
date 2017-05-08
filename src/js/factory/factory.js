@@ -64,5 +64,5 @@ export default function Factory ( state, subFactory, options )
     }
 
 
-    return subFactory( state, set, get, valid, options );
+    return subFactory( set, get, valid, options );
 }
