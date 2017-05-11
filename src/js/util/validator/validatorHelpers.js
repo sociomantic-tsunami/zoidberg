@@ -1,4 +1,4 @@
-import isString from 'lodash';
+import isString from 'lodash/isString';
 import { regex } from 'constant/validation';
 import { validate } from 'util/validator/validator'
 
@@ -12,7 +12,7 @@ import { validate } from 'util/validator/validator'
 */
 export const isPercent = val =>
 {
-	return _.isString( val ) && regex.percent.test( val );
+    return isString( val ) && regex.percent.test( val );
 }
 
 
@@ -25,7 +25,7 @@ export const isPercent = val =>
 */
 export const isFromTo = val =>
 {
-	return _.isString( val ) && ( val.includes( 'from' ) || val.includes( 'to' ) );
+    return isString( val ) && ( val.includes( 'from' ) || val.includes( 'to' ) );
 }
 
 
@@ -38,7 +38,7 @@ export const isFromTo = val =>
 */
 export const isMarker = val =>
 {
-	return isPercent( val ) || isFromTo( val );
+    return isPercent( val ) || isFromTo( val );
 }
 
 
@@ -53,9 +53,9 @@ export const isMarker = val =>
 export const validateArray = ( prop, val ) =>
 {
     const validated = val.map( value =>
-	{
-		return validate( prop, value );
-	} );
+    {
+        return validate( prop, value );
+    } );
 
     return validated.every( Boolean );
 }

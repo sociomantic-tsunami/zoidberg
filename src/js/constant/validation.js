@@ -1,5 +1,7 @@
 import { isMarker, validateArray } from 'util/validator/validatorHelpers';
-import { isArray, isString, isPlainObject } from 'lodash';
+import isArray from 'lodash/isArray';
+import isString from 'lodash/isString';
+import isPlainObject from 'lodash/isPlainObject';
 
 
 export const regex =

@@ -1,6 +1,6 @@
 import { validation, iteration } from 'constant/validation';
 import { validationMsg } from 'constant/info';
-import isFunction from 'lodash';
+import isFunction from 'lodash/isFunction';
 
 
 /**
@@ -15,7 +15,7 @@ export const validate = function ( prop, val )
 {
     const validator = validation[prop] && validation[prop].validator;
 
-    if( _.isFunction( validator ) )
+    if( isFunction( validator ) )
     {
         return validator( val );
     }
