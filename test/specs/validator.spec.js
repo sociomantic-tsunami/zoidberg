@@ -1,4 +1,4 @@
-import { validate, getErrorState } from 'util/validator/validator';
+import { validate, getErrorState } from 'util/validator';
 
 
 describe( 'Validator', () =>
@@ -30,6 +30,11 @@ describe( 'Validator', () =>
             ];
         } );
 
+        it( 'should throw an error if there is no validator for the prop', () =>
+        {
+            expect( () => { getErrorState( 'date', 'today' ) } ).to.throw( Error, 'Validation for prop does not exist' );
+        } );
+
         it( 'If prop is valid, should return an object that has valid set as true and an errors array with related errors removed', () =>
         {
             const state = getErrorState( 'name', 'Jolene', oldErrors );
@@ -40,9 +45,9 @@ describe( 'Validator', () =>
 
         it( 'If prop is invalid, should return an object that has valid set as false and an errors array with related errors added', () =>
         {
-            const state = getErrorState( 'markers', '11%', oldErrors );
+            const state = getErrorState( 'markers', '11', oldErrors );
 
-            expect( state.errors ).to.have.length( 3 );
+            expect( state.errors ).to.have.length( 4 );
             expect( state.valid ).to.be.false;
         } );
     } );

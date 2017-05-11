@@ -1,5 +1,5 @@
-import { ruleMethods } from 'constant/zoidberg';
-import { addGenericMethods } from 'factory/factoryHelpers';
+import { setter, getter, rule } from 'constant/factory.constant';
+import { addSetters, addGetters, getState, setState } from 'helper/factory.helper';
 import Factory from 'factory/factory';
 
 
@@ -8,20 +8,19 @@ import Factory from 'factory/factory';
 *
 * Returns a new animation rule state.
 *
-* @return   {Object}                                           rule state
-* @property {Array}    ruleState['animation-delay']            when the animation should start
-* @property {Array}    ruleState['animation-direction']        cycles in which the animation should play
-* @property {Array}    ruleState['animation-duration']         time to complete one animation cycle
-* @property {Array}    ruleState['animation-fill-mode']        styles applied to target before and after execution
-* @property {Array}    ruleState['animation-iteration-count']  number of times animation should cycle
-* @property {Array}    ruleState['animation-name']             animation name
-* @property {Array}    ruleState['animation-play-state']       whether animation is playing, paused or running
-* @property {Array}    ruleState['animation-timing-function']  timing of start and end of animation
+* @return   {Object}                                       rule state
+* @property {Array}    state['animation-delay']            when the animation should start
+* @property {Array}    state['animation-direction']        cycles in which the animation should play
+* @property {Array}    state['animation-duration']         time to complete one animation cycle
+* @property {Array}    state['animation-fill-mode']        styles applied to target before and after execution
+* @property {Array}    state['animation-iteration-count']  number of times animation should cycle
+* @property {Array}    state['animation-name']             animation name
+* @property {Array}    state['animation-play-state']       whether animation is playing, paused or running
+* @property {Array}    state['animation-timing-function']  timing of start and end of animation
 */
 const RuleState = () =>
 {
     return {
-        errors : [],
         'animation-delay'           : [],
         'animation-direction'       : [],
         'animation-duration'        : [],
@@ -29,9 +28,10 @@ const RuleState = () =>
         'animation-iteration-count' : [],
         'animation-name'            : [],
         'animation-play-state'      : [],
-        'animation-timing-function' : []
+        'animation-timing-function' : [],
+        errors : []
     }
-}
+};
 
 
 /**
@@ -48,11 +48,19 @@ const RuleFactory = function ( set, get, valid, options )
 {
 
     /**
-    * Generic get and set methods for the rule factory state
+    * Generic set methods for the rule factory state
     *
-    * @typedef  {Object}   genericMethods
+    * @typedef  {Object}   getters
     */
-    const genericMethods = addGenericMethods( ruleMethods, set, get );
+    const setters = addSetters( rule, setter.rule, set, valid );
+
+
+    /**
+    * Generic set methods for the rule factory state
+    *
+    * @typedef  {Object}   setters
+    */
+    const getters = addGetters( rule, getter.rule, get );
 
 
     /**
@@ -60,17 +68,7 @@ const RuleFactory = function ( set, get, valid, options )
     *
     * @param {Object}           options               rule options
     */
-    const setRule = ( options = {} ) =>
-    {
-        if( options['animation-delay'] )           setDelay( options['animation-delay'] );
-        if( options['animation-direction'] )       setDirection( options['animation-direction'] );
-        if( options['animation-duration'] )        setDuration( options['animation-duration'] );
-        if( options['animation-fill-mode'] )       setFillMode( options['animation-fill-mode'] );
-        if( options['animation-iteration-count'] ) setIterationCount( options['animation-iteration-count'] );
-        if( options['animation-name'] )            setName( options['animation-name'] );
-        if( options['animation-play-state'] )      setPlayState( options['animation-play-state'] );
-        if( options['animation-timing-function'] ) setTiming( options['animation-timing-function'] );
-    };
+    const setRule = options => setState( rule, setters, options );
 
 
     /**
@@ -78,28 +76,16 @@ const RuleFactory = function ( set, get, valid, options )
     *
     * @return {Object}                                 state
     */
-    const getRule = () =>
-    {
-        return {
-            'animation-delay'           : get( 'animation-delay' ),
-            'animation-direction'       : get( 'animation-direction' ),
-            'animation-duration'        : get( 'animation-duration' ),
-            'animation-fill-mode'       : get( 'animation-fill-mode' ),
-            'animation-iteration-count' : get( 'animation-iteration-count' ),
-            'animation-name'            : get( 'animation-name' ),
-            'animation-play-state'      : get( 'animation-play-state' ),
-            'animation-timing-function' : get( 'animation-timing-function' )
-        };
-    };
+    const getRule = () => getState( rule, getters );
 
     setRule( options );
 
     return {
-        setRule,
         getRule,
-        ...genericMethods
+        ...setters,
+        ...getters
     }
 
-}
+};
 
 export default ( options ) => Factory( RuleState(), RuleFactory, options );

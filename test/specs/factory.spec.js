@@ -46,7 +46,7 @@ describe( 'Base Factory', () =>
         factory = Factory( state, subFactory );
 
         expect( factory.valid( 'name', 1 ) ).to.be.false;
-        expect( factory.getState() ).to.eql( { errors : [ { prop : 'name', val : 1, msg : 'Name must be a string' } ] } );
+        expect( factory.getState() ).to.eql( { errors : [ { prop : 'name', msg : 'Name must be a string', val : 1 } ] } );
         expect( factory.valid( 'name', 'Zsolt' ) ).to.be.true;
         expect( factory.getState() ).to.eql( { errors : [] } );
     } );

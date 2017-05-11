@@ -1,4 +1,4 @@
-import { getErrorState } from 'util/validator/validator';
+import { getErrorState } from 'util/validator';
 import cloneDeep from 'lodash/cloneDeep';
 
 
@@ -26,7 +26,7 @@ export default function Factory ( state, subFactory, options )
     const set = function ( prop, value )
     {
         state[prop] = cloneDeep( value );
-    }
+    };
 
 
     /**
@@ -37,7 +37,7 @@ export default function Factory ( state, subFactory, options )
     const get = function ( prop )
     {
         return cloneDeep( state[prop] );
-    }
+    };
 
 
     /**
@@ -61,7 +61,7 @@ export default function Factory ( state, subFactory, options )
         set( 'errors', newErrors );
 
         return valid;
-    }
+    };
 
 
     return subFactory( set, get, valid, options );
