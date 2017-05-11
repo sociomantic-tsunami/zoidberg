@@ -31,7 +31,10 @@ const KeyframeState = () =>
 * Creates a new keyframe object. A keyframe stores information about the keyframes
 * timemarker, styling properties and name. Styling properties are key/value pairs.
 *
-* @param {Object}      options              options
+* @param {callbackFn}      set              set callback
+* @param {callbackFn}      get              get callback
+* @param {callbackFn}      valid            validation callback
+* @param {callbackFn}      options          state to set
 *
 * @return {Object}                          keyframe
 */
