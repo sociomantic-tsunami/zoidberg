@@ -8,10 +8,11 @@ import mapKeys from 'lodash/mapKeys';
 * @param {Object}           setters               set rules to add
 * @param {callbackFn}       set                   setter callback
 * @param {callbackFn}       valid                 validator callback
+* @param {callbackFn}       getErrors             error getter callback
 *
 * @param {Object}           methods               generic methods
 */
-export const addSetters = ( rule, setters, set, valid ) =>
+export const addSetters = ( rule, setters, set, valid, getErrors ) =>
 {
     const func = {};
 
@@ -20,6 +21,8 @@ export const addSetters = ( rule, setters, set, valid ) =>
         func['set' + i] = val =>
         {
             if( valid( rule[i], val ) ) set( rule[i], val );
+
+            return getErrors();
         };
     } );
 
@@ -38,10 +41,7 @@ export const addSetters = ( rule, setters, set, valid ) =>
 */
 export const addGetters = ( rule, getters, get ) =>
 {
-    const func =
-    {
-        getErrors : () => get( 'errors' )
-    };
+    const func = {};
 
     getters.map( i =>
     {
@@ -53,14 +53,14 @@ export const addGetters = ( rule, getters, get ) =>
 
 
 /**
-* Returns an object containing the current key/value pairs of a state.
+* Returns an object containing all current key/value pairs of a state.
 *
 * @param {Object}           rule               callback constants
 * @param {callbackFn}       getters            getter callbacks
 *
 * @param {Object}           state              current state
 */
-export const getState = ( rule, getters ) =>
+export const getStateHelper = ( rule, getters ) =>
 {
     const state = {};
 
@@ -75,15 +75,16 @@ export const getState = ( rule, getters ) =>
 
 
 /**
-* Sets options in a state if the option exists.
+* Sets all options in a state, if they are defined in options.
 *
 * @param {Object}           options            options to set
 * @param {Object}           rule               callback constants
 * @param {callbackFn}       setters            getter callbacks
+* @param {callbackFn}       getErrors          error getter callback
 *
 * @param {Object}           state              current state
 */
-export const setState = ( rule, setters, options = {} ) =>
+export const setStateHelper = ( rule, setters, getErrors, options = {} ) =>
 {
     mapKeys( rule, ( val, i ) =>
     {
@@ -91,4 +92,6 @@ export const setState = ( rule, setters, options = {} ) =>
 
         if( options[val] ) callbackFn( options[val] );
     } );
+
+    return getErrors();
 };

@@ -9,8 +9,24 @@ import {
     isFillMode,
     isPlayState,
     isTiming,
-    isIterationCount
+    isIterationCount,
+    isDefinedString
 } from 'helper/validator.helper';
+
+
+/**
+* Gets the validators and subvalidators for a prop.
+*
+* @param {String}           prop                    name of prop
+*
+* @return {Array}                                   validator names
+*/
+export const getValidators = prop =>
+{
+    const subValidators = validation[prop]['subValidator'] || [];
+
+    return [ ...subValidators, prop];
+};
 
 
 /**
@@ -44,7 +60,7 @@ export const iteration =
     'playState'      : validateArray,
     'timing'         : validateArray,
     'iterationCount' : validateArray,
-    'animName'       : validateArray
+    'name'           : validateArray
 };
 
 
@@ -97,7 +113,7 @@ export const validation =
     {
         validator : isArray,
         msg : 'Animation name must be an array',
-        subValidator : ['animName']
+        subValidator : ['isDefinedString', 'name']
     },
 
     'animation-play-state' :
@@ -121,16 +137,11 @@ export const validation =
         subValidator : ['iterationCount']
     },
 
-    'animName' :
-    {
-        validator : isString,
-        msg : 'Name must be a string'
-    },
-
     'name' :
     {
         validator : isString,
-        msg : 'Name must be a string'
+        msg : 'Name must be a string',
+        subValidator : ['isDefinedString']
     },
 
     'props' :
@@ -185,6 +196,12 @@ export const validation =
     {
         validator : isIterationCount,
         msg : 'Animation iteration count must be infinite or a string of finite numbers'
+    },
+
+    'requiredString' :
+    {
+        validator : isDefinedString,
+        msg : 'Required string value'
     }
 
 };

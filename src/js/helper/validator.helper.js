@@ -113,13 +113,26 @@ export const isTiming = val =>
 /**
 * Checks if value is an iteration count.
 *
-* @param {Array}            val                     value
+* @param {String}            val                     value
 *
 * @return {Boolean}                                 true, if iteration count
 */
 export const isIterationCount = val =>
 {
     return isString( val ) && ( val === 'infinite' || isFinite( parseFloat( val ) ) );
+};
+
+
+/**
+* Checks if value that should be a string with a length is defined
+*
+* @param {*}                val                     value
+*
+* @return {Boolean}                                 true, if defined
+*/
+export const isDefinedString = val =>
+{
+    return isString( val ) && val !== '';
 };
 
 

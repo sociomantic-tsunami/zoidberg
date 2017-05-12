@@ -1,5 +1,5 @@
-import { setter, getter, rule } from 'constant/factory.constant';
-import { addSetters, addGetters, getState, setState } from 'helper/factory.helper';
+import { ruleSetter, ruleGetter, ruleMap } from 'constant/factory.constant';
+import { addSetters, addGetters, getStateHelper, setStateHelper } from 'helper/factory.helper';
 import Factory from 'factory/factory';
 
 
@@ -44,7 +44,7 @@ const RuleState = () =>
 *
 * @return {Object}                           animation rule
 */
-const RuleFactory = function ( set, get, valid, options )
+const RuleFactory = function ( set, get, valid, getErrors, options )
 {
 
     /**
@@ -52,7 +52,7 @@ const RuleFactory = function ( set, get, valid, options )
     *
     * @typedef  {Object}   getters
     */
-    const setters = addSetters( rule, setter.rule, set, valid );
+    const getters = addGetters( ruleMap, ruleGetter, get );
 
 
     /**
@@ -60,15 +60,7 @@ const RuleFactory = function ( set, get, valid, options )
     *
     * @typedef  {Object}   setters
     */
-    const getters = addGetters( rule, getter.rule, get );
-
-
-    /**
-    * Sets the state of the current rule given the passed options
-    *
-    * @param {Object}           options               rule options
-    */
-    const setRule = options => setState( rule, setters, options );
+    const setters = addSetters( ruleMap, ruleSetter, set, valid, getErrors );
 
 
     /**
@@ -76,14 +68,24 @@ const RuleFactory = function ( set, get, valid, options )
     *
     * @return {Object}                                 state
     */
-    const getRule = () => getState( rule, getters );
+    const getState = () => getStateHelper( ruleMap, getters );
 
-    setRule( options );
 
-    return {
-        getRule,
-        ...setters,
-        ...getters
+    /**
+    * Sets the state of the current rule given the passed options
+    *
+    * @return {Array}                                  error objects
+    */
+    const setState = options => setStateHelper( ruleMap, setters, getErrors, options );
+
+
+    return setState( options ) ||
+    {
+        getErrors,
+        getState,
+        setState,
+        ...getters,
+        ...setters
     }
 
 };

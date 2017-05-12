@@ -1,5 +1,5 @@
-import { setter, getter, keyframe } from 'constant/factory.constant';
-import { addSetters, addGetters, getState, setState } from 'helper/factory.helper';
+import { keyframeSetter, keyframeGetter, keyframeMap } from 'constant/factory.constant';
+import { addSetters, addGetters, getStateHelper, setStateHelper } from 'helper/factory.helper';
 import Factory from 'factory/factory';
 
 
@@ -17,7 +17,7 @@ import Factory from 'factory/factory';
 const KeyframeState = () =>
 {
     return {
-        name    : '',
+        name    : [],
         props   : {},
         markers : [],
         errors  : []
@@ -38,15 +38,8 @@ const KeyframeState = () =>
 *
 * @return {Object}                          keyframe
 */
-const KeyframeFactory = function ( set, get, valid, options )
+const KeyframeFactory = function ( set, get, valid, getErrors, options )
 {
-
-    /**
-    * Generic set methods for the keyframe factory state
-    *
-    * @typedef  {Object}   setters
-    */
-    const setters = addSetters( keyframe, setter.keyframe, set, valid );
 
 
     /**
@@ -54,23 +47,31 @@ const KeyframeFactory = function ( set, get, valid, options )
     *
     * @typedef  {Object}   getters
     */
-    const getters = addGetters( keyframe, getter.keyframe, get );
+    const getters = addGetters( keyframeMap, keyframeGetter, get );
 
 
     /**
-    * Sets the name, markers and props of the current keyframe in the state
+    * Generic set methods for the keyframe factory state
     *
-    * @param {Object}           options               keyframe options
+    * @typedef  {Object}   setters
     */
-    const setKeyframe = options => setState( keyframe, setters, options );
+    const setters = addSetters( keyframeMap, keyframeSetter, set, valid, getErrors );
 
 
     /**
-    * Gets the name, markers and props of the current keyframe
+    * Gets the state the current keyframe
     *
     * @return {Object}          state                 current keyframe state
     */
-    const getKeyframe = () => getState( keyframe, getters );
+    const getState = () => getStateHelper( keyframeMap, getters );
+
+
+    /**
+    * Sets the state of the current keyframe
+    *
+    * @return {Array}                                  error objects
+    */
+    const setState = options => setStateHelper( keyframeMap, setters, getErrors, options );
 
 
     /**
@@ -90,12 +91,14 @@ const KeyframeFactory = function ( set, get, valid, options )
         }
     }
 
-    setKeyframe( options );
 
-    return {
-        getKeyframe,
-        ...setters,
-        ...getters
+    return setState( options ) ||
+    {
+        getErrors,
+        getState,
+        setState,
+        ...getters,
+        ...setters
     }
 
 };

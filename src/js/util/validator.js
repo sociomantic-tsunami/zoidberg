@@ -1,4 +1,4 @@
-import { validation, iteration } from 'constant/validation.constant';
+import { validation, iteration, getValidators } from 'constant/validation.constant';
 import { validationInfo } from 'constant/info.constant';
 import isFunction from 'lodash/isFunction';
 
@@ -11,7 +11,7 @@ import isFunction from 'lodash/isFunction';
 *
 * @return {Boolean}                                 true, if valid
 */
-export const validate = function ( prop, val )
+export const validate = ( prop, val ) =>
 {
     const validator = validation[prop] && validation[prop].validator;
 
@@ -28,7 +28,8 @@ export const validate = function ( prop, val )
 
 /**
 * Returns the error state of a validated property. Includes whether the prop
-* is valid and an array of what errors may exist.
+* is valid and an array of what errors may exist. A prop is valid when all
+* validators and subvalidators return true.
 *
 * @param {String}           prop                    name of prop to be validated
 * @param {*}                val                     value
@@ -36,35 +37,28 @@ export const validate = function ( prop, val )
 *
 * @return {Object}                                  error state
 */
-export const getErrorState = function ( prop, val, oldErrors )
+export const getErrorState = ( prop, val, oldErrors ) =>
 {
     if( validation[prop] )
     {
-        let errors = [ ...oldErrors];
+        let errors       = [ ...oldErrors];
+        const validators = getValidators( prop );
 
-        // Put the validator and subvalidator function names together
-        const subValidators = validation[prop]['subValidator'] || [];
-        const validators    = [ ...subValidators, prop];
-
-        // True, when all validators and subvalidators return true
         const valid = validators.map( _prop =>
         {
-            // Use the validate function or an iteration based validate function
             let iterator = iteration[ _prop];
             let _valid   = iterator ? iterator( _prop, val ) : validate( _prop, val );
 
             if( _valid )
             {
-                // Remove all errors related to current prop
                 errors = errors.filter( err => err.prop !== _prop );
             }
             else
             {
-                // Create a new error related to current prop
                 const validatorMsg = validation[ _prop]['msg'] || 'error';
                 const validatorErr = { prop : _prop, msg : validatorMsg, val };
 
-                errors = [ ...errors, validatorErr];
+                errors.push( validatorErr );
             }
 
             return _valid;

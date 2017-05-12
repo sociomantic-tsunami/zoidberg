@@ -23,7 +23,7 @@ export default function Factory ( state, subFactory, options )
     * @param {String}           prop                  state prop name
     * @param {*}                value                 the value to set
     */
-    const set = function ( prop, value )
+    const set = ( prop, value ) =>
     {
         state[prop] = cloneDeep( value );
     };
@@ -34,9 +34,22 @@ export default function Factory ( state, subFactory, options )
     *
     * @param {String}           prop                  state prop name
     */
-    const get = function ( prop )
+    const get = prop =>
     {
         return cloneDeep( state[prop] );
+    };
+
+
+    /**
+    * Gets the errors from the state.
+    *
+    * @return {Array|undefined} errors                error objects or undefined
+    */
+    const getErrors = () =>
+    {
+        const errors = get( 'errors' );
+
+        return errors.length ? errors : undefined;
     };
 
 
@@ -51,7 +64,7 @@ export default function Factory ( state, subFactory, options )
     *
     * @return {Boolean}                                 true, if valid
     */
-    const valid = function ( prop, val )
+    const valid = ( prop, val ) =>
     {
         const oldErrors  = get( 'errors' );
         const errorState = getErrorState( prop, val, oldErrors );
@@ -64,5 +77,5 @@ export default function Factory ( state, subFactory, options )
     };
 
 
-    return subFactory( set, get, valid, options );
+    return subFactory( set, get, valid, getErrors, options );
 }
