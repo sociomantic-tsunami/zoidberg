@@ -21,7 +21,7 @@ import {
 export const regex =
 {
     percent   : /^([0-9]+(%))$/,
-    time      : /^([0-9]+(s|ms))$/,
+    time      : /^(-?[0-9]+(s|ms))$/,
     direction : /^(normal|reverse|alternate|alternate-reverse|inherit|initial|unset)$/,
     fillMode  : /^(none|forwards|backwards|both)$/,
     playState : /^(running|paused|inherit|initial|unset)$/,

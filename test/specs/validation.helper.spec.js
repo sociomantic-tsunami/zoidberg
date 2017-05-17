@@ -44,6 +44,8 @@ describe( 'Validation helpers', () =>
     it( 'should return true if value is a valid time', () =>
     {
         expect( isTime( '1ms' ) ).to.be.true;
+        expect( isTime( '-1ms' ) ).to.be.true;
+        expect( isTime( '1 ms' ) ).to.be.false;
         expect( isTime( '1' ) ).to.be.false;
         expect( isTime( 10 ) ).to.be.false;
     } );
