@@ -179,11 +179,10 @@ export const isCubicBezier = val =>
     const numberStr  = params.slice( 0, -1 );
     const numberList = numberStr.split( ',' );
 
-    return numberList.map( entry =>
+    return numberList.every( entry =>
     {
         return isFinite( parseFloat( entry ) );
-    } )
-    .every( Boolean );
+    } );
 };
 
 
@@ -210,7 +209,7 @@ export const isSteps = val =>
     const numberList = numberStr.split( ',' );
     const listLength = numberList.length;
 
-    return numberList.map( ( entry, i, list ) =>
+    return numberList.every( ( entry, i, list ) =>
     {
         let start, end;
         let isInt = isInteger( parseFloat( entry ) );
@@ -219,6 +218,5 @@ export const isSteps = val =>
         if( i === listLength-1 && isString( entry ) ) end = entry.trim() === 'end';
 
         return start || end || isInt;
-    } )
-    .every( Boolean );
+    } );
 };

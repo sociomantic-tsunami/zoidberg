@@ -16,7 +16,7 @@ export const addSetters = ( rule, setters, set, valid, getErrors ) =>
 {
     const func = {};
 
-    setters.map( i =>
+    setters.forEach( i =>
     {
         func['set' + i] = val =>
         {
@@ -43,7 +43,7 @@ export const addGetters = ( rule, getters, get ) =>
 {
     const func = {};
 
-    getters.map( i =>
+    getters.forEach( i =>
     {
         func['get' + i] = () => get( rule[i] );
     } );

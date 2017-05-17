@@ -17,6 +17,7 @@ import Factory from 'factory/factory';
 * @property {Array}    state['animation-name']             animation name
 * @property {Array}    state['animation-play-state']       whether animation is playing, paused or running
 * @property {Array}    state['animation-timing-function']  timing of start and end of animation
+* @property {Array}    state['errors']                     validation errors
 */
 const RuleState = () =>
 {
