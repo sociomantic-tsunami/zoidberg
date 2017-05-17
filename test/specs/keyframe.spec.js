@@ -13,7 +13,8 @@ describe( 'Keyframe factory', () =>
     it( 'should have get and set methods for the state', () =>
     {
         expect( keyframe ).to.be.an( 'object' );
-        expect( keyframe ).to.have.keys( 'getKeyframe', 'getErrors', 'getName', 'getMarkers', 'getProps', 'setName', 'setMarkers', 'setProps' );
+        expect( keyframe ).to.have.keys( 'getKeyframe', 'getErrors', 'getName',
+        'getMarkers', 'getProps', 'setName', 'setMarkers', 'setProps' );
     } );
 
     it( 'should set the name, markers and props of the current keyframe in the state, if passed in the options', () =>
