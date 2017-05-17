@@ -46,14 +46,12 @@ export const getErrorState = ( prop, val, oldErrors ) =>
 
         const valid = validators.map( _prop =>
         {
-            let iterator = iteration[ _prop];
-            let _valid   = iterator ? iterator( _prop, val ) : validate( _prop, val );
+            const iterator = iteration[ _prop];
+            const _valid   = iterator ? iterator( _prop, val ) : validate( _prop, val );
 
-            if( _valid )
-            {
-                errors = errors.filter( err => err.prop !== _prop );
-            }
-            else
+            errors = errors.filter( err => err.prop !== _prop );
+
+            if( ! _valid )
             {
                 const validatorMsg = validation[ _prop]['msg'] || 'error';
                 const validatorErr = { prop : _prop, msg : validatorMsg, val };

@@ -137,6 +137,19 @@ export const isDefinedString = val =>
 
 
 /**
+* Checks if value that should be an array with a length is defined
+*
+* @param {*}                val                     value
+*
+* @return {Boolean}                                 true, if defined
+*/
+export const isDefinedArray = val =>
+{
+    return isArray( val ) && !! val.length;
+};
+
+
+/**
 * Validates an array by using its validator on each element.
 *
 * @param {String}           prop                    name of prop to be validated

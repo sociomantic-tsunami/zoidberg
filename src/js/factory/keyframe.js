@@ -17,7 +17,7 @@ import Factory from 'factory/factory';
 const KeyframeState = () =>
 {
     return {
-        name    : [],
+        name    : '',
         props   : {},
         markers : [],
         errors  : []
@@ -34,11 +34,10 @@ const KeyframeState = () =>
 * @param {callbackFn}      set              set callback
 * @param {callbackFn}      get              get callback
 * @param {callbackFn}      valid            validation callback
-* @param {callbackFn}      options          state to set
 *
 * @return {Object}                          keyframe
 */
-const KeyframeFactory = function ( set, get, valid, getErrors, options )
+const KeyframeFactory = function ( set, get, valid, getErrors )
 {
 
 
@@ -69,7 +68,7 @@ const KeyframeFactory = function ( set, get, valid, getErrors, options )
     /**
     * Sets the state of the current keyframe
     *
-    * @return {Array}                                  error objects
+    * @return {Array|undefined}                        errors|undefined
     */
     const setState = options => setStateHelper( keyframeMap, setters, getErrors, options );
 
@@ -77,7 +76,7 @@ const KeyframeFactory = function ( set, get, valid, getErrors, options )
     /**
     * Sets the props in the state
     *
-    * @param {Object}           props                   props to set
+    * @param {Object}           props                  props to set
     */
     setters.setProps = props =>
     {
@@ -89,11 +88,10 @@ const KeyframeFactory = function ( set, get, valid, getErrors, options )
 
             set( 'props', newProps );
         }
-    }
+    };
 
 
-    return setState( options ) ||
-    {
+    return {
         getErrors,
         getState,
         setState,
@@ -103,4 +101,4 @@ const KeyframeFactory = function ( set, get, valid, getErrors, options )
 
 };
 
-export default ( options ) => Factory( KeyframeState(), KeyframeFactory, options );
+export default () => Factory( KeyframeState(), KeyframeFactory );

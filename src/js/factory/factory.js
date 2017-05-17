@@ -5,16 +5,15 @@ import cloneDeep from 'lodash/cloneDeep';
 /**
 * Factory
 *
-* Contains utility methods for getting, setting and validation accessable to the
-* sub-factory.
+* Contains utility methods for getting, setting and validation which are made
+* accessible to the sub-factory.
 *
 * @param {Object}      state                sub-factory state
 * @param {callbackFn}  subFactory           sub-factory callback
-* @param {Object}      options              props to set in sub-factory state
 *
 * @return {Object}                          exposed methods of the sub-factory
 */
-export default function Factory ( state, subFactory, options )
+export default function Factory ( state, subFactory )
 {
 
     /**
@@ -55,9 +54,9 @@ export default function Factory ( state, subFactory, options )
 
     /**
     * Validates a value according to the type of prop and returns an error state
-    * object. The error state includes a valid prop indicating whether the validation
-    * returned true or false and an updated error array containing current errors.
-    * Sets the updated errors in the state and returns the valid boolean.
+    * object. The error state includes a valid prop, indicating the validation
+    * boolean, and an errors prop, which contains an array of current error
+    * objects. Sets the updated errors in the state and returns the valid boolean.
     *
     * @param {*}                val                     value
     * @param {String}           prop                    name of prop to be validated
@@ -77,5 +76,5 @@ export default function Factory ( state, subFactory, options )
     };
 
 
-    return subFactory( set, get, valid, getErrors, options );
+    return subFactory( set, get, valid, getErrors );
 }

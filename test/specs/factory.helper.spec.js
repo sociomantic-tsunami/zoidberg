@@ -2,14 +2,15 @@ import
 {
     addSetters,
     addGetters,
-    getState,
-    setState
+    getStateHelper,
+    setStateHelper
 } from 'helper/factory.helper';
 
 
 describe( 'Factory helpers', () =>
 {
-    let mock, rule, validSpy, setSpy, getSpy, getters, setters;
+
+    let mock, rule, validSpy, setSpy, getSpy, errorsSpy, getters, setters;
 
     before( () =>
     {
@@ -20,28 +21,32 @@ describe( 'Factory helpers', () =>
         {
             set : function ( prop, val ) { return 'set' },
             get : function ( prop ) { return 'get' },
-            valid : function ( prop, val ) { return val }
+            valid : function ( prop, val ) { return val },
+            getErrors : function() { return [] }
         };
 
-        validSpy = sinon.spy( mock, 'valid' );
-        setSpy   = sinon.spy( mock, 'set' );
-        getSpy   = sinon.spy( mock, 'get' );
+        validSpy  = sinon.spy( mock, 'valid' );
+        setSpy    = sinon.spy( mock, 'set' );
+        getSpy    = sinon.spy( mock, 'get' );
+        errorsSpy = sinon.spy( mock, 'getErrors' );
     } );
 
     afterEach( () =>
     {
-        validSpy.restore();
-        setSpy.restore();
-        getSpy.restore();
+        validSpy.reset();
+        setSpy.reset();
+        getSpy.reset();
+        errorsSpy.reset();
     } );
 
     describe( 'addSetters', () =>
     {
+
         let setFuncs;
 
         beforeEach( () =>
         {
-            setFuncs = addSetters( rule, setters, setSpy, validSpy );
+            setFuncs = addSetters( rule, setters, setSpy, validSpy, errorsSpy );
         } );
 
         it( 'should return an object of setter functions prefixed by set and suffixed by a setter name', () =>
@@ -59,6 +64,7 @@ describe( 'Factory helpers', () =>
             expect( validSpy.callCount ).to.equal( 1 );
             expect( validSpy.calledWith( 'date', false ) ).to.be.true;
             expect( setSpy.callCount ).to.equal( 0 );
+            expect( errorsSpy.callCount ).to.equal( 1 );
 
             setFuncs['setDate']( true );
 
@@ -66,11 +72,14 @@ describe( 'Factory helpers', () =>
             expect( validSpy.calledWith( 'date', true ) ).to.be.true;
             expect( setSpy.callCount ).to.equal( 1 );
             expect( setSpy.calledWith( 'date', true ) ).to.be.true;
+            expect( errorsSpy.callCount ).to.equal( 2 );
         } );
+
     } );
 
     describe( 'addGetters', () =>
     {
+
         let getFuncs;
 
         beforeEach( () =>
@@ -81,7 +90,7 @@ describe( 'Factory helpers', () =>
         it( 'should return an object of getter functions prefixed by get and suffixed by a getter name', () =>
         {
             expect( getFuncs ).to.be.an( 'object' );
-            expect( getFuncs ).to.have.keys( 'getDate', 'getAge', 'getTime', 'getErrors' );
+            expect( getFuncs ).to.have.keys( 'getDate', 'getAge', 'getTime' );
             expect( getFuncs['getDate'] ).to.be.a( 'function' );
             expect( getFuncs['getAge'] ).to.be.a( 'function' );
             expect( getFuncs['getTime'] ).to.be.a( 'function' );
@@ -92,10 +101,12 @@ describe( 'Factory helpers', () =>
             getFuncs['getDate']();
             expect( getSpy.callCount ).to.equal( 1 );
         } );
+
     } );
 
     describe( 'getState', () =>
     {
+
         let getFuncs;
 
         before( () =>
@@ -108,7 +119,7 @@ describe( 'Factory helpers', () =>
             const getDateSpy = sinon.spy( getFuncs, 'getDate' );
             const getTimeSpy = sinon.spy( getFuncs, 'getTime' );
 
-            getState( rule, getFuncs );
+            getStateHelper( rule, getFuncs );
 
             expect( getDateSpy.callCount ).to.equal( 1 );
             expect( getTimeSpy.callCount ).to.equal( 1 );
@@ -116,18 +127,20 @@ describe( 'Factory helpers', () =>
 
         it( 'should return an object of the factorys state props and their values', () =>
         {
-            const state = getState( rule, getFuncs );
+            const state = getStateHelper( rule, getFuncs );
             expect( state ).to.eql( { date : 'get', time : 'get', age: 'get' } );
         } );
+
     } );
 
     describe( 'setState', () =>
     {
+
         let setFuncs;
 
         before( () =>
         {
-            setFuncs = addSetters( rule, setters, setSpy, validSpy );
+            setFuncs = addSetters( rule, setters, setSpy, validSpy, errorsSpy );
         } );
 
         it( 'should call the set methods used to set the factorys state prop if it exists in the options', () =>
@@ -135,11 +148,14 @@ describe( 'Factory helpers', () =>
             const setDateSpy = sinon.spy( setFuncs, 'setDate' );
             const setTimeSpy = sinon.spy( setFuncs, 'setTime' );
 
-            setState( rule, setFuncs, { date : 'today' } );
+            setStateHelper( rule, setFuncs, errorsSpy, { date : 'today' } );
 
             expect( setDateSpy.callCount ).to.equal( 1 );
             expect( setDateSpy.calledWith( 'today' ) ).to.be.true;
             expect( setTimeSpy.callCount ).to.equal( 0 );
+            expect( errorsSpy.callCount ).to.equal( 2 );
         } );
+
     } );
+
 } );

@@ -11,7 +11,9 @@ import
     isIterationCount,
     isCubicBezier,
     isSteps,
-    validateArray
+    validateArray,
+    isDefinedString,
+    isDefinedArray
 } from 'helper/validator.helper';
 
 
@@ -115,5 +117,20 @@ describe( 'Validation helpers', () =>
     {
         expect( validateArray( 'marker', ['10%', '20%'] ) ).to.be.true;
         expect( validateArray( 'marker', ['10%', 0] ) ).to.be.false;
+    } );
+
+    it( 'should return true if value is a defined string', () =>
+    {
+        expect( isDefinedString( 9 ) ).to.be.false;
+        expect( isDefinedString( '' ) ).to.be.false;
+        expect( isDefinedString( 'har' ) ).to.be.true;
+    } );
+
+    it( 'should return true if value is a defined array', () =>
+    {
+        expect( isDefinedArray( {} ) ).to.be.false;
+        expect( isDefinedArray( [] ) ).to.be.false;
+        expect( isDefinedArray( ['har'] ) ).to.be.true;
+        expect( isDefinedArray( [1,2] ) ).to.be.true;
     } );
 } );

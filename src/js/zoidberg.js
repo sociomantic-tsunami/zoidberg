@@ -25,38 +25,42 @@ export default function Zoidberg()
 
 
     /**
-    * Creates a new rule. Must be initialized with a valid name. If not and/or
-    * other errors are present, returns a list of error objects. Otherwise,
-    * returns undefined.
+    * Creates and returns new rule. Must be initialized with a valid name.
+    * If not and/or other errors are present, returns a list of error objects.
     *
     * @param {Object}           options               rule options
     *
-    * @return {Array|Object}                          errors, if they exist or the rule
+    * @return {Object}                                errors|rule
     */
     const createRule = options =>
     {
-        const rule = Rule( options );
+        const rule   = Rule();
+        const errors = rule.setState( options );
 
-        rules = [ ...rules, rule];
+        if( errors ) return { errors };
+
+        rules.push( rule );
 
         return rule;
     };
 
 
     /**
-    * Creates a new keyframe. Must be initialized with a valid name. If not
-    * and/or other errors are present, returns a list of error objects. Otherwise,
-    * returns undefined.
+    * Creates and returns a new keyframe. Must be initialized with a valid name.
+    * If not and/or other errors are present, returns a list of error objects.
     *
     * @param {Object}           options               keyframe options
     *
-    * @return {Array|Object}                          errors, if they exist or the keyframe
+    * @return {Object}                                errors|keyframe
     */
     const createKeyframe = options =>
     {
-        const keyframe = Keyframe( options );
+        const keyframe = Keyframe();
+        const errors   = keyframe.setState( options );
 
-        keyframes = [ ...keyframes, keyframe];
+        if( errors ) return { errors };
+
+        keyframes.push( keyframe );
 
         return keyframe;
     };

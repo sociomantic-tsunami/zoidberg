@@ -10,7 +10,8 @@ import {
     isPlayState,
     isTiming,
     isIterationCount,
-    isDefinedString
+    isDefinedString,
+    isDefinedArray
 } from 'helper/validator.helper';
 
 
@@ -52,15 +53,15 @@ export const regex =
 */
 export const iteration =
 {
-    'marker'         : validateArray,
-    'delay'          : validateArray,
-    'direction'      : validateArray,
-    'duration'       : validateArray,
-    'fillMode'       : validateArray,
-    'playState'      : validateArray,
-    'timing'         : validateArray,
-    'iterationCount' : validateArray,
-    'name'           : validateArray
+    'marker'          : validateArray,
+    'delay'           : validateArray,
+    'direction'       : validateArray,
+    'duration'        : validateArray,
+    'fillMode'        : validateArray,
+    'playState'       : validateArray,
+    'timing'          : validateArray,
+    'iterationCount'  : validateArray,
+    'requiredStrings' : validateArray
 };
 
 
@@ -113,7 +114,7 @@ export const validation =
     {
         validator : isArray,
         msg : 'Animation name must be an array',
-        subValidator : ['isDefinedString', 'name']
+        subValidator : ['requiredLength','requiredStrings']
     },
 
     'animation-play-state' :
@@ -139,9 +140,8 @@ export const validation =
 
     'name' :
     {
-        validator : isString,
-        msg : 'Name must be a string',
-        subValidator : ['isDefinedString']
+        validator : isDefinedString,
+        msg : 'Name must be a defined string'
     },
 
     'props' :
@@ -198,10 +198,16 @@ export const validation =
         msg : 'Animation iteration count must be infinite or a string of finite numbers'
     },
 
-    'requiredString' :
+    'requiredStrings' :
     {
         validator : isDefinedString,
-        msg : 'Required string value'
+        msg : 'Required string values'
+    },
+
+    'requiredLength' :
+    {
+        validator : isDefinedArray,
+        msg : 'Required values'
     }
 
 };

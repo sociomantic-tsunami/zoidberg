@@ -41,11 +41,13 @@ const RuleState = () =>
 * Creates a new animation rule object. A animation rule stores information about
 * the animations general settings.
 *
-* @param {Object}      options               options
+* @param {callbackFn}      set              set callback
+* @param {callbackFn}      get              get callback
+* @param {callbackFn}      valid            validation callback
 *
-* @return {Object}                           animation rule
+* @return {Object}                          animation rule
 */
-const RuleFactory = function ( set, get, valid, getErrors, options )
+const RuleFactory = function ( set, get, valid, getErrors )
 {
 
     /**
@@ -67,7 +69,7 @@ const RuleFactory = function ( set, get, valid, getErrors, options )
     /**
     * Gets the state of the current rule
     *
-    * @return {Object}                                 state
+    * @return {Object}                         state
     */
     const getState = () => getStateHelper( ruleMap, getters );
 
@@ -75,13 +77,12 @@ const RuleFactory = function ( set, get, valid, getErrors, options )
     /**
     * Sets the state of the current rule given the passed options
     *
-    * @return {Array}                                  error objects
+    * @return {Array|undefined}                errors|undefined
     */
     const setState = options => setStateHelper( ruleMap, setters, getErrors, options );
 
 
-    return setState( options ) ||
-    {
+    return {
         getErrors,
         getState,
         setState,
@@ -91,4 +92,4 @@ const RuleFactory = function ( set, get, valid, getErrors, options )
 
 };
 
-export default ( options ) => Factory( RuleState(), RuleFactory, options );
+export default () => Factory( RuleState(), RuleFactory );

@@ -3,6 +3,7 @@ import { validate, getErrorState } from 'util/validator';
 
 describe( 'Validator', () =>
 {
+
     describe( 'validate', () =>
     {
         it( 'should throw an error if the validator is not a function', () =>
@@ -15,10 +16,12 @@ describe( 'Validator', () =>
             expect( validate( 'name', 'I am a name' ) ).to.be.true;
             expect( validate( 'name', 9 ) ).to.be.false;
         } );
+
     } );
 
     describe( 'getErrorState', () =>
     {
+
         let oldErrors;
 
         beforeEach( () =>
@@ -47,9 +50,10 @@ describe( 'Validator', () =>
         {
             const state = getErrorState( 'markers', '11', oldErrors );
 
-            expect( state.errors ).to.have.length( 4 );
+            expect( state.errors ).to.have.length( 3 );
             expect( state.valid ).to.be.false;
         } );
+
     } );
 
 } );
