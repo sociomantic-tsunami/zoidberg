@@ -222,7 +222,7 @@ describe( 'Animation rule class', function()
         expect( setRule ).to.eql( [
             {
                 prop: 'timing',
-                msg: 'Animation timing functon must be a cubic bezier or step function or one of ease, ease-in, ease-out, ease-in-out, linear, step-start, step-end, initial, inherit or unset',
+                msg: 'Animation timing function must be a cubic bezier or step function or one of ease, ease-in, ease-out, ease-in-out, linear, step-start, step-end, initial, inherit or unset',
                 val: [ 'eased' ]
             } ] );
 

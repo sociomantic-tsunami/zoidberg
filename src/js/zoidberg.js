@@ -97,16 +97,32 @@ export default function()
     *
     * @param {Object}           state                 state to compare
     *
-    * @return {Number}                                number of keyframes removed
+    * @return {Array}                                 removed keyframes
     */
     const removeKeyframes = state =>
     {
-        const found  = find( state, keyframes );
-        const result = remove( found, keyframes );
+        const { removed, remaining } = remove( state, keyframes );
 
-        keyframes = result.remaining;
+        keyframes = remaining;
 
-        return result.removed;
+        return removed;
+    };
+
+
+    /**
+    * Removes animation rules from the rules array.
+    *
+    * @param {Object}           state                 state to compare
+    *
+    * @return {Array}                                 removed rules
+    */
+    const removeRules = state =>
+    {
+        const { removed, remaining } = remove( state, rules );
+
+        rules = remaining;
+
+        return removed;
     };
 
 
@@ -115,7 +131,8 @@ export default function()
         createKeyframe,
         findRules,
         findKeyframes,
-        removeKeyframes
+        removeKeyframes,
+        removeRules
     }
 
 }
