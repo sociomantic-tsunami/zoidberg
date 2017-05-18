@@ -2,7 +2,7 @@ import isMatch from 'lodash/isMatch';
 import isEmpty from 'lodash/isEmpty';
 import Rule from 'factory/rule';
 import Keyframe from 'factory/keyframe';
-import { find } from 'helper/zoidberg.helper';
+import { find, remove } from 'helper/zoidberg.helper';
 
 
 export default function()
@@ -93,23 +93,20 @@ export default function()
 
 
     /**
-    * Deletes keyframes from the keyframes array.
+    * Removes keyframes from the keyframes array.
     *
     * @param {Object}           state                 state to compare
     *
-    * @return {Number}                                number of keyframes deleted
+    * @return {Number}                                number of keyframes removed
     */
-    const deleteKeyframes = state =>
+    const removeKeyframes = state =>
     {
-        const length = keyframes.length;
         const found  = find( state, keyframes );
+        const result = remove( found, keyframes );
 
-        keyframes = keyframes.filter( keyframe =>
-        {
-            if( ! found.includes( keyframe ) ) return keyframe;
-        } );
+        keyframes = result.remaining;
 
-        return length - keyframes.length;
+        return result.removed;
     };
 
 
@@ -118,7 +115,7 @@ export default function()
         createKeyframe,
         findRules,
         findKeyframes,
-        deleteKeyframes
+        removeKeyframes
     }
 
 }
