@@ -41,14 +41,8 @@ export const find = ( searchState = {}, collection ) =>
 export const remove = ( state, collection ) =>
 {
     const removables = find( state, collection );
-    const remaining  = collection.filter( factory =>
-    {
-        if( ! removables.includes( factory ) ) return factory;
-    } );
-    const removed = removables.map( factory =>
-    {
-        return factory.getState();
-    } );
+    const remaining  = collection.filter( factory => ! removables.includes( factory ) );
+    const removed    = removables.map( factory => factory.getState() );
 
     return { removed, remaining };
 };
