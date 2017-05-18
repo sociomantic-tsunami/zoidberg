@@ -68,6 +68,8 @@ const KeyframeFactory = function ( set, get, valid, getErrors )
     /**
     * Sets the state of the current keyframe
     *
+    * @param {Object}           options                options to set
+    *
     * @return {Array|undefined}                        errors|undefined
     */
     const setState = options => setStateHelper( keyframeMap, setters, getErrors, options );

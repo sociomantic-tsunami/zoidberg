@@ -12,8 +12,8 @@ import
     isCubicBezier,
     isSteps,
     validateArray,
-    isDefinedString,
-    isDefinedArray
+    isNonEmptyString,
+    isNonEmptyArray
 } from 'helper/validator.helper';
 
 
@@ -119,18 +119,18 @@ describe( 'Validation helpers', () =>
         expect( validateArray( 'marker', ['10%', 0] ) ).to.be.false;
     } );
 
-    it( 'should return true if value is a defined string', () =>
+    it( 'should return true if value is a non empty string', () =>
     {
-        expect( isDefinedString( 9 ) ).to.be.false;
-        expect( isDefinedString( '' ) ).to.be.false;
-        expect( isDefinedString( 'har' ) ).to.be.true;
+        expect( isNonEmptyString( 9 ) ).to.be.false;
+        expect( isNonEmptyString( '' ) ).to.be.false;
+        expect( isNonEmptyString( 'har' ) ).to.be.true;
     } );
 
-    it( 'should return true if value is a defined array', () =>
+    it( 'should return true if value is a non empty array', () =>
     {
-        expect( isDefinedArray( {} ) ).to.be.false;
-        expect( isDefinedArray( [] ) ).to.be.false;
-        expect( isDefinedArray( ['har'] ) ).to.be.true;
-        expect( isDefinedArray( [1,2] ) ).to.be.true;
+        expect( isNonEmptyArray( {} ) ).to.be.false;
+        expect( isNonEmptyArray( [] ) ).to.be.false;
+        expect( isNonEmptyArray( ['har'] ) ).to.be.true;
+        expect( isNonEmptyArray( [1,2] ) ).to.be.true;
     } );
 } );

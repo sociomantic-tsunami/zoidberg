@@ -60,6 +60,7 @@ describe( 'Zoidberg', () =>
         {
             const keyframe = zoidberg.createKeyframe( { 'name' : 'nono' } );
             expect( zoidberg.findKeyframes( { 'name' : 'nono' } )[0] ).to.eql( keyframe );
+            expect( zoidberg.findKeyframes( { 'name' : 'popo' } ) ).to.eql( [] );
         } );
 
     } );
@@ -72,6 +73,7 @@ describe( 'Zoidberg', () =>
         {
             const rule = zoidberg.createRule( { 'animation-name' : ['vovo'] } );
             expect( zoidberg.findRules( { 'animation-name' : ['vovo'] } )[0] ).to.eql( rule );
+            expect( zoidberg.findKeyframes( { 'name' : 'bobo' } ) ).to.eql( [] );
         } );
 
     } );

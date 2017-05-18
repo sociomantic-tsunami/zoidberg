@@ -34,7 +34,7 @@ describe( 'find', () =>
         expect( find( {}, ruleCollection ) ).to.eql( [] );
     } );
 
-    it( 'should return a rule that partially matches the passed state object', () =>
+    it( 'should return a rule that partially matches the passed state object or an empty array', () =>
     {
         let popo = find( { name : 'popo' }, keyframeCollection );
         expect( popo ).to.have.length( 2 );
@@ -45,6 +45,9 @@ describe( 'find', () =>
         expect( popo ).to.have.length( 1 );
         expect( popo[0] ).to.eql( keyframeCollection[1] );
 
+        popo = find( { name : 'nonopopo'}, keyframeCollection );
+        expect( popo ).to.eql( [] );
+
         let momo = find( { 'animation-duration' : ['1s'] }, ruleCollection );
         expect( momo ).to.have.length( 2 );
         expect( momo[0] ).to.eql( ruleCollection[0] );
@@ -53,6 +56,9 @@ describe( 'find', () =>
         momo = find( { 'animation-name' : ['momo'], 'animation-duration' : ['1s'] }, ruleCollection );
         expect( momo ).to.have.length( 1 );
         expect( momo[0] ).to.eql( ruleCollection[1] );
+
+        momo = find( { 'animation-name' : ['nonomomo'] }, ruleCollection );
+        expect( momo ).to.eql( [] );
     } );
 
 } );

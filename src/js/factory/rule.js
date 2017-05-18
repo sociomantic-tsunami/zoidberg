@@ -77,6 +77,8 @@ const RuleFactory = function ( set, get, valid, getErrors )
     /**
     * Sets the state of the current rule given the passed options
     *
+    * @param {Object}      options             options to set
+    *
     * @return {Array|undefined}                errors|undefined
     */
     const setState = options => setStateHelper( ruleMap, setters, getErrors, options );

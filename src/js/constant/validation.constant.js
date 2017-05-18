@@ -10,8 +10,8 @@ import {
     isPlayState,
     isTiming,
     isIterationCount,
-    isDefinedString,
-    isDefinedArray
+    isNonEmptyString,
+    isNonEmptyArray
 } from 'helper/validator.helper';
 
 
@@ -140,7 +140,7 @@ export const validation =
 
     'name' :
     {
-        validator : isDefinedString,
+        validator : isNonEmptyString,
         msg : 'Name must be a defined string'
     },
 
@@ -200,13 +200,13 @@ export const validation =
 
     'requiredStrings' :
     {
-        validator : isDefinedString,
+        validator : isNonEmptyString,
         msg : 'Required string values'
     },
 
     'requiredLength' :
     {
-        validator : isDefinedArray,
+        validator : isNonEmptyArray,
         msg : 'Required values'
     }
 

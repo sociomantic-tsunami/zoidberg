@@ -130,7 +130,7 @@ export const isIterationCount = val =>
 *
 * @return {Boolean}                                 true, if defined
 */
-export const isDefinedString = val =>
+export const isNonEmptyString = val =>
 {
     return isString( val ) && val !== '';
 };
@@ -143,7 +143,7 @@ export const isDefinedString = val =>
 *
 * @return {Boolean}                                 true, if defined
 */
-export const isDefinedArray = val =>
+export const isNonEmptyArray = val =>
 {
     return isArray( val ) && !! val.length;
 };
