@@ -5,7 +5,7 @@ import Keyframe from 'factory/keyframe';
 import { find } from 'helper/zoidberg.helper';
 
 
-export default function Zoidberg()
+export default function()
 {
 
     /**
