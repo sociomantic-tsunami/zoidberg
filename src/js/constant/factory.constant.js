@@ -4,7 +4,7 @@
 *
 * @property {String}         mapping.<method suffix>       state property
 */
-export const rule =
+export const ruleMap =
 {
     Delay          : 'animation-delay',
     Direction      : 'animation-direction',
@@ -18,11 +18,11 @@ export const rule =
 
 
 /**
-* keyframe factory mapping for keyframe factory
+* Keyframe factory mapping
 *
 * @property {String}         mapping.<method suffix>        state property
 */
-export const keyframe =
+export const keyframeMap =
 {
     Markers : 'markers',
     Name    : 'name',
@@ -35,7 +35,7 @@ export const keyframe =
 *
 * @typedef {Array}
 */
-const ruleKeys = Object.keys( rule );
+const ruleKeys = Object.keys( ruleMap );
 
 
 /**
@@ -43,7 +43,7 @@ const ruleKeys = Object.keys( rule );
 *
 * @typedef {Array}
 */
-const keyframeKeys = Object.keys( keyframe );
+const keyframeKeys = Object.keys( keyframeMap );
 
 
 /**
@@ -51,11 +51,8 @@ const keyframeKeys = Object.keys( keyframe );
 *
 * @property {Array}         mapping.<factory type>       setter suffixes
 */
-export const setter =
-{
-    rule     : [ ...ruleKeys],
-    keyframe : ['Markers', 'Name']
-};
+export const ruleSetter = [ ...ruleKeys];
+export const keyframeSetter = ['Markers', 'Name'];
 
 
 /**
@@ -63,8 +60,5 @@ export const setter =
 *
 * @property {Array}         mapping.<factory type>        setter suffixes
 */
-export const getter =
-{
-    rule     : [ ...ruleKeys],
-    keyframe : [ ...keyframeKeys]
-};
+export const ruleGetter = [ ...ruleKeys];
+export const keyframeGetter = [ ...keyframeKeys]

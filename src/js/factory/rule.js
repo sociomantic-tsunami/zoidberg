@@ -1,5 +1,5 @@
-import { setter, getter, rule } from 'constant/factory.constant';
-import { addSetters, addGetters, getState, setState } from 'helper/factory.helper';
+import { ruleSetter, ruleGetter, ruleMap } from 'constant/factory.constant';
+import { addSetters, addGetters, getStateHelper, setStateHelper } from 'helper/factory.helper';
 import Factory from 'factory/factory';
 
 
@@ -41,11 +41,13 @@ const RuleState = () =>
 * Creates a new animation rule object. A animation rule stores information about
 * the animations general settings.
 *
-* @param {Object}      options               options
+* @param {callbackFn}      set              set callback
+* @param {callbackFn}      get              get callback
+* @param {callbackFn}      valid            validation callback
 *
-* @return {Object}                           animation rule
+* @return {Object}                          animation rule
 */
-const RuleFactory = function ( set, get, valid, options )
+const RuleFactory = function ( set, get, valid, getErrors )
 {
 
     /**
@@ -53,7 +55,7 @@ const RuleFactory = function ( set, get, valid, options )
     *
     * @typedef  {Object}   getters
     */
-    const setters = addSetters( rule, setter.rule, set, valid );
+    const getters = addGetters( ruleMap, ruleGetter, get );
 
 
     /**
@@ -61,32 +63,35 @@ const RuleFactory = function ( set, get, valid, options )
     *
     * @typedef  {Object}   setters
     */
-    const getters = addGetters( rule, getter.rule, get );
-
-
-    /**
-    * Sets the state of the current rule given the passed options
-    *
-    * @param {Object}           options               rule options
-    */
-    const setRule = options => setState( rule, setters, options );
+    const setters = addSetters( ruleMap, ruleSetter, set, valid, getErrors );
 
 
     /**
     * Gets the state of the current rule
     *
-    * @return {Object}                                 state
+    * @return {Object}                         state
     */
-    const getRule = () => getState( rule, getters );
+    const getState = () => getStateHelper( ruleMap, getters );
 
-    setRule( options );
+
+    /**
+    * Sets the state of the current rule given the passed options
+    *
+    * @param {Object}      options             options to set
+    *
+    * @return {Array|undefined}                errors|undefined
+    */
+    const setState = options => setStateHelper( ruleMap, setters, getErrors, options );
+
 
     return {
-        getRule,
-        ...setters,
-        ...getters
+        getErrors,
+        getState,
+        setState,
+        ...getters,
+        ...setters
     }
 
 };
 
-export default ( options ) => Factory( RuleState(), RuleFactory, options );
+export default () => Factory( RuleState(), RuleFactory );

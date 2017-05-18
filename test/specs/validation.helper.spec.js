@@ -11,7 +11,9 @@ import
     isIterationCount,
     isCubicBezier,
     isSteps,
-    validateArray
+    validateArray,
+    isNonEmptyString,
+    isNonEmptyArray
 } from 'helper/validator.helper';
 
 
@@ -115,5 +117,20 @@ describe( 'Validation helpers', () =>
     {
         expect( validateArray( 'marker', ['10%', '20%'] ) ).to.be.true;
         expect( validateArray( 'marker', ['10%', 0] ) ).to.be.false;
+    } );
+
+    it( 'should return true if value is a non empty string', () =>
+    {
+        expect( isNonEmptyString( 9 ) ).to.be.false;
+        expect( isNonEmptyString( '' ) ).to.be.false;
+        expect( isNonEmptyString( 'har' ) ).to.be.true;
+    } );
+
+    it( 'should return true if value is a non empty array', () =>
+    {
+        expect( isNonEmptyArray( {} ) ).to.be.false;
+        expect( isNonEmptyArray( [] ) ).to.be.false;
+        expect( isNonEmptyArray( ['har'] ) ).to.be.true;
+        expect( isNonEmptyArray( [1,2] ) ).to.be.true;
     } );
 } );
