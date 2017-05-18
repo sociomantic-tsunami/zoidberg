@@ -13,7 +13,7 @@ export default function()
     *
     * @typedef  {Array}   rules
     */
-    const rules = [];
+    let rules = [];
 
 
     /**
@@ -21,7 +21,7 @@ export default function()
     *
     * @typedef  {Array}   keyframes
     */
-    const keyframes = [];
+    let keyframes = [];
 
 
     /**
@@ -39,7 +39,7 @@ export default function()
 
         if( errors ) return { errors };
 
-        rules.push( rule );
+        rules = [ ...rules, rule];
 
         return rule;
     };
@@ -60,7 +60,7 @@ export default function()
 
         if( errors ) return { errors };
 
-        keyframes.push( keyframe );
+        keyframes = [ ...keyframes, keyframe];
 
         return keyframe;
     };
@@ -92,11 +92,33 @@ export default function()
     };
 
 
+    /**
+    * Deletes keyframes from the keyframes array.
+    *
+    * @param {Object}           state                 state to compare
+    *
+    * @return {Number}                                number of keyframes deleted
+    */
+    const deleteKeyframes = state =>
+    {
+        const length = keyframes.length;
+        const found  = find( state, keyframes );
+
+        keyframes = keyframes.filter( keyframe =>
+        {
+            if( ! found.includes( keyframe ) ) return keyframe;
+        } );
+
+        return length - keyframes.length;
+    };
+
+
     return {
         createRule,
         createKeyframe,
         findRules,
-        findKeyframes
+        findKeyframes,
+        deleteKeyframes
     }
 
 }

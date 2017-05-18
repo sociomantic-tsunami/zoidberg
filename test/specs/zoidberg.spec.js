@@ -78,4 +78,26 @@ describe( 'Zoidberg', () =>
 
     } );
 
+
+    describe( 'deleteKeyframes', () =>
+    {
+
+        beforeEach( () =>
+        {
+            zoidberg.createKeyframe( { 'name' : 'nono', 'markers' : ['10%'] } );
+            zoidberg.createKeyframe( { 'name' : 'nono', 'markers' : ['15%'] } );
+            zoidberg.createKeyframe( { 'name' : 'nono', 'markers' : ['20%', '10%'] } );
+            zoidberg.createKeyframe( { 'name' : 'hoho', 'markers' : ['15%'] } );
+        } );
+
+        it( 'deletes keyframes that match the passed state and returns the number of keyframes deleted', () =>
+        {
+            expect( zoidberg.deleteKeyframes( { 'name' : 'popo' } ) ).to.equal( 0 );
+            expect( zoidberg.deleteKeyframes( { 'name' : 'hoho' } ) ).to.equal( 1 );
+            expect( zoidberg.deleteKeyframes( { 'name' : 'nono', 'markers' : ['20%'] } ) ).to.equal( 1 );
+            expect( zoidberg.deleteKeyframes( { 'name' : 'nono' } ) ).to.equal( 2 );
+        } );
+
+    } );
+
 } );
