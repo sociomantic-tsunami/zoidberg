@@ -68,20 +68,31 @@ describe( 'Zoidberg helpers', () =>
     describe( 'remove', () =>
     {
 
-        it( 'should remove factories from a collection and return the remaining factories and number of removed factories', () =>
-        {
-            const test1 = { colour : 'red' };
-            const test2 = { colour : 'blue' };
-            const test3 = { colour : 'green' };
-            const collection = [test1, test2, test3];
-            const removables = [test1, test2];
+        let testFactory;
 
-            expect( remove( [{ colour : 'pink' }], collection ) ).to.eql( { removed : 0, remaining : [test1, test2, test3] } );
-            expect( remove( removables, collection ) ).to.eql( { removed : 2, remaining : [test3] } );
-            expect( remove( [], collection ) ).to.eql( { removed : 0, remaining : [test1, test2, test3] } );
+        before( () =>
+        {
+            testFactory = state =>
+            {
+                const getState = () => state;
+
+                return { getState }
+            };
+
+        } );
+
+        it( 'should remove factories from a collection and return the removed and remaining factories', () =>
+        {
+            const test1 = testFactory( { colour : 'red' } );
+            const test2 = testFactory( { colour : 'blue' } );
+            const test3 = testFactory( { colour : 'green' } );
+            const collection = [test1, test2, test3];
+
+            expect( remove( { colour : 'pink' }, collection ) ).to.eql( { removed : [], remaining : [test1, test2, test3] } );
+            expect( remove( { colour : 'red' }, collection ) ).to.eql( { removed : [{ colour : 'red' }], remaining : [test2, test3] } );
+            expect( remove( {}, collection ) ).to.eql( { removed : [], remaining : [test1, test2, test3] } );
         } );
 
     } );
 
 } );
-

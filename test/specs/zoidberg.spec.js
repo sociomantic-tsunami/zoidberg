@@ -90,15 +90,15 @@ describe( 'Zoidberg', () =>
             zoidberg.createKeyframe( { 'name' : 'hoho', 'markers' : ['15%'] } );
         } );
 
-        it( 'should remove keyframes that match the passed state and returns the number of keyframes removed', () =>
+        it( 'should remove keyframes that match the passed state and returns the state of the keyframes removed', () =>
         {
-            expect( zoidberg.removeKeyframes( { 'name' : 'popo' } ) ).to.equal( 0 );
-            expect( zoidberg.removeKeyframes( { 'name' : 'hoho' } ) ).to.equal( 1 );
-            expect( zoidberg.removeKeyframes( { 'name' : 'nono', 'markers' : ['20%'] } ) ).to.equal( 1 );
-            expect( zoidberg.removeKeyframes( { 'name' : 'nono' } ) ).to.equal( 2 );
+            expect( zoidberg.removeKeyframes( { 'name' : 'popo' } ) ).to.eql( [] );
+            expect( zoidberg.removeKeyframes( { 'name' : 'hoho' } ) ).to.eql( [{ markers: [ '15%' ], name: 'hoho', props: {} }] );
+            expect( zoidberg.removeKeyframes( { 'name' : 'nono', 'markers' : ['20%'] } ) ).to.eql( [{ markers: [ '20%', '10%' ], name: 'nono', props: {} }] );
+            expect( zoidberg.removeKeyframes( { 'name' : 'nono' } ) ).to.eql( [{ markers: [ '10%' ], name: 'nono', props: {} }, { markers: [ '15%' ], name: 'nono', props: {} }] );
 
-            expect( zoidberg.findKeyframes( { 'name' : 'nono' } ) ).to.have.length( 0 );
-            expect( zoidberg.findKeyframes( { 'name' : 'hoho' } ) ).to.have.length( 0 );
+            expect( zoidberg.findKeyframes( { 'name' : 'nono' } ) ).to.eql( [] );
+            expect( zoidberg.findKeyframes( { 'name' : 'hoho' } ) ).to.eql( [] );
         } );
 
     } );
