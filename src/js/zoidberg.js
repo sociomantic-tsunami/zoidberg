@@ -109,12 +109,30 @@ export default function()
     };
 
 
+    /**
+    * Removes animation rules from the rules array.
+    *
+    * @param {Object}           state                 state to compare
+    *
+    * @return {Array}                                 removed rules
+    */
+    const removeRules = state =>
+    {
+        const { removed, remaining } = remove( state, rules );
+
+        rules = remaining;
+
+        return removed;
+    };
+
+
     return {
         createRule,
         createKeyframe,
         findRules,
         findKeyframes,
-        removeKeyframes
+        removeKeyframes,
+        removeRules
     }
 
 }
