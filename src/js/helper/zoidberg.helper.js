@@ -31,11 +31,11 @@ export const find = ( searchState = {}, collection ) =>
 * Removes factories from a collection. Returns the state of the removed factories
 * and the collection of remaining factories.
 *
-* @param {Array}            removables            factories to be removed
+* @param {Object}           state                 state to compare
 * @param {Array}            collection            collection to remove factories from
 *
 * @return   {Object}                              result
-* @property {Number}        result.removed        state of removed factories
+* @property {Array}         result.removed        state of removed factories
 * @property {Array}         result.remaining      collection of remaining factories
 */
 export const remove = ( state, collection ) =>
