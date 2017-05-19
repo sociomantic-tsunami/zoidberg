@@ -4,7 +4,7 @@ import { validationInfo } from 'constant/info.constant';
 describe( 'Info constants', () =>
 {
 
-    it( 'validationInfo', () =>
+    describe( 'validationInfo', () =>
     {
         it( 'should have validator and prop keys', () =>
         {
