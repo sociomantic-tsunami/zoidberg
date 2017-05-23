@@ -1,4 +1,4 @@
-import { validation, getValidators } from 'constant/validation.constant';
+import { validation, getValidators, info } from 'constant/validation.constant';
 
 
 describe( 'Validation constants', () =>
@@ -30,9 +30,22 @@ describe( 'Validation constants', () =>
         expect( messages ).to.have.length( 21 );
     } );
 
-    it( 'should return the name of the prop and its subvalidators', () =>
+    describe( 'info', () =>
     {
-        expect( getValidators( 'markers' ) ).to.eql( ['marker', 'markers'] );
+
+        it( 'should have validator and prop keys', () =>
+        {
+            expect( info ).to.have.keys( 'validator', 'validation' );
+        } );
+
+        it( 'should have a message for each key', () =>
+        {
+            const entries = Object.entries( info );
+            const messages = entries.filter( pair => typeof pair[1] === 'string' );
+
+            expect( messages ).to.have.length( 2 );
+        } );
+
     } );
 
 } );
