@@ -3,6 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import Rule from 'factory/rule';
 import Keyframe from 'factory/keyframe';
 import exportKeyframesCss from 'exporter/keyframesCss.exporter';
+import exportAst from 'exporter/ast.exporter';
 import { find, remove } from 'helper/zoidberg.helper';
 
 
@@ -142,6 +143,23 @@ export default () =>
     };
 
 
+    /**
+    * Exports the ast of keyframes that match the state. If state is undefined,
+    * entire collection is exported.
+    *
+    * @param {Object}           options               rules for formatting
+    * @param {Object}           state                 state of factories to export
+    *
+    * @return {Array}                                 keyframes ast
+    */
+    const keyframesToAst = ( options, state ) =>
+    {
+        const css = exportKeyframesCss( options, state, keyframes );
+
+        return exportAst( css );
+    };
+
+
     return {
         createRule,
         createKeyframe,
@@ -149,7 +167,8 @@ export default () =>
         findKeyframes,
         removeKeyframes,
         removeRules,
-        keyframesToCss
+        keyframesToCss,
+        keyframesToAst
     }
 
 }

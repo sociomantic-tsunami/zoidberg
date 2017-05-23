@@ -170,29 +170,50 @@ describe( 'Zoidberg', () =>
     } );
 
 
-    describe( 'keyframesToCss', () =>
+    describe( 'exporters', () =>
     {
+        let state, options;
 
         beforeEach( () =>
         {
             zoidberg.createKeyframe( { 'name' : 'jojo', 'markers' : ['10%'], props : { color: 'red' } } );
             zoidberg.createKeyframe( { 'name' : 'joppe', 'markers' : ['15%'], props : { color: 'blue' } } );
             zoidberg.createKeyframe( { 'name' : 'joppe', 'markers' : ['20%', '10%'], props : { color: 'green' } } );
-        } );
 
-        it( 'should return the keyframes that match the passed state, in the format of the passed options', () =>
-        {
-            const state   = { 'name' : 'joppe' };
-            const options =
+            state   = { 'name' : 'joppe' };
+            options =
             {
                 outerIndent : 3,
                 innerIndent : 5,
                 colon : 5,
                 rpad : 10
             };
+        } );
 
+
+        it( 'should return the css of keyframes that match the passed state, in the format of the passed options', () =>
+        {
             expect( zoidberg.keyframesToCss( options, state ) ).to.eql( ['@keyframes joppe {\n   15% {\n     color    :blue;\n   }\n   20%, 10% {\n     color    :green;\n   }\n}\n'] );
             expect( zoidberg.keyframesToCss( options ) ).to.eql( ['@keyframes jojo {\n   10% {\n     color    :red;\n   }\n}\n', '@keyframes joppe {\n   15% {\n     color    :blue;\n   }\n   20%, 10% {\n     color    :green;\n   }\n}\n' ] );
+        } );
+
+
+        it( 'should return the ast of keyframes that match the passed state, in the format of the passed options', ()=>
+        {
+            const ast = zoidberg.keyframesToAst( options, state );
+
+            expect( ast ).to.be.an( 'array' );
+            expect( ast[0].stylesheet.parsingErrors ).to.have.length( 0 );
+            expect( ast[0].stylesheet.rules ).to.have.length( 1 );
+            expect( ast[0].stylesheet.rules[0].keyframes ).to.have.length( 2 );
+            expect( ast[0].stylesheet.rules[0].keyframes[0].type ).to.equal( 'keyframe' );
+            expect( ast[0].stylesheet.rules[0].keyframes[0].values[0] ).to.equal( '15%' );
+            expect( ast[0].stylesheet.rules[0].keyframes[0].declarations[0].property ).to.equal( 'color' );
+            expect( ast[0].stylesheet.rules[0].keyframes[0].declarations[0].value ).to.equal( 'blue' );
+            expect( ast[0].stylesheet.rules[0].keyframes[1].type ).to.equal( 'keyframe' );
+            expect( ast[0].stylesheet.rules[0].keyframes[1].values ).to.eql( ['20%', '10%'] );
+            expect( ast[0].stylesheet.rules[0].keyframes[1].declarations[0].property ).to.equal( 'color' );
+            expect( ast[0].stylesheet.rules[0].keyframes[1].declarations[0].value ).to.equal( 'green' );
         } );
 
     } );
