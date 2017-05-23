@@ -1,6 +1,8 @@
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
 import isPlainObject from 'lodash/isPlainObject';
+import isFinite from 'lodash/isFinite';
+import isBoolean from 'lodash/isBoolean';
 import {
     isMarker,
     validateArray,
@@ -208,6 +210,26 @@ export const validation =
     {
         validator : isNonEmptyArray,
         msg : 'Required values'
+    },
+
+    'innerIndent' :
+    {
+        validator : isFinite
+    },
+
+    'outerIndent' :
+    {
+        validator : isFinite
+    },
+
+    'colon' :
+    {
+        validator : isFinite
+    },
+
+    'rpad' :
+    {
+        validator : isFinite
     }
 
 };
