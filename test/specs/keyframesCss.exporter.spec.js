@@ -43,14 +43,7 @@ describe( 'Export Keyframes CSS', () =>
 
     it( 'if spacing related formatting options are passed, should space the css accordingly', () =>
     {
-        let state;
-        const options =
-        {
-            outerIndent : 6,
-            innerIndent : 6,
-            colon : 2,
-            rpad : 15
-        };
+        let state, options = { outerIndent : 6, innerIndent : 6, colon : 2, rpad : 15 };
 
         expect( exportKeyframeCss( options, state, keyframes ) ).to.eql( ['@keyframes bounce {\n      10% {\n      width :        50px;\n      }\n      40% {\n      width :        10px;\n      }\n}\n', '@keyframes zoom {\n      20%, 50% {\n      color :        red;\n      height :       5%;\n      }\n}\n' ] );
     } );
