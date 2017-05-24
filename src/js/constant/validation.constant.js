@@ -18,17 +18,14 @@ import {
 
 
 /**
-* Gets the validators and subvalidators for a prop.
+* Validation info
 *
-* @param {String}           prop                    name of prop
-*
-* @return {Array}                                   validator names
+* @property {String}             mapping.<type>          message when invalid
 */
-export const getValidators = prop =>
+export const info =
 {
-    const subValidators = validation[prop]['subValidator'] || [];
-
-    return [ ...subValidators, prop];
+    validator  : 'Validator does not exist',
+    validation : 'Validation for prop does not exist'
 };
 
 
