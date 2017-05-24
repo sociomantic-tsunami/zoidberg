@@ -35,9 +35,9 @@ describe( 'Exporter Helper', () =>
 
         it( 'should build a property according to the formatting', () =>
         {
-            expect( buildProperty( 'backgroundColor', '24px', { innerIndent : 2, colon : 4, rpad : 24 } ) ).to.eql( '  backgroundColor   :     24px;\n' );
-            expect( buildProperty( 'backgroundColor', '24px', { innerIndent : 0, colon : 0, rpad : 0 } ) ).to.eql( 'backgroundColor:24px;\n' );
-            expect( buildProperty( 'backgroundColor', '24px', { innerIndent : 2, colon : 1, rpad : 15 } ) ).to.eql( '  backgroundColor:24px;\n' );
+            expect( buildProperty( 'backgroundColor', '24px', { innerIndent : 2, colon : 4, rpad : 24 } ) ).to.equal( '\n  backgroundColor:        24px;' );
+            expect( buildProperty( 'backgroundColor', '24px', { innerIndent : 0, colon : 0, rpad : 0 } ) ).to.equal( '\nbackgroundColor:24px;' );
+            expect( buildProperty( 'backgroundColor', '24px', { innerIndent : 2, colon : 1, rpad : 15 } ) ).to.equal( '\n  backgroundColor:24px;' );
         } );
 
     } );

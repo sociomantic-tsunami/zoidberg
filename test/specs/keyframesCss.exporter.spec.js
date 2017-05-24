@@ -4,6 +4,7 @@ import Zoidberg from 'zoidberg';
 
 describe( 'Export Keyframes CSS', () =>
 {
+
     let keyframes;
 
     before( () =>
@@ -20,16 +21,16 @@ describe( 'Export Keyframes CSS', () =>
     it( 'if no state is passed, should export all keyframes', () =>
     {
         let options, state;
-        expect( exportKeyframeCss( options, state, keyframes ) ).to.eql( ['@keyframes bounce {\n    10% {\n        width:                  50px;\n    }\n    40% {\n        width:                  10px;\n    }\n}\n', '@keyframes zoom {\n    20%, 50% {\n        color:                  red;\n        height:                 5%;\n    }\n}\n' ] );
+        expect( exportKeyframeCss( options, state, keyframes ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n    40% {\n        width:                      10px;\n    }\n}', '\n@keyframes zoom {\n    20%, 50% {\n        color:                      red;\n        height:                     5%;\n    }\n}' ] );
     } );
 
     it( 'if a state is passed that matches specific keyframes, should export those keyframes', () =>
     {
         let options, state = { name : 'bounce' };
-        expect( exportKeyframeCss( options, state, keyframes ) ).to.eql( ['@keyframes bounce {\n    10% {\n        width:                  50px;\n    }\n    40% {\n        width:                  10px;\n    }\n}\n'] );
+        expect( exportKeyframeCss( options, state, keyframes ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n    40% {\n        width:                      10px;\n    }\n}'] );
 
         state = { name : 'bounce', markers : ['10%'] };
-        expect( exportKeyframeCss( options, state, keyframes ) ).to.eql( [ '@keyframes bounce {\n    10% {\n        width:                  50px;\n    }\n}\n' ] );
+        expect( exportKeyframeCss( options, state, keyframes ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n}'] );
     } );
 
     it( 'if a state is passed that matches no keyframes, should return an empty array', () =>
@@ -43,15 +44,9 @@ describe( 'Export Keyframes CSS', () =>
 
     it( 'if spacing related formatting options are passed, should space the css accordingly', () =>
     {
-        let state;
-        const options =
-        {
-            outerIndent : 6,
-            innerIndent : 6,
-            colon : 2,
-            rpad : 15
-        };
+        let state, options = { outerIndent : 6, innerIndent : 6, rpad : 15 };
 
-        expect( exportKeyframeCss( options, state, keyframes ) ).to.eql( ['@keyframes bounce {\n      10% {\n      width :        50px;\n      }\n      40% {\n      width :        10px;\n      }\n}\n', '@keyframes zoom {\n      20%, 50% {\n      color :        red;\n      height :       5%;\n      }\n}\n' ] );
+        expect( exportKeyframeCss( options, state, keyframes ) ).to.eql( ['\n@keyframes bounce {\n      10% {\n      width:         50px;\n      }\n      40% {\n      width:         10px;\n      }\n}', '\n@keyframes zoom {\n      20%, 50% {\n      color:         red;\n      height:        5%;\n      }\n}'] );
     } );
+
 } );

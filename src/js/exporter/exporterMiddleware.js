@@ -6,16 +6,15 @@ import { validate } from 'util/validator.js'
 * Default format options
 *
 * @typedef {Object}         options
-* @property {Number}        options.indent        inner indent from curly brace
-* @property {Number}        options.colon         space between colon and property
+* @property {Number}        options.outerIndent   top-level indent
+* @property {Number}        options.innerIndent   nested indent
 * @property {Number}        options.rpad          rpad between property and value
 */
 const formatDefaults =
 {
     outerIndent : 4,
     innerIndent : 8,
-    colon       : 0,
-    rpad        : 24
+    rpad        : 28
 };
 
 
@@ -23,7 +22,7 @@ const formatDefaults =
 * Validates formatting rules for exports. Replaces invalid or missing format
 * options with defaults.
 *
-* @return {Object}       format                     formatting rules
+* @return {Object}       options                   formatting rules
 */
 const getFormatRules = ( options = {} ) =>
 {

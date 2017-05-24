@@ -3,6 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import Rule from 'factory/rule';
 import Keyframe from 'factory/keyframe';
 import exportKeyframesCss from 'exporter/keyframesCss.exporter';
+import exportRulesCss from 'exporter/rulesCss.exporter';
 import exportAst from 'exporter/ast.exporter';
 import { find, remove } from 'helper/zoidberg.helper';
 
@@ -147,14 +148,46 @@ export default () =>
     * Exports the ast of keyframes that match the state. If state is undefined,
     * entire collection is exported.
     *
-    * @param {Object}           options               rules for formatting
     * @param {Object}           state                 state of factories to export
     *
     * @return {Array}                                 keyframes ast
     */
-    const keyframesToAst = ( options, state ) =>
+    const keyframesToAst = state =>
     {
-        const css = exportKeyframesCss( options, state, keyframes );
+        const css = exportKeyframesCss( {}, state, keyframes );
+
+        return exportAst( css );
+    };
+
+
+    /**
+    * Exports the css of rules that match the state. If state is undefined,
+    * entire collection is exported.
+    *
+    * @param {Object}           options               rules for formatting
+    * @param {Object}           state                 state of factories to export
+    *
+    * @return {Array}                                 rules css
+    */
+    const rulesToCss = ( options, state ) =>
+    {
+        return exportRulesCss( options, state, rules );
+    };
+
+
+    /**
+    * Exports the ast of rules that match the state. If state is undefined,
+    * entire collection is exported. Wraps each rule css in a block statement
+    * with a generic selector to allow for ast export.
+    *
+    * @param {Object}           state                 state of factories to export
+    *
+    * @return {Array}                                 rules ast
+    */
+    const rulesToAst = state =>
+    {
+        let css = exportRulesCss( {}, state, rules );
+        css     = css.map( block => `.selector { ${ block } }` );
 
         return exportAst( css );
     };
@@ -168,7 +201,9 @@ export default () =>
         removeKeyframes,
         removeRules,
         keyframesToCss,
-        keyframesToAst
+        keyframesToAst,
+        rulesToCss,
+        rulesToAst
     }
 
 }

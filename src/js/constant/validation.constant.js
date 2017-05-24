@@ -222,11 +222,6 @@ export const validation =
         validator : isFinite
     },
 
-    'colon' :
-    {
-        validator : isFinite
-    },
-
     'rpad' :
     {
         validator : isFinite
