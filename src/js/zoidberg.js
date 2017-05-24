@@ -2,10 +2,11 @@ import isMatch from 'lodash/isMatch';
 import isEmpty from 'lodash/isEmpty';
 import Rule from 'factory/rule';
 import Keyframe from 'factory/keyframe';
+import exportKeyframesCss from 'exporter/keyframesCss.exporter';
 import { find, remove } from 'helper/zoidberg.helper';
 
 
-export default function()
+export default () =>
 {
 
     /**
@@ -126,13 +127,29 @@ export default function()
     };
 
 
+    /**
+    * Exports the css of keyframes that match the state. If state is undefined,
+    * entire collection is exported.
+    *
+    * @param {Object}           options               rules for formatting
+    * @param {Object}           state                 state of factories to export
+    *
+    * @return {Array}                                 keyframes css
+    */
+    const keyframesToCss = ( options, state ) =>
+    {
+        return exportKeyframesCss( options, state, keyframes );
+    };
+
+
     return {
         createRule,
         createKeyframe,
         findRules,
         findKeyframes,
         removeKeyframes,
-        removeRules
+        removeRules,
+        keyframesToCss
     }
 
 }

@@ -169,4 +169,32 @@ describe( 'Zoidberg', () =>
 
     } );
 
+
+    describe( 'keyframesToCss', () =>
+    {
+
+        beforeEach( () =>
+        {
+            zoidberg.createKeyframe( { 'name' : 'jojo', 'markers' : ['10%'], props : { color: 'red' } } );
+            zoidberg.createKeyframe( { 'name' : 'joppe', 'markers' : ['15%'], props : { color: 'blue' } } );
+            zoidberg.createKeyframe( { 'name' : 'joppe', 'markers' : ['20%', '10%'], props : { color: 'green' } } );
+        } );
+
+        it( 'should return the keyframes that match the passed state, in the format of the passed options', () =>
+        {
+            const state   = { 'name' : 'joppe' };
+            const options =
+            {
+                outerIndent : 3,
+                innerIndent : 5,
+                colon : 5,
+                rpad : 10
+            };
+
+            expect( zoidberg.keyframesToCss( options, state ) ).to.eql( ['@keyframes joppe {\n   15% {\n     color    :blue;\n   }\n   20%, 10% {\n     color    :green;\n   }\n}\n'] );
+            expect( zoidberg.keyframesToCss( options ) ).to.eql( ['@keyframes jojo {\n   10% {\n     color    :red;\n   }\n}\n', '@keyframes joppe {\n   15% {\n     color    :blue;\n   }\n   20%, 10% {\n     color    :green;\n   }\n}\n' ] );
+        } );
+
+    } );
+
 } );
