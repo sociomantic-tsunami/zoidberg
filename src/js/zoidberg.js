@@ -147,14 +147,13 @@ export default () =>
     * Exports the ast of keyframes that match the state. If state is undefined,
     * entire collection is exported.
     *
-    * @param {Object}           options               rules for formatting
     * @param {Object}           state                 state of factories to export
     *
     * @return {Array}                                 keyframes ast
     */
-    const keyframesToAst = ( options, state ) =>
+    const keyframesToAst = state =>
     {
-        const css = exportKeyframesCss( options, state, keyframes );
+        const css = exportKeyframesCss( {}, state, keyframes );
 
         return exportAst( css );
     };

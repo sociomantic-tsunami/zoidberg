@@ -10,8 +10,5 @@ import cssHelper from 'css';
 */
 export default function exportAst ( css )
 {
-    return css.map( block =>
-    {
-        return cssHelper.parse( block );
-    } );
+    return css.map( block => cssHelper.parse( block ) );
 }
