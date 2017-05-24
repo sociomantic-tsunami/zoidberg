@@ -1,5 +1,4 @@
-import { validation, iteration, getValidators } from 'constant/validation.constant';
-import { validationInfo } from 'constant/info.constant';
+import { validation, iteration, info, getValidators } from 'constant/validation.constant';
 import isFunction from 'lodash/isFunction';
 
 
@@ -15,14 +14,12 @@ export const validate = ( prop, val ) =>
 {
     const validator = validation[prop] && validation[prop].validator;
 
-    if( isFunction( validator ) )
+    if( ! isFunction( validator ) )
     {
-        return validator( val );
+        throw new Error( info.validator );
     }
-    else
-    {
-        throw new Error( validationInfo.validator );
-    }
+
+    return validator( val );
 };
 
 
@@ -31,42 +28,35 @@ export const validate = ( prop, val ) =>
 * is valid and an array of what errors may exist. A prop is valid when all
 * validators and subvalidators return true.
 *
-* @param {String}           prop                    name of prop to be validated
+* @param {String}           validator               prop to be validated
 * @param {*}                val                     value
 * @param {Array}            oldErrors               pre-existing errors
 *
 * @return {Object}                                  error state
 */
-export const getErrorState = ( prop, val, oldErrors ) =>
+export const getErrorState = ( validator, val, oldErrors ) =>
 {
-    if( validation[prop] )
+    if( ! validation[validator] )
     {
-        let errors       = [ ...oldErrors];
-        const validators = getValidators( prop );
-
-        const valid = validators.map( _prop =>
-        {
-            const iterator = iteration[ _prop];
-            const _valid   = iterator ? iterator( _prop, val ) : validate( _prop, val );
-
-            errors = errors.filter( err => err.prop !== _prop );
-
-            if( ! _valid )
-            {
-                const validatorMsg = validation[ _prop]['msg'] || 'error';
-                const validatorErr = { prop : _prop, msg : validatorMsg, val };
-
-                errors.push( validatorErr );
-            }
-
-            return _valid;
-        } )
-        .every( Boolean );
-
-        return { errors, valid };
+        throw new Error( info.validation );
     }
-    else
+
+    let errors = [ ...oldErrors];
+
+    const subValidators = validation[validator]['subValidator'] || [];
+    const validators    = [ ...subValidators, validator];
+
+    const valid = validators.map( prop =>
     {
-        throw new Error( validationInfo.prop );
-    }
+        const iterator = iteration[prop];
+        const isValid  = iterator ? iterator( prop, val ) : validate( prop, val );
+
+        errors = errors.filter( err => err.prop !== prop );
+
+        if( ! isValid ) errors.push( { prop, msg : validation[prop]['msg'], val } );
+
+        return isValid;
+    } ).every( Boolean );
+
+    return { errors, valid };
 };

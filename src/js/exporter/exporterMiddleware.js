@@ -30,9 +30,7 @@ const getFormatRules = ( options = {} ) =>
 
     for( let prop in formatDefaults )
     {
-        let hasProp = options.hasOwnProperty( prop );
-        let valid   = hasProp ? validate( prop, options[prop] ) : false;
-
+        let valid    = validate( prop, options[prop] );
         format[prop] = valid ? options[prop] : formatDefaults[prop];
     }
 

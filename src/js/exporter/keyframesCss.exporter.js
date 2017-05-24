@@ -19,6 +19,7 @@ const exportKeyframesCss = ( states, format ) =>
     * Builds an @keyframe css rule.
     *
     * @param {String}         name                   name of keyframe
+    * @param {Object}         groupedStates          factory states grouped by name
     *
     * @return {String}                               keyframe
     */
