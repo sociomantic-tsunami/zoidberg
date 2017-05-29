@@ -1,4 +1,5 @@
 import Zoidberg from 'zoidberg';
+import * as exportAst from 'exporter/ast.exporter';
 
 
 describe( 'Zoidberg', () =>
@@ -170,20 +171,23 @@ describe( 'Zoidberg', () =>
     } );
 
 
-    describe( 'keyframesToCss', () =>
+    describe( 'exporters', () =>
     {
+        let state, options, astExporterSpy;
+
+        before( () =>
+        {
+            astExporterSpy = sinon.spy( exportAst, 'default' );
+        } );
 
         beforeEach( () =>
         {
             zoidberg.createKeyframe( { 'name' : 'jojo', 'markers' : ['10%'], props : { color: 'red' } } );
             zoidberg.createKeyframe( { 'name' : 'joppe', 'markers' : ['15%'], props : { color: 'blue' } } );
             zoidberg.createKeyframe( { 'name' : 'joppe', 'markers' : ['20%', '10%'], props : { color: 'green' } } );
-        } );
 
-        it( 'should return the keyframes that match the passed state, in the format of the passed options', () =>
-        {
-            const state   = { 'name' : 'joppe' };
-            const options =
+            state   = { 'name' : 'joppe' };
+            options =
             {
                 outerIndent : 3,
                 innerIndent : 5,
@@ -191,8 +195,25 @@ describe( 'Zoidberg', () =>
                 rpad : 10
             };
 
+        } );
+
+        afterEach( () =>
+        {
+            astExporterSpy.reset();
+        } );
+
+        it( 'should return the css of keyframes that match the passed state, in the format of the passed options', () =>
+        {
             expect( zoidberg.keyframesToCss( options, state ) ).to.eql( ['@keyframes joppe {\n   15% {\n     color    :blue;\n   }\n   20%, 10% {\n     color    :green;\n   }\n}\n'] );
             expect( zoidberg.keyframesToCss( options ) ).to.eql( ['@keyframes jojo {\n   10% {\n     color    :red;\n   }\n}\n', '@keyframes joppe {\n   15% {\n     color    :blue;\n   }\n   20%, 10% {\n     color    :green;\n   }\n}\n' ] );
+        } );
+
+        it( 'should call the AST parser with the correct arguments', () =>
+        {
+            const ast = zoidberg.keyframesToAst( {} );
+
+            expect( astExporterSpy ).to.be.calledOnce;
+            expect( astExporterSpy.calledWith( [] ) ).to.be.true;
         } );
 
     } );
