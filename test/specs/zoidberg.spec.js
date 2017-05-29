@@ -1,4 +1,5 @@
 import Zoidberg from 'zoidberg';
+import * as exportAst from 'exporter/ast.exporter';
 
 
 describe( 'Zoidberg', () =>
@@ -172,7 +173,12 @@ describe( 'Zoidberg', () =>
 
     describe( 'exporters', () =>
     {
-        let state, options;
+        let state, options, astExporterSpy;
+
+        before( () =>
+        {
+            astExporterSpy = sinon.spy( exportAst, 'default' );
+        } );
 
         beforeEach( () =>
         {
@@ -188,8 +194,13 @@ describe( 'Zoidberg', () =>
                 colon : 5,
                 rpad : 10
             };
+
         } );
 
+        afterEach( () =>
+        {
+            astExporterSpy.reset();
+        } );
 
         it( 'should return the css of keyframes that match the passed state, in the format of the passed options', () =>
         {
@@ -197,23 +208,12 @@ describe( 'Zoidberg', () =>
             expect( zoidberg.keyframesToCss( options ) ).to.eql( ['@keyframes jojo {\n   10% {\n     color    :red;\n   }\n}\n', '@keyframes joppe {\n   15% {\n     color    :blue;\n   }\n   20%, 10% {\n     color    :green;\n   }\n}\n' ] );
         } );
 
-
-        it( 'should return the ast of keyframes that match the passed state, in the format of the passed options', ()=>
+        it( 'should call the AST parser with the correct arguments', () =>
         {
-            const ast = zoidberg.keyframesToAst( options, state );
+            const ast = zoidberg.keyframesToAst( {} );
 
-            expect( ast ).to.be.an( 'array' );
-            expect( ast[0].stylesheet.parsingErrors ).to.have.length( 0 );
-            expect( ast[0].stylesheet.rules ).to.have.length( 1 );
-            expect( ast[0].stylesheet.rules[0].keyframes ).to.have.length( 2 );
-            expect( ast[0].stylesheet.rules[0].keyframes[0].type ).to.equal( 'keyframe' );
-            expect( ast[0].stylesheet.rules[0].keyframes[0].values[0] ).to.equal( '15%' );
-            expect( ast[0].stylesheet.rules[0].keyframes[0].declarations[0].property ).to.equal( 'color' );
-            expect( ast[0].stylesheet.rules[0].keyframes[0].declarations[0].value ).to.equal( 'blue' );
-            expect( ast[0].stylesheet.rules[0].keyframes[1].type ).to.equal( 'keyframe' );
-            expect( ast[0].stylesheet.rules[0].keyframes[1].values ).to.eql( ['20%', '10%'] );
-            expect( ast[0].stylesheet.rules[0].keyframes[1].declarations[0].property ).to.equal( 'color' );
-            expect( ast[0].stylesheet.rules[0].keyframes[1].declarations[0].value ).to.equal( 'green' );
+            expect( astExporterSpy ).to.be.calledOnce;
+            expect( astExporterSpy.calledWith( [] ) ).to.be.true;
         } );
 
     } );
