@@ -14,10 +14,7 @@ export const validate = ( prop, val ) =>
 {
     const validator = validation[prop] && validation[prop].validator;
 
-    if( ! isFunction( validator ) )
-    {
-        throw new Error( info.validator );
-    }
+    if( ! isFunction( validator ) ) throw new Error( info.validator );
 
     return validator( val );
 };
@@ -36,10 +33,7 @@ export const validate = ( prop, val ) =>
 */
 export const getErrorState = ( validator, val, oldErrors ) =>
 {
-    if( ! validation[validator] )
-    {
-        throw new Error( info.validation );
-    }
+    if( ! validation[validator] ) throw new Error( info.validation );
 
     let errors = [ ...oldErrors];
 

@@ -8,15 +8,13 @@ import { validate } from 'util/validator.js'
 * @typedef {Object}         options
 * @property {Number}        options.outerIndent   top-level indent
 * @property {Number}        options.innerIndent   nested indent
-* @property {Number}        options.colon         space between colon and property
 * @property {Number}        options.rpad          rpad between property and value
 */
 const formatDefaults =
 {
     outerIndent : 4,
     innerIndent : 8,
-    colon       : 0,
-    rpad        : 24
+    rpad        : 28
 };
 
 

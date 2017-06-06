@@ -35,13 +35,13 @@ export const sortMarkers = states =>
 */
 export const buildProperty = ( prop, val, format ) =>
 {
-    const { innerIndent, colon, rpad } = format;
+    const { innerIndent, rpad } = format;
 
     if( isArray( val ) ) val = val.join( ', ' );
+    if( val === '' ) return;
 
     const leftIndent = padStart( '', innerIndent );
-    let property     = prop + padStart( ':', colon );
-    property         = padEnd( property, rpad );
+    const property   = padEnd( prop + ':', rpad );
 
-    return `${ leftIndent }${ property }${ val };\n`;
+    return `\n${ leftIndent }${ property }${ val };`;
 };

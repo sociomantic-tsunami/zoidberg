@@ -173,6 +173,7 @@ describe( 'Zoidberg', () =>
 
     describe( 'exporters', () =>
     {
+
         let state, options, astExporterSpy;
 
         before( () =>
@@ -183,18 +184,15 @@ describe( 'Zoidberg', () =>
         beforeEach( () =>
         {
             zoidberg.createKeyframe( { 'name' : 'jojo', 'markers' : ['10%'], props : { color: 'red' } } );
+            zoidberg.createKeyframe( { 'name' : 'john', 'markers' : ['1%'] } );
             zoidberg.createKeyframe( { 'name' : 'joppe', 'markers' : ['15%'], props : { color: 'blue' } } );
             zoidberg.createKeyframe( { 'name' : 'joppe', 'markers' : ['20%', '10%'], props : { color: 'green' } } );
 
-            state   = { 'name' : 'joppe' };
-            options =
-            {
-                outerIndent : 3,
-                innerIndent : 5,
-                colon : 5,
-                rpad : 10
-            };
+            zoidberg.createRule( { 'animation-name' : ['bretzel'], 'animation-delay' : ['100ms'] } );
+            zoidberg.createRule( { 'animation-name' : ['bretzel'], 'animation-delay' : ['1s', '2s'] } );
+            zoidberg.createRule( { 'animation-name' : ['bier'], 'animation-delay' : ['30ms'] } );
 
+            options = { outerIndent : 3, innerIndent : 5, rpad : 10 };
         } );
 
         afterEach( () =>
@@ -204,16 +202,30 @@ describe( 'Zoidberg', () =>
 
         it( 'should return the css of keyframes that match the passed state, in the format of the passed options', () =>
         {
-            expect( zoidberg.keyframesToCss( options, state ) ).to.eql( ['@keyframes joppe {\n   15% {\n     color    :blue;\n   }\n   20%, 10% {\n     color    :green;\n   }\n}\n'] );
-            expect( zoidberg.keyframesToCss( options ) ).to.eql( ['@keyframes jojo {\n   10% {\n     color    :red;\n   }\n}\n', '@keyframes joppe {\n   15% {\n     color    :blue;\n   }\n   20%, 10% {\n     color    :green;\n   }\n}\n' ] );
+            expect( zoidberg.keyframesToCss( options, { 'name' : 'joppe' } ) ).to.eql( ['\n@keyframes joppe {\n   15% {\n     color:    blue;\n   }\n   20%, 10% {\n     color:    green;\n   }\n}'] );
+            expect( zoidberg.keyframesToCss( options ) ).to.eql( ['\n@keyframes jojo {\n   10% {\n     color:    red;\n   }\n}', '\n@keyframes john {\n   1% {\n   }\n}', '\n@keyframes joppe {\n   15% {\n     color:    blue;\n   }\n   20%, 10% {\n     color:    green;\n   }\n}'] );
         } );
 
-        it( 'should call the AST parser with the correct arguments', () =>
+        it( 'should return the css of rules that match the passed state, in the format of the passed options', () =>
         {
-            const ast = zoidberg.keyframesToAst( {} );
+            expect( zoidberg.rulesToCss( options, { 'animation-name' : ['bretzel'] } ) ).to.eql( ['\n     animation-delay:100ms;\n     animation-name:bretzel;\n', '\n     animation-delay:1s, 2s;\n     animation-name:bretzel;\n' ] );
+            expect( zoidberg.rulesToCss( options, { 'animation-delay' : ['30ms'] } ) ).to.eql( ['\n     animation-delay:30ms;\n     animation-name:bier;\n' ] );
+        } );
+
+        it( 'should call the AST parser with the correct arguments when exporting keyframes', () =>
+        {
+            const ast = zoidberg.keyframesToAst( { markers : ['1%'] } );
 
             expect( astExporterSpy ).to.be.calledOnce;
-            expect( astExporterSpy.calledWith( [] ) ).to.be.true;
+            expect( astExporterSpy.calledWith( [ '\n@keyframes john {\n    1% {\n    }\n}' ] ) ).to.be.true;
+        } );
+
+        it( 'should call the AST parser with the correct arguments when exporting rules', () =>
+        {
+            const ast = zoidberg.rulesToAst( { 'animation-name' : ['bier'] } );
+
+            expect( astExporterSpy ).to.be.calledOnce;
+            expect( astExporterSpy.calledWith( [ '.selector { \n        animation-delay:            30ms;\n        animation-name:             bier;\n }' ] ) ).to.be.true;
         } );
 
     } );

@@ -1,5 +1,6 @@
 import groupBy from 'lodash/groupBy';
 import padStart from 'lodash/padStart';
+import map from 'lodash/map';
 import exporterMiddleware from 'exporter/exporterMiddleware';
 import { sortMarkers, buildProperty } from 'helper/exporter.helper';
 
@@ -25,14 +26,14 @@ const exportKeyframesCss = ( states, format ) =>
     */
     const buildKeyframe = ( name, groupedStates ) =>
     {
-        let atRule = `@keyframes ${ name } {\n`;
+        let atRule = `\n@keyframes ${ name } {`;
 
         sortMarkers( groupedStates ).forEach( state =>
         {
             atRule += buildMarkerBlock( state );
         } );
 
-        return atRule += `}\n`;
+        return atRule += `\n}`;
     };
 
 
@@ -47,28 +48,21 @@ const exportKeyframesCss = ( states, format ) =>
     {
         const { markers, props } = state;
         const leftIndent = padStart( '', format.outerIndent );
-        const joinedMarkers = markers.join( ', ' );
 
-        let property = `${ leftIndent }${ joinedMarkers } {\n`;
+        let property = `\n${ leftIndent }${ markers.join( ', ' ) } {`;
 
         for( let prop in props )
         {
-            property += buildProperty( prop, props[prop], format );
+            let builtProperty = buildProperty( prop, props[prop], format );
+
+            if( builtProperty ) property += builtProperty;
         }
 
-        return property += `${ leftIndent }}\n`;
+        return property += `\n${ leftIndent }}`;
     };
 
 
-    const css    = [];
-    const groups = groupBy( states, 'name' );
-
-    for( let name in groups )
-    {
-        css.push( buildKeyframe( name, groups[name] ) );
-    }
-
-    return css;
+    return map( groupBy( states, 'name' ), ( groups, name ) => buildKeyframe( name, groups ) );
 };
 
 export default ( options, state, keyframes ) => exporterMiddleware( options, state, keyframes, exportKeyframesCss );
