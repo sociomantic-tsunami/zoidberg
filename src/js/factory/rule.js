@@ -1,6 +1,7 @@
-import { ruleSetter, ruleGetter, ruleMap } from 'constant/factory.constant';
-import { addSetters, addGetters, getStateHelper, setStateHelper } from 'helper/factory.helper';
 import Factory from 'factory/factory';
+import reduce  from 'lodash/reduce';
+import { ruleSetter, ruleGetter, ruleMap } from 'constant/factory.constant';
+import { addSetters, addGetters, getStateHelper, setStateHelper, valueAtIndex } from 'helper/factory.helper';
 
 
 /**
@@ -84,10 +85,36 @@ const RuleFactory = function ( set, get, valid, getErrors )
     const setState = options => setStateHelper( ruleMap, setters, getErrors, options );
 
 
+    /**
+    * Maps multiple animation rules to a single rule each. Based on the animation
+    * names which belong to the rule.  In such cases where there are not enough
+    * values of a certain animation property to give a separate value to each
+    * animation name, the values cycle from start to finish and are determined
+    * by valueAtIndex.
+    *
+    * @return {Array}                           rule objects
+    */
+    const getEachRule = () =>
+    {
+        const state = getState();
+
+        return state['animation-name'].map( ( animationName, index ) =>
+        {
+            return reduce( state, ( acc, value, prop ) =>
+            {
+                acc[prop] = valueAtIndex( index, value );
+
+                return acc;
+            }, {} );
+        } );
+    };
+
+
     return {
         getErrors,
         getState,
         setState,
+        getEachRule,
         ...getters,
         ...setters
     }

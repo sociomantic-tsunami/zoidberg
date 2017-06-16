@@ -43,11 +43,6 @@ module.exports =
             }
         ]
     },
-    devServer :
-    {
-        // Shows a full screen overlay with any webpack errors instead of the test page
-        overlay : true
-    },
     node:
     {
         fs: 'empty'

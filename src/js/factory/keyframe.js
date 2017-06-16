@@ -1,6 +1,6 @@
+import Factory from 'factory/factory';
 import { keyframeSetter, keyframeGetter, keyframeMap } from 'constant/factory.constant';
 import { addSetters, addGetters, getStateHelper, setStateHelper } from 'helper/factory.helper';
-import Factory from 'factory/factory';
 
 
 /**
