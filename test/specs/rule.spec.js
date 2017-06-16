@@ -17,7 +17,8 @@ describe( 'Animation rule class', function()
         expect( animationRule ).to.have.keys( 'getDelay', 'getErrors', 'getDirection',
         'getFillMode', 'getPlayState', 'getName', 'getTiming', 'getIterationCount',
         'getDuration', 'setDelay', 'setDirection', 'setFillMode','setPlayState',
-        'setName', 'setTiming', 'setIterationCount', 'setDuration', 'getState', 'setState' );
+        'setName', 'setTiming', 'setIterationCount', 'setDuration', 'getState', 'setState',
+        'getEachRule' );
     } );
 
     it( 'should set the options of the current rule in the state, if passed', () =>
@@ -282,6 +283,60 @@ describe( 'Animation rule class', function()
         setRule = animationRule.setFillMode( ['forwards'] );
         expect( animationRule.getFillMode() ).to.eql( ['forwards'] );
         expect( setRule ).to.be.undefined;
+    } );
+
+    it( 'should get each animation rule from the state', () =>
+    {
+        const options =
+        {
+            'animation-delay' : ['1ms'],
+            'animation-direction' : ['reverse', 'alternate'],
+            'animation-name' : ['myAnimation1', 'myAnimation2', 'myAnimation3'],
+            'animation-play-state'      : ['running', 'paused', 'paused'],
+            'animation-timing-function' : ['ease', 'ease-in', 'ease-out', 'linear'],
+        };
+
+        const testRule    = AnimationRule();
+        const setState    = testRule.setState( options );
+        const getEachRule = testRule.getEachRule();
+
+        expect( getEachRule ).to.have.length( 3 );
+        expect( getEachRule[0] ).to.eql(
+        {
+            'animation-delay'           : '1ms',
+            'animation-direction'       : 'reverse',
+            'animation-duration'        : undefined,
+            'animation-fill-mode'       : undefined,
+            'animation-iteration-count' : undefined,
+            'animation-name'            : 'myAnimation1',
+            'animation-play-state'      : 'running',
+            'animation-timing-function' : 'ease'
+        } );
+
+        expect( getEachRule[1] ).to.eql(
+        {
+            'animation-delay'           : '1ms',
+            'animation-direction'       : 'alternate',
+            'animation-duration'        : undefined,
+            'animation-fill-mode'       : undefined,
+            'animation-iteration-count' : undefined,
+            'animation-name'            : 'myAnimation2',
+            'animation-play-state'      : 'paused',
+            'animation-timing-function' : 'ease-in'
+        } );
+
+        expect( getEachRule[2] ).to.eql(
+        {
+            'animation-delay'           : '1ms',
+            'animation-direction'       : 'reverse',
+            'animation-duration'        : undefined,
+            'animation-fill-mode'       : undefined,
+            'animation-iteration-count' : undefined,
+            'animation-name'            : 'myAnimation3',
+            'animation-play-state'      : 'paused',
+            'animation-timing-function' : 'ease-out'
+        } );
+
     } );
 
 } );
