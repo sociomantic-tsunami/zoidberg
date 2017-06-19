@@ -69,7 +69,7 @@ export const getStateHelper = ( rule, getters ) =>
     mapKeys( rule, ( val, i ) =>
     {
         const callbackFn = getters['get' + i];
-        state[val]     = callbackFn();
+        state[val] = callbackFn();
     } );
 
     return state;
@@ -97,4 +97,29 @@ export const setStateHelper = ( rule, setters, getErrors, options = {} ) =>
     } );
 
     return getErrors();
+};
+
+
+/**
+* If the index given is greater than the length of the array, recursively subtracts
+* the array length from the original index in order to determine which array
+* element should be returned. Otherwise, returns the array element given the index.
+*
+* @param {Number}           index                  index
+* @param {Array}            array                  array
+*
+* @param {*}                value                  value at index
+*/
+export const valueAtIndex = ( index, array ) =>
+{
+    if( ! array.length ) return undefined;
+
+    if( index >= array.length )
+    {
+        const newIndex = index - array.length;
+
+        return valueAtIndex( newIndex, array )
+    }
+
+    return array[index];
 };
