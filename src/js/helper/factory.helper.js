@@ -1,4 +1,5 @@
 import mapKeys from 'lodash/mapKeys';
+import { getErrorState } from 'util/validator.js';
 
 
 /**
@@ -88,6 +89,10 @@ export const getStateHelper = ( rule, getters ) =>
 */
 export const setStateHelper = ( rule, setters, getErrors, options = {} ) =>
 {
+    const { valid, errors } = getErrorState( 'options', options );
+
+    if( ! valid ) return errors;
+
     mapKeys( rule, ( val, i ) =>
     {
         const callbackFn = setters['set' + i];

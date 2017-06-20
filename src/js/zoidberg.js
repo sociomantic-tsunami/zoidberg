@@ -2,10 +2,11 @@ import isMatch from 'lodash/isMatch';
 import isEmpty from 'lodash/isEmpty';
 import Rule from 'factory/rule';
 import Keyframe from 'factory/keyframe';
-import exportKeyframesCss from 'exporter/keyframesCss.exporter';
-import exportRulesCss from 'exporter/rulesCss.exporter';
+import exportKeyframesCss from 'exporter/keyframe.css.exporter';
+import exportRulesCss from 'exporter/rule.css.exporter';
 import exportAst from 'exporter/ast.exporter';
 import { find, remove } from 'helper/zoidberg.helper';
+import { getCreateErrorStates } from 'util/validator';
 
 
 export default () =>
@@ -70,41 +71,41 @@ export default () =>
 
 
     /**
-    * Finds keyframes that have a state which matches the passed state.
+    * Finds keyframes that have a state which matches the search state.
     *
-    * @param {Object}           state                 state to compare
+    * @param {Object}           searchState           state to search for
     *
     * @return {Array}                                 found keyframes
     */
-    const findKeyframes = state =>
+    const findKeyframes = searchState =>
     {
-        return find( state, keyframes );
+        return find( searchState, keyframes );
     };
 
 
     /**
-    * Finds rules that have a state which matches the passed state.
+    * Finds rules that have a state which matches the search state.
     *
-    * @param {Object}           state                 state to compare
+    * @param {Object}           searchState           state to search for
     *
     * @return {Array}                                 found rules
     */
-    const findRules = state =>
+    const findRules = searchState =>
     {
-        return find( state, rules );
+        return find( searchState, rules );
     };
 
 
     /**
     * Removes keyframes from the keyframes array.
     *
-    * @param {Object}           state                 state to compare
+    * @param {Object}           searchState           state to search for
     *
     * @return {Array}                                 removed keyframes
     */
-    const removeKeyframes = state =>
+    const removeKeyframes = searchState =>
     {
-        const { removed, remaining } = remove( state, keyframes );
+        const { removed, remaining } = remove( searchState, keyframes );
 
         keyframes = remaining;
 
@@ -115,13 +116,13 @@ export default () =>
     /**
     * Removes animation rules from the rules array.
     *
-    * @param {Object}           state                 state to compare
+    * @param {Object}           searchState           state to search for
     *
     * @return {Array}                                 removed rules
     */
-    const removeRules = state =>
+    const removeRules = searchState =>
     {
-        const { removed, remaining } = remove( state, rules );
+        const { removed, remaining } = remove( searchState, rules );
 
         rules = remaining;
 
@@ -130,64 +131,149 @@ export default () =>
 
 
     /**
-    * Exports the css of keyframes that match the state. If state is undefined,
-    * entire collection is exported.
+    * Exports the css of keyframes that match the search state. If search state
+    * is undefined, entire collection is exported.
     *
-    * @param {Object}           options               rules for formatting
-    * @param {Object}           state                 state of factories to export
+    * @param {Object}           options               formatting options
+    * @param {Object}           searchState           state of factories to search for
     *
     * @return {Array}                                 keyframes css
     */
-    const keyframesToCss = ( options, state ) =>
+    const findKeyframesToCss = ( options, searchState ) =>
     {
-        return exportKeyframesCss( options, state, keyframes );
+        return exportKeyframesCss( options, searchState, keyframes );
     };
 
 
     /**
-    * Exports the ast of keyframes that match the state. If state is undefined,
-    * entire collection is exported.
+    * Exports the css of rules that match the search state. If search state is
+    * undefined, entire collection is exported.
     *
-    * @param {Object}           state                 state of factories to export
+    * @param {Object}           options               formatting options
+    * @param {Object}           searchState           state of factories to search for
+    *
+    * @return {Array}                                 rules css
+    */
+    const findRulesToCss = ( options, searchState ) =>
+    {
+        return exportRulesCss( options, searchState, rules );
+    };
+
+
+    /**
+    * Exports the ast of keyframes that match the search state. If search state
+    * is undefined, entire collection is exported.
+    *
+    * @param {Object}           searchState           state of factories to search for
     *
     * @return {Array}                                 keyframes ast
     */
-    const keyframesToAst = state =>
+    const findKeyframesToAst = searchState =>
     {
-        const css = exportKeyframesCss( {}, state, keyframes );
+        const css = findKeyframesToCss( {}, searchState );
 
         return exportAst( css );
     };
 
 
     /**
-    * Exports the css of rules that match the state. If state is undefined,
-    * entire collection is exported.
+    * Exports the ast of rules that match the search state. If searach state is
+    * undefined, entire collection is exported. Wraps each rule css in a block
+    * statement with a generic selector to allow for ast export.
     *
-    * @param {Object}           options               rules for formatting
-    * @param {Object}           state                 state of factories to export
+    * @param {Object}           searchState           state of factories to search for
     *
-    * @return {Array}                                 rules css
+    * @return {Array}                                 rules ast
     */
-    const rulesToCss = ( options, state ) =>
+    const findRulesToAst = searchState =>
     {
-        return exportRulesCss( options, state, rules );
+        let css = findRulesToCss( {}, searchState );
+        css     = css.map( block => `.selector { ${ block } }` );
+
+        return exportAst( css );
     };
 
 
     /**
-    * Exports the ast of rules that match the state. If state is undefined,
-    * entire collection is exported. Wraps each rule css in a block statement
-    * with a generic selector to allow for ast export.
+    * Exports the css of the given keyframes. If the states to export contain
+    * errors, returns an array of the error states. Otherwise, returns an array
+    * of css.
     *
-    * @param {Object}           state                 state of factories to export
+    * @param {Object}           options               formatting options
+    * @param {Array}            states                states to export
+    *
+    * @return {Array}                                 keyframes css
+    */
+    const keyframesToCss = ( options, states ) =>
+    {
+        const errors = getCreateErrorStates( Keyframe, states );
+
+        if( errors.length ) return errors;
+
+        return exportKeyframesCss( options, states );
+    };
+
+
+    /**
+    * Exports the css of the given rules. If the states to export contain
+    * errors, returns an array of the error states. Otherwise, returns an array
+    * of css.
+    *
+    * @param {Object}           options               formatting options
+    * @param {Array}            states                states to export
+    *
+    * @return {Array}                                 rules css
+    */
+    const rulesToCss = ( options, states ) =>
+    {
+        const errors = getCreateErrorStates( Rule, states );
+
+        if( errors.length ) return errors;
+
+        return exportRulesCss( options, states );
+    };
+
+
+    /**
+    * Exports the ast of the given keyframes. If the states to export contain
+    * errors, returns an array of the error states. Otherwise, returns an array
+    * of ast.
+    *
+    * @param {Object}           options               formatting options
+    * @param {Array}            states                states to export
+    *
+    * @return {Array}                                 keyframes ast
+    */
+    const keyframesToAst = states =>
+    {
+        const css       = keyframesToCss( {}, states );
+        const hasErrors = css.length && css[0].errors;
+
+        if( hasErrors ) return css;
+
+        return exportAst( css );
+    };
+
+
+    /**
+    * Exports the ast of the given rules. Wraps each rule css in a block
+    * statement with a generic selector to allow for ast export. If the states
+    * to export contain errors, returns an array of the error states. Otherwise,
+    * returns an array of css.
+    *
+    * @param {Object}           options               formatting options
+    * @param {Array}            states                states to export
     *
     * @return {Array}                                 rules ast
     */
-    const rulesToAst = state =>
+    const rulesToAst = states =>
     {
-        let css = exportRulesCss( {}, state, rules );
-        css     = css.map( block => `.selector { ${ block } }` );
+        let css         = rulesToCss( {}, states );
+        const hasErrors = css.length && css[0].errors;
+
+        if( hasErrors ) return css;
+
+        css = css.map( block => `.selector { ${ block } }` );
 
         return exportAst( css );
     };
@@ -200,6 +286,10 @@ export default () =>
         findKeyframes,
         removeKeyframes,
         removeRules,
+        findKeyframesToCss,
+        findKeyframesToAst,
+        findRulesToCss,
+        findRulesToAst,
         keyframesToCss,
         keyframesToAst,
         rulesToCss,

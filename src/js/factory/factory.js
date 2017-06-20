@@ -65,12 +65,10 @@ export default function Factory ( state, subFactory )
     */
     const valid = ( prop, val ) =>
     {
-        const oldErrors  = get( 'errors' );
-        const errorState = getErrorState( prop, val, oldErrors );
-        const newErrors  = errorState.errors;
-        const valid      = errorState.valid;
+        const oldErrors = get( 'errors' );
+        const { valid, errors } = getErrorState( prop, val, oldErrors );
 
-        set( 'errors', newErrors );
+        set( 'errors', errors );
 
         return valid;
     };

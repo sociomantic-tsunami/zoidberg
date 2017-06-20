@@ -157,6 +157,11 @@ describe( 'Factory helpers', () =>
             expect( errorsSpy.callCount ).to.equal( 2 );
         } );
 
+        it( 'should return an error if the options passed are not valid', () =>
+        {
+            expect( setStateHelper( rule, setFuncs, errorsSpy, false ) ).to.eql( [ { prop: 'options', msg: 'Options must be a plain object', val: false } ] );
+        } );
+
     } );
 
     describe( 'valueAtIndex', () =>
