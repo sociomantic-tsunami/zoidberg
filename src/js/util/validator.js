@@ -1,5 +1,4 @@
-import { validation, iteration, info, getValidators } from 'constant/validation.constant';
-import isFunction from 'lodash/isFunction';
+import { getValidator } from 'constant/validation.constant';
 
 
 /**
@@ -12,47 +11,33 @@ import isFunction from 'lodash/isFunction';
 */
 export const validate = ( prop, val ) =>
 {
-    const validator = validation[prop] && validation[prop].validator;
-
-    if( ! isFunction( validator ) ) throw new Error( info.validator );
-
-    return validator( val );
+    return getValidator( prop )( val );
 };
 
 
 /**
-* Returns the error state of a validated property. Includes whether the prop
-* is valid and an array of what errors may exist. A prop is valid when all
-* validators and subvalidators return true.
+* Performs validation using the validator associated with the prop and any
+* sub-validators that may exist. Any errors are handled by the given error handler.
 *
-* @param {String}           validator               prop to be validated
+* @param {String}           prop                    prop
 * @param {*}                val                     value
-* @param {Array}            oldErrors               pre-existing errors
+* @param {CallbackFn}       errorHandler            error handler
 *
-* @return {Object}                                  error state
+* @return {Boolean}                                 true, if has error
 */
-export const getErrorState = ( validator, val, oldErrors = [] ) =>
+export const validateDeep = ( prop, val, errorHandler ) =>
 {
-    if( ! validation[validator] ) throw new Error( info.validation );
-
-    let errors = [ ...oldErrors];
-
-    const subValidators = validation[validator]['subValidator'] || [];
-    const validators    = [ ...subValidators, validator];
-
-    const valid = validators.map( prop =>
+    return getValidator( prop, true ).map( validatorInfo =>
     {
-        const iterator = iteration[prop];
-        const isValid  = iterator ? iterator( prop, val ) : validate( prop, val );
+        const { validator, prop : subProp } = validatorInfo;
 
-        errors = errors.filter( err => err.prop !== prop );
+        const valid = validator( subProp, val );
 
-        if( ! isValid ) errors.push( { prop, msg : validation[prop]['msg'], val } );
+        errorHandler.handle( subProp, val, valid );
 
-        return isValid;
+        return valid;
+
     } ).every( Boolean );
-
-    return { errors, valid };
 };
 
 
@@ -63,16 +48,19 @@ export const getErrorState = ( validator, val, oldErrors = [] ) =>
 * @param {CallbackFn}       constructor             factory callback
 * @param {Array}            state                   initial states
 *
-* @return {Array}                                   error state
+* @return {Object}                                  error state
 */
-export const getCreateErrorStates = ( constructor, states ) =>
+export const validateCreate = ( constructor, states ) =>
 {
-    return states.map( state =>
+    const handler = ErrorHandler();
+
+    states.forEach( state =>
     {
         const factory = constructor();
         const errors  = factory.setState( state );
 
-        if( errors ) return { errors };
+        if( errors ) handler.set( errors );
+    } );
 
-    } ).filter( error => error );
+    if( handler.hasErrors() ) return handler.get();
 }

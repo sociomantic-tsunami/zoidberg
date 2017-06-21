@@ -1,4 +1,5 @@
 import Factory from 'factory/factory';
+import ErrorHandler from 'factory/ErrorHandler';
 import reduce  from 'lodash/reduce';
 import { ruleSetter, ruleGetter, ruleMap } from 'constant/factory.constant';
 import { addSetters, addGetters, getStateHelper, setStateHelper, valueAtIndex } from 'helper/factory.helper';
@@ -31,7 +32,7 @@ const RuleState = () =>
         'animation-name'            : [],
         'animation-play-state'      : [],
         'animation-timing-function' : [],
-        errors : []
+        errorHandler                : ErrorHandler();
     }
 };
 

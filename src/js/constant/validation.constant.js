@@ -3,6 +3,7 @@ import isString from 'lodash/isString';
 import isPlainObject from 'lodash/isPlainObject';
 import isFinite from 'lodash/isFinite';
 import isBoolean from 'lodash/isBoolean';
+import isFunction from 'lodash/isFunction';
 import {
     isMarker,
     validateArray,
@@ -25,6 +26,7 @@ import {
 export const info =
 {
     validator  : 'Validator does not exist',
+    iterator   : 'Iterator does not exist',
     validation : 'Validation for prop does not exist'
 };
 
@@ -42,25 +44,6 @@ export const regex =
     fillMode  : /^(none|forwards|backwards|both)$/,
     playState : /^(running|paused|inherit|initial|unset)$/,
     timing    : /^(ease|ease-in|ease-out|ease-in-out|linear|step-start|step-end|initial|inherit|unset)$/
-};
-
-
-/**
-* Iterator callback mapping
-*
-* @property {callbackFn}         mapping.<prop>          iterator callback
-*/
-export const iteration =
-{
-    'marker'          : validateArray,
-    'delay'           : validateArray,
-    'direction'       : validateArray,
-    'duration'        : validateArray,
-    'fillMode'        : validateArray,
-    'playState'       : validateArray,
-    'timing'          : validateArray,
-    'iterationCount'  : validateArray,
-    'requiredStrings' : validateArray
 };
 
 
@@ -152,54 +135,63 @@ export const validation =
     'marker' :
     {
         validator : isMarker,
+        iterator  : validateArray,
         msg : 'Marker must be from, to or a string value with percent'
     },
 
     'delay' :
     {
         validator : isTime,
+        iterator  : validateArray,
         msg : 'Animation delays must be a string of numbers followed by s or ms'
     },
 
     'direction' :
     {
         validator : isDirection,
+        iterator  : validateArray,
         msg : 'Animation direction must be one of normal, reverse, alternate, alternate-reverse, inherit, initial or unset'
     },
 
     'duration' :
     {
         validator : isTime,
+        iterator  : validateArray,
         msg : 'Animation duration must be a string of numbers followed by s or ms'
     },
 
     'fillMode' :
     {
         validator : isFillMode,
+        iterator  : validateArray,
         msg : 'Animation fill mode must be one of both, none, forwards or backwards'
     },
 
     'playState' :
     {
         validator : isPlayState,
+        iterator  : validateArray,
         msg : 'Animation play state must be one of running, paused, inherit, initial or unset'
     },
 
     'timing' :
     {
         validator : isTiming,
+        iterator  : validateArray,
         msg : 'Animation timing function must be a cubic bezier or step function or one of ease, ease-in, ease-out, ease-in-out, linear, step-start, step-end, initial, inherit or unset'
     },
 
     'iterationCount' :
     {
         validator : isIterationCount,
+        iterator  : validateArray,
         msg : 'Animation iteration count must be infinite or a string of finite numbers'
     },
 
     'requiredStrings' :
     {
         validator : isNonEmptyString,
+        iterator  : validateArray,
         msg : 'Required string values'
     },
 
@@ -242,4 +234,42 @@ export const validation =
         msg : 'Shorthand must be a boolean'
     }
 
+};
+
+
+/**
+* Returns the validators associated with the prop. Throws errors if there is no
+* validator for the prop or if the validator or iterator is not a function.
+*
+* @param {String}                prop                    prop to validate
+* @param {Boolean}               useSubValidator         true, if subValidators will be used
+*
+* @return {Function|Array}                               validator or array of validator objects
+*/
+export const getValidator = ( prop, useSubValidator ) =>
+{
+    if( ! validation[prop] ) throw new Error( info.validation );
+
+    let validator = validation[prop].validator;
+
+    if( ! isFunction( validator ) ) throw new Error( info.validator );
+
+    const iterator = validator[prop].iterator;
+
+    if( ! isFunction( iterator ) ) throw new Error( info.iterator );
+
+    if( iterator ) validator = iterator( validator );
+
+    if( useSubValidator )
+    {
+        const subValidator  = validation[prop].subValidator || [];
+        const subValidators = subValidator.map( subProp =>
+        {
+            return { prop : subProp, validator : getValidator( subProp ) }
+        } );
+
+        return [ ...subValidators, { prop, validator } ];
+    }
+
+    return validator;
 };
