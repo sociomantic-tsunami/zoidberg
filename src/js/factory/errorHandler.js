@@ -6,16 +6,17 @@ import { validation } from 'constant/validation.constant';
 *
 * Handler for managing Zoidberg errors.
 *
-* @param {Array}           errors           errors
+* @param    {Object}                                   error state
+* @property {Array}             state.errors           errors to set
 */
 export default function ErrorHandler ( errors )
 {
 
     /**
-    * Error state of the error handler
+    * Error state of the handler.
     *
-    * @typedef  {Object}                                       error state
-    * @property {Array}    state.errors                        current errors
+    * @typedef  {Object}                               error state
+    * @property {Array}         state.errors           current errors
     */
     let errorState =
     {
@@ -34,9 +35,15 @@ export default function ErrorHandler ( errors )
     /**
     * Sets the errors in the state.
     *
-    * @param {Array}            errors                errors
+    * @param    {Object}                               state
+    * @property {Array}         state.errors           errors to set
     */
-    const set = errors => errorState.errors = [ ...errorState.errors, ...errors];
+    const set = state =>
+    {
+        const { errors } = state;
+
+        errorState.errors = [ ...errorState.errors, ...errors];
+    };
 
 
     /**
@@ -48,7 +55,7 @@ export default function ErrorHandler ( errors )
     {
         const { errors } = errorState;
 
-        return errors.length;
+        return !! errors.length;
     };
 
 
@@ -83,21 +90,22 @@ export default function ErrorHandler ( errors )
 
 
     /**
-    * Handles new and existing error objects in the error state.
+    * Handles new and existing errors. Removes existing errors that match the
+    * given prop. If the valid param is false, add a new error to the error state.
     *
     * @param {String}           prop                    prop
     * @param {*}                val                     value
-    * @param {Boolean}          valid                   true, if val is valid
+    * @param {Boolean}          valid                   true, if value is valid
     */
-    const handle = ( prop, val, valid )
+    const handle = ( prop, val, valid ) =>
     {
         remove( prop );
 
         if( ! valid ) add( prop, val );
     };
 
-
     if( errors ) set( errors );
+
 
     return {
         set,

@@ -1,5 +1,5 @@
 import mapKeys from 'lodash/mapKeys';
-import ErrorHandler from 'factory/ErrorHandler';
+import ErrorHandler from 'factory/errorHandler';
 import { validateDeep } from 'util/validator.js';
 
 

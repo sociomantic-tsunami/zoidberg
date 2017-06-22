@@ -254,11 +254,14 @@ export const getValidator = ( prop, useSubValidator ) =>
 
     if( ! isFunction( validator ) ) throw new Error( info.validator );
 
-    const iterator = validator[prop].iterator;
+    const iterator = validation[prop].iterator;
 
-    if( ! isFunction( iterator ) ) throw new Error( info.iterator );
+    if( iterator )
+    {
+        if( ! isFunction( iterator ) ) throw new Error( info.iterator );
 
-    if( iterator ) validator = iterator( validator );
+        validator = iterator( validator );
+    }
 
     if( useSubValidator )
     {

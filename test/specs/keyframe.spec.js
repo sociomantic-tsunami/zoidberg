@@ -42,6 +42,7 @@ describe( 'Keyframe factory', () =>
         const options      = { name : 'Joppe' };
         const testKeyframe = Keyframe();
         const setState     = testKeyframe.setState( options );
+
         testKeyframe.setState( options );
 
         expect( testKeyframe.getName() ).to.equal( 'Joppe' );
@@ -52,12 +53,7 @@ describe( 'Keyframe factory', () =>
     {
         let setName = keyframe.setName( 9 );
         expect( keyframe.getName() ).to.equal( '' );
-        expect( setName ).to.eql( [
-            {
-                prop: 'name',
-                msg: 'Name must be a defined string',
-                val: 9
-            } ] );
+        expect( setName ).to.eql( { errors : [ { prop: 'name', msg: 'Name must be a defined string', val: 9 } ] } );
 
         setName = keyframe.setName( 'Kristina' );
         expect( keyframe.getName() ).to.equal( 'Kristina' );
@@ -78,21 +74,11 @@ describe( 'Keyframe factory', () =>
     {
         let setMarkers = keyframe.setMarkers( [25] );
         expect( keyframe.getMarkers() ).to.eql( [] );
-        expect( setMarkers ).to.eql( [
-            {
-                prop: 'marker',
-                msg: 'Marker must be from, to or a string value with percent',
-                val: [ 25 ]
-            } ] );
+        expect( setMarkers ).to.eql( { errors : [ { prop: 'marker', msg: 'Marker must be from, to or a string value with percent', val: [25] } ] } );
 
         setMarkers = keyframe.setMarkers( [25, '25%'] );
         expect( keyframe.getMarkers() ).to.eql( [] );
-        expect( setMarkers ).to.eql( [
-            {
-                prop: 'marker',
-                msg: 'Marker must be from, to or a string value with percent',
-                val: [ 25, '25%' ]
-            } ] );
+        expect( setMarkers ).to.eql( { errors : [ { prop: 'marker', msg: 'Marker must be from, to or a string value with percent', val: [25, '25%'] } ] } );
 
         setMarkers = keyframe.setMarkers( ['25%'] );
         expect( keyframe.getMarkers() ).to.eql( ['25%'] );

@@ -1,4 +1,5 @@
 import Factory from 'factory/factory';
+import ErrorHandler from 'factory/errorHandler';
 
 
 describe( 'Base Factory', () =>
@@ -41,19 +42,19 @@ describe( 'Base Factory', () =>
         expect( factory.getState() ).to.eql( { nested : [ { nested : { nested : 'I am so nested', array : [] } } ] } );
     } );
 
-    it( 'should validate a prop by setting any new errors in the state and returning a boolean', () =>
+    it( 'should validate a prop by setting any new errors in the error handler and returning a boolean', () =>
     {
-        state   = { errors : [] };
+        state   = { errorHandler : ErrorHandler() };
         factory = Factory( state, subFactory );
 
         expect( factory.valid( 'name', 1 ) ).to.be.false;
-        expect( factory.getErrors() ).to.eql( [ { prop : 'name', msg : 'Name must be a defined string', val : 1 } ] );
+        expect( factory.getErrors() ).to.eql( { errors : [ { prop : 'name', msg : 'Name must be a defined string', val : 1 } ] } );
         expect( factory.valid( 'name', 'Zsolt' ) ).to.be.true;
         expect( factory.getErrors() ).to.be.undefined;
         expect( factory.valid( 'animation-name', [] ) ).to.be.false;
-        expect( factory.getErrors() ).to.eql( [ { prop: 'requiredLength', msg: 'Required values', val: [] } ] );
+        expect( factory.getErrors() ).to.eql( { errors : [ { prop: 'requiredLength', msg: 'Required values', val: [] } ] } );
         expect( factory.valid( 'animation-name', [1] ) ).to.be.false;
-        expect( factory.getErrors() ).to.eql( [ { prop: 'requiredStrings', msg: 'Required string values', val: [1] } ] );
+        expect( factory.getErrors() ).to.eql( { errors : [ { prop: 'requiredStrings', msg: 'Required string values', val: [1] } ] } );
         expect( factory.valid( 'animation-name', ['bounce'] ) ).to.be.true;
         expect( factory.getErrors() ).to.be.undefined;
     } );

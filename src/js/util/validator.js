@@ -1,4 +1,5 @@
 import { getValidator } from 'constant/validation.constant';
+import ErrorHandler from 'factory/errorHandler';
 
 
 /**
@@ -31,7 +32,7 @@ export const validateDeep = ( prop, val, errorHandler ) =>
     {
         const { validator, prop : subProp } = validatorInfo;
 
-        const valid = validator( subProp, val );
+        const valid = validator( val );
 
         errorHandler.handle( subProp, val, valid );
 

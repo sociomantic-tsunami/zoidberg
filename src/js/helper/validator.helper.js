@@ -150,24 +150,22 @@ export const isNonEmptyArray = val =>
 
 
 /**
-* Returns a curried validator which validates an array by using its validator on
-* each value.
+* Returns a curried validator which is used on each value in an array.
 *
 * @param {CallbackFn}       validator               validator
-* @param {String}           prop                    prop to be validated
 * @param {Array}            values                  values
 *
 * @return {Boolean}                                 true, if valid
 */
-export const validateArray = ( validator, prop, values ) =>
+export const validateArray = ( validator, values ) =>
 {
-    return ( prop, values ) =>
+    return values =>
     {
         if( ! isArray( values ) ) return false;
 
         const validated = values.map( value =>
         {
-            return validator( prop, value );
+            return validator( value );
         } );
 
         return validated.every( Boolean );

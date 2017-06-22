@@ -1,5 +1,6 @@
-import { validate, getErrorState, getCreateErrorStates } from 'util/validator';
+import { validate, validateDeep, validateCreate } from 'util/validator';
 import Keyframe from 'factory/keyframe';
+import ErrorHandler from 'factory/errorHandler';
 
 
 describe( 'Validator', () =>
@@ -8,12 +9,7 @@ describe( 'Validator', () =>
     describe( 'validate', () =>
     {
 
-        it( 'should throw an error if the validator is not a function', () =>
-        {
-            expect( () => { validate( 'date', 'today' ) } ).to.throw( Error, 'Validator does not exist' );
-        } );
-
-        it( 'should return a boolean regarding the outcome of validation', () =>
+        it( 'should return a boolean describing the outcome of validation', () =>
         {
             expect( validate( 'name', 'I am a name' ) ).to.be.true;
             expect( validate( 'name', 9 ) ).to.be.false;
@@ -21,44 +17,27 @@ describe( 'Validator', () =>
 
     } );
 
-    describe( 'getErrorState', () =>
+    describe( 'validateDeep', () =>
     {
+        let handler, handlerStub;
 
-        let oldErrors;
-
-        beforeEach( () =>
+        before( () =>
         {
-            oldErrors =
-            [
-                { prop : 'name',   val : 9, msg : 'Name must be a string' } ,
-                { prop : 'markers', val : '10', msg : 'Markers must be an array' }
-            ];
+            handler = ErrorHandler();
+            handlerStub = sinon.stub( handler, 'handle' );
         } );
 
-        it( 'should throw an error if there is no validator for the prop', () =>
+        it( 'Should return a boolean decribing the outcome of validation using both validators and sub-validators of the prop', () =>
         {
-            expect( () => { getErrorState( 'date', 'today' ) } ).to.throw( Error, 'Validation for prop does not exist' );
-        } );
-
-        it( 'If prop is valid, should return an object that has valid set as true and an errors array with related errors removed', () =>
-        {
-            const state = getErrorState( 'name', 'Jolene', oldErrors );
-
-            expect( state.errors ).to.have.length( 1 );
-            expect( state.valid ).to.be.true;
-        } );
-
-        it( 'If prop is invalid, should return an object that has valid set as false and an errors array with related errors added', () =>
-        {
-            const state = getErrorState( 'markers', '11', oldErrors );
-
-            expect( state.errors ).to.have.length( 3 );
-            expect( state.valid ).to.be.false;
+            expect( validateDeep( 'animation-name', 9, handler ) ).to.be.false;
+            expect( validateDeep( 'animation-name', [9], handler ) ).to.be.false;
+            expect( validateDeep( 'animation-name', ['jolene'], handler ) ).to.be.true;
+            expect( handlerStub ).to.have.been.calledThrice;
         } );
 
     } );
 
-    describe( 'getCreateErrorStates', () =>
+    describe( 'validateCreate', () =>
     {
 
         let testState1, testState2;
@@ -69,10 +48,10 @@ describe( 'Validator', () =>
             testState2 = { name : 'jiggle', markers : [10], props : { display : 'block' } };
         } );
 
-        it( 'should return an array of errors if any exist when using the given factory callback', () =>
+        it( 'should return an errors object if errors exist when setting a factory state, otherwise undefined', () =>
         {
-            expect( getCreateErrorStates( Keyframe, [testState1] ) ).to.eql( [] );
-            expect( getCreateErrorStates( Keyframe, [testState1, testState2] ) ).to.eql( [ { errors : [ { msg : 'Marker must be from, to or a string value with percent', prop : 'marker', val : [10] } ] } ] );
+            expect( validateCreate( Keyframe, [testState1] ) ).to.be.undefined;
+            expect( validateCreate( Keyframe, [testState1, testState2] ) ).to.eql( { errors : [ { msg : 'Marker must be from, to or a string value with percent', prop : 'marker', val : [10] } ] } );
         } );
 
     } );
