@@ -30,6 +30,7 @@ export const sortMarkers = states =>
 *
 * @param {String}        prop                      property name
 * @param {Array|String}  val                       property value
+* @param {Object}        options                   formatting options
 *
 * @return {String}                                 CSS property value pair
 */

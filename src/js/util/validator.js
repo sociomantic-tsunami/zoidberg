@@ -46,19 +46,18 @@ export const validateDeep = ( prop, val, errorHandler ) =>
 * Returns the error states when setting the initial state of a new factory, if it
 * exists. Includes which props failed and an array of what errors may exist.
 *
-* @param {CallbackFn}       constructor             factory callback
+* @param {CallbackFn}       factory                 factory callback
 * @param {Array}            state                   initial states
 *
 * @return {Object}                                  error state
 */
-export const validateCreate = ( constructor, states ) =>
+export const validateCreate = ( factory, states ) =>
 {
     const handler = ErrorHandler();
 
     states.forEach( state =>
     {
-        const factory = constructor();
-        const errors  = factory.setState( state );
+        const errors = factory().setState( state );
 
         if( errors ) handler.set( errors );
     } );
