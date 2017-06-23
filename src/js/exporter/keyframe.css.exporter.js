@@ -20,8 +20,8 @@ const exporter = ( options, states ) =>
     /**
     * Builds an @keyframe css rule.
     *
-    * @param {String}         name                   name of keyframe
     * @param {Object}         group                  factory states grouped by name
+    * @param {String}         name                   name of keyframe
     *
     * @return {String}                               @keyframe css rules
     */

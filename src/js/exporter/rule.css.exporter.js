@@ -25,16 +25,16 @@ const exporter = ( options, states ) =>
     {
         return states.map( rule =>
         {
-            let properties = '';
-
-            shorthandRuleOrder.forEach( prop =>
+            const properties = shorthandRuleOrder.reduce( ( acc, prop ) =>
             {
-                const value = rule[prop];
+                const value = rule[prop][0];
 
-                if( value.length ) properties += `${ value[0] } `;
-            } );
+                if( value !== void 0 ) acc.push( value );
 
-            return properties.trim();
+                return acc;
+            }, [] );
+
+            return properties.join( ' ' );
         } );
     };
 
