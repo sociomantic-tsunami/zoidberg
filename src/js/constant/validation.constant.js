@@ -271,7 +271,7 @@ export const getValidator = ( prop, useSubValidator ) =>
             return { prop : subProp, validator : getValidator( subProp ) }
         } );
 
-        return [ ...subValidators, { prop, validator } ];
+        return [ ...subValidators, { prop, validator }];
     }
 
     return validator;

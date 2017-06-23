@@ -83,7 +83,7 @@ export const getStateHelper = ( rule, getters ) =>
 *
 * @param {Object}           options            options to set
 * @param {Object}           rule               callback constants
-* @param {callbackFn}       setters            getter callbacks
+* @param {callbackFn}       setters            setter callbacks
 * @param {callbackFn}       getErrors          error getter callback
 *
 * @return {Array|undefined}                    errors|undefined
