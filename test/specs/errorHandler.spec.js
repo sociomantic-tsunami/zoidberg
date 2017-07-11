@@ -27,12 +27,7 @@ describe( 'Error Handler Factory', () =>
     it( 'should set errors states in the error handler', () =>
     {
         errorHandler.set( errors2 );
-        expect( errorHandler.get() ).to.eql( { errors :
-        [
-            { prop : 'banana', msg : 'I am bruised', val : 0 },
-            { prop : 'banana', msg : 'I am too ripe', val : 1 },
-            { prop : 'strawberry', msg : 'I am moldy', val : [1] }]
-        } );
+        expect( errorHandler.get() ).to.eql( { errors : [ ...errors1.errors, ...errors2.errors] } );
     } );
 
     it( 'should return a boolean describing if the handler state has errors', () =>

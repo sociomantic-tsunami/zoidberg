@@ -9,7 +9,11 @@ import { sortMarkers, buildProperty } from 'helper/exporter.helper';
 /**
 * Keyframes CSS exporter.
 *
-* @param {Object}            options                rules for formatting
+* @param {Object}           options                css formatting options
+* @property {Number}        options.outerIndent    top-level indent
+* @property {Number}        options.innerIndent    nested indent
+* @property {Number}        options.rpad           rpad between property and value
+* @property {Boolean}       options.shorthand      shorthand version, if it exists
 * @param {Array}             states                 states of factories to export
 *
 * @return {Array}                                   css

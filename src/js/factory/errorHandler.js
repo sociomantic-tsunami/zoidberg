@@ -2,87 +2,87 @@ import { validation } from 'constant/validation.constant';
 
 
 /**
-* Error Handler
+* Error Handler Factory
 *
 * Handler for managing Zoidberg errors.
 *
-* @param    {Object}                                   error state
-* @property {Array}             state.errors           errors to set
+* @param    {Object}            state                 error state
+* @property {Array}             state.errors          errors
 */
-export default function ErrorHandler ( errors )
+const ErrorHandlerFactory = function ( errorState )
 {
 
     /**
-    * Error state of the handler.
+    * State of the error handler.
     *
-    * @typedef  {Object}                               error state
+    * @typedef  {Object}        state                  error state
     * @property {Array}         state.errors           current errors
     */
-    let errorState =
+    let state =
     {
         errors : []
     };
 
 
     /**
-    * Gets the error state.
+    * Gets the state.
     *
     * @return {Object}                                 error state
     */
-    const get = () => errorState;
+    const get = () => state;
 
 
     /**
     * Sets the errors in the state.
     *
-    * @param    {Object}                               state
-    * @property {Array}         state.errors           errors to set
+    * @param    {Object}        errorState             error state
+    * @property {Array}         state.errors           errors
     */
-    const set = state =>
+    const set = errorState =>
     {
-        const { errors } = state;
+        const { errors } = errorState;
 
-        errorState.errors = [ ...errorState.errors, ...errors];
+        state.errors = [ ...state.errors, ...errors];
     };
 
 
     /**
-    * Determines whether there are error objects in the handler error state.
+    * Determines whether there are error objects in the handler state.
     *
     * @return {Boolean}                                 true, if has errors
     */
     const hasErrors = () =>
     {
-        const { errors } = errorState;
+        const { errors } = state;
 
         return !! errors.length;
     };
 
 
     /**
-    * Removes error objects from the error state.
+    * Removes error objects from the state.
     *
     * @param {String}           prop                    prop
     * @param {*}                val                     value
     */
     const remove = prop =>
     {
-        const { errors } = errorState;
+        const { errors } = state;
         const newErrors  = errors.filter( err => err.prop !== prop );
 
-        errorState = { errors : newErrors };
+        state = { errors : newErrors };
     };
 
 
     /**
-    * Adds error objects to the error state.
+    * Adds error objects to the state.
     *
     * @param {String}           prop                    prop
     * @param {*}                val                     value
     */
     const add = ( prop, val ) =>
     {
-        const { errors }  = errorState;
+        const { errors }  = state;
         const errorObject = { prop, val, msg : validation[prop].msg };
 
         errors.push( errorObject );
@@ -91,7 +91,7 @@ export default function ErrorHandler ( errors )
 
     /**
     * Handles new and existing errors. Removes existing errors that match the
-    * given prop. If the valid param is false, add a new error to the error state.
+    * given prop. If the valid param is false, add a new error to the state.
     *
     * @param {String}           prop                    prop
     * @param {*}                val                     value
@@ -104,8 +104,8 @@ export default function ErrorHandler ( errors )
         if( ! valid ) add( prop, val );
     };
 
-    if( errors ) set( errors );
 
+    if( errorState ) set( errorState );
 
     return {
         set,
@@ -117,3 +117,5 @@ export default function ErrorHandler ( errors )
     }
 
 };
+
+export default ( errorState ) => ErrorHandlerFactory( errorState );
