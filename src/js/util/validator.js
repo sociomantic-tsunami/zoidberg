@@ -31,7 +31,7 @@ export const validate = ( prop, val ) =>
 *
 * @return {Object}                                  error state
 */
-export const getErrorState = ( validator, val, oldErrors ) =>
+export const getErrorState = ( validator, val, oldErrors = [] ) =>
 {
     if( ! validation[validator] ) throw new Error( info.validation );
 
@@ -54,3 +54,25 @@ export const getErrorState = ( validator, val, oldErrors ) =>
 
     return { errors, valid };
 };
+
+
+/**
+* Returns the error states when setting the initial state of a new factory, if it
+* exists. Includes which props failed and an array of what errors may exist.
+*
+* @param {CallbackFn}       factory                 factory callback
+* @param {Array}            state                   initial states
+*
+* @return {Array}                                   error state
+*/
+export const getCreateErrorStates = ( factory, states ) =>
+{
+    return states.reduce( ( acc, state ) =>
+    {
+        const errors = factory().setState( state );
+
+        if( errors ) acc.push( { errors } );
+
+        return acc;
+    }, [] );
+}

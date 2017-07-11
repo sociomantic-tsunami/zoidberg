@@ -14,7 +14,7 @@ import padEnd from 'lodash/padEnd';
 export const sortMarkers = states =>
 {
     return [ ...states]
-    .filter( state => state.markers.length )
+    .filter( state => state.markers && state.markers.length )
     .sort( ( a, b ) =>
     {
         const markerA = parseInt( a.markers[0], 10 );
@@ -30,15 +30,16 @@ export const sortMarkers = states =>
 *
 * @param {String}        prop                      property name
 * @param {Array|String}  val                       property value
+* @param {Object}        options                   formatting options
 *
 * @return {String}                                 CSS property value pair
 */
-export const buildProperty = ( prop, val, format ) =>
+export const buildProperty = ( prop, val, options ) =>
 {
-    const { innerIndent, rpad } = format;
+    const { innerIndent, rpad } = options;
 
     if( isArray( val ) ) val = val.join( ', ' );
-    if( val === '' ) return;
+    if( val === '' || val === undefined ) return;
 
     const leftIndent = padStart( '', innerIndent );
     const property   = padEnd( prop + ':', rpad );

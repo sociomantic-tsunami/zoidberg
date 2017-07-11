@@ -102,7 +102,9 @@ const RuleFactory = function ( set, get, valid, getErrors )
         {
             return reduce( state, ( acc, value, prop ) =>
             {
-                acc[prop] = valueAtIndex( index, value );
+                const val = valueAtIndex( index, value );
+
+                if( val !== void 0 ) acc[prop] = [val];
 
                 return acc;
             }, {} );

@@ -1,4 +1,5 @@
-import { validate, getErrorState } from 'util/validator';
+import { validate, getErrorState, getCreateErrorStates } from 'util/validator';
+import Keyframe from 'factory/keyframe';
 
 
 describe( 'Validator', () =>
@@ -6,6 +7,7 @@ describe( 'Validator', () =>
 
     describe( 'validate', () =>
     {
+
         it( 'should throw an error if the validator is not a function', () =>
         {
             expect( () => { validate( 'date', 'today' ) } ).to.throw( Error, 'Validator does not exist' );
@@ -56,6 +58,23 @@ describe( 'Validator', () =>
 
     } );
 
+    describe( 'getCreateErrorStates', () =>
+    {
+
+        let testState1, testState2;
+
+        before( () =>
+        {
+            testState1 = { name : 'jump', markers : ['10%', '50%'], props : { display : 'inline' } };
+            testState2 = { name : 'jiggle', markers : [10], props : { display : 'block' } };
+        } );
+
+        it( 'should return an array of errors if any exist when using the given factory callback', () =>
+        {
+            expect( getCreateErrorStates( Keyframe, [testState1] ) ).to.eql( [] );
+            expect( getCreateErrorStates( Keyframe, [testState1, testState2] ) ).to.eql( [ { errors : [ { msg : 'Marker must be from, to or a string value with percent', prop : 'marker', val : [10] } ] } ] );
+        } );
+
+    } );
+
 } );
-
-

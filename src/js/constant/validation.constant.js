@@ -222,6 +222,24 @@ export const validation =
     'rpad' :
     {
         validator : isFinite
+    },
+
+    'searchState' :
+    {
+        validator : isPlainObject,
+        msg : 'Search state must be a plain object'
+    },
+
+    'options' :
+    {
+        validator : isPlainObject,
+        msg : 'Options must be a plain object'
+    },
+
+    'shorthand' :
+    {
+        validator : isBoolean,
+        msg : 'Shorthand must be a boolean'
     }
 
 };

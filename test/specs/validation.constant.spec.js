@@ -13,21 +13,21 @@ describe( 'Validation constants', () =>
 
     it( 'should have validation objects', () =>
     {
-        expect( Object.keys( validation ) ).to.have.length( 24 );
+        expect( Object.keys( validation ) ).to.have.length( 27 );
     } );
 
     it( 'should each have a validator function', () =>
     {
         const validators = entries.filter( pair => typeof pair[1].validator === 'function' );
 
-        expect( validators ).to.have.length( 24 );
+        expect( validators ).to.have.length( 27 );
     } );
 
     it( 'should each have a validator message', () =>
     {
         const messages = entries.filter( pair => pair[1].msg );
 
-        expect( messages ).to.have.length( 21 );
+        expect( messages ).to.have.length( 24 );
     } );
 
     describe( 'info', () =>
