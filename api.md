@@ -56,8 +56,6 @@ Creates and returns a new keyframe. The new keyframe is stored in an internal ke
 Find
 ----
 
-----
-
 ```js
 findRules( searchState )
 ```
@@ -65,7 +63,7 @@ Finds rules in the internal rule collection that have a state which matches `sea
 
 **Arguments**
 
-`searchState` *{Object}*: State to search for. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid rule state properties and values. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 **Returns**
 
@@ -80,7 +78,7 @@ Finds keyframes in the internal keyframe collection that have a state which matc
 
 **Arguments**
 
-`searchState` *{Object}*: State to search for. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid keyframe state properties and values. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 **Returns**
 
@@ -98,7 +96,7 @@ Finds and removes rules in the internal rule collection that have a state which 
 
 **Arguments**
 
-`searchState` *{Object}*: State to search for. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid rule state properties and values. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 **Returns**
 
@@ -113,7 +111,7 @@ Finds and removes keyframes in the internal keyframe collection that have a stat
 
 **Arguments**
 
-`searchState` *{Object}*: State to search for. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid keyframe state properties and values. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 **Returns**
 
@@ -138,7 +136,7 @@ Finds and exports rules in the internal rule collection that have a state which 
 - `rpad` *{Number}*: padding from the right of a value to a css property
 - `shorthand` *{Boolean}*: if true, exports the first rule of each found rule *{Object}* in shorthand css animation form.
 
-`searchState` *{Object}*: State to search for. If `searchState` is undefined, the entire rule collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid rule state properties and values. If `searchState` is undefined, the entire rule collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 
 **Returns**
@@ -161,7 +159,7 @@ Finds and exports keyframes in the interanl keyframe collection that have a stat
 - `innerIndent` *{Number}*: indent within the curly brackets which hold a css property
 - `rpad` *{Number}*: padding from the right of a value to a css property
 
-`searchState` *{Object}*: State to search for. If `searchState` is undefined, the entire keyframe collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid keyframe state properties and values. If `searchState` is undefined, the entire keyframe collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 
 **Returns**
@@ -178,7 +176,7 @@ Finds and exports rules in the internal rule collection that have a state which 
 
 **Arguments**
 
-`searchState` *{Object}*: State to search for. If `searchState` is undefined, the entire rule collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid rule state properties and values. If `searchState` is undefined, the entire rule collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 **Returns**
 
@@ -194,7 +192,7 @@ Finds and exports keyframes in the internal keyframe collection that have a stat
 
 **Arguments**
 
-`searchState` *{Object}*: State to search for. If `searchState` is undefined, the entire keyframe collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid keyframe state properties and values. If `searchState` is undefined, the entire keyframe collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 **Returns**
 
