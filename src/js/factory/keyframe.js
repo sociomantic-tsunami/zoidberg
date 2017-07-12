@@ -1,4 +1,5 @@
 import Factory from 'factory/factory';
+import ErrorHandler from 'factory/errorHandler';
 import { keyframeSetter, keyframeGetter, keyframeMap } from 'constant/factory.constant';
 import { addSetters, addGetters, getStateHelper, setStateHelper } from 'helper/factory.helper';
 
@@ -17,10 +18,10 @@ import { addSetters, addGetters, getStateHelper, setStateHelper } from 'helper/f
 const KeyframeState = () =>
 {
     return {
-        name    : '',
-        props   : {},
-        markers : [],
-        errors  : []
+        name         : '',
+        props        : {},
+        markers      : [],
+        errorHandler : ErrorHandler()
     }
 };
 

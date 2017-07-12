@@ -136,17 +136,17 @@ describe( 'Animation rule class', function()
     {
         let setRule = animationRule.setDelay( '9' );
         expect( animationRule.getDelay() ).to.eql( [] );
-        expect( setRule ).to.eql( [
-            {
-                prop: 'delay',
-                msg: 'Animation delays must be a string of numbers followed by s or ms',
-                val: '9'
-            },
-            {
-                prop: 'animation-delay',
-                msg: 'Animation delay must be an array',
-                val: '9'
-            } ] );
+        expect( setRule ).to.eql( { errors : [
+        {
+            prop: 'delay',
+            msg: 'Animation delays must be a string of numbers followed by s or ms',
+            val: '9'
+        },
+        {
+            prop: 'animation-delay',
+            msg: 'Animation delay must be an array',
+            val: '9'
+        } ] } );
 
         setRule = animationRule.setDelay( ['9s'] );
         expect( animationRule.getDelay() ).to.eql( ['9s'] );
@@ -157,17 +157,17 @@ describe( 'Animation rule class', function()
     {
         let setRule = animationRule.setDirection( 'reverse' );
         expect( animationRule.getDirection() ).to.eql( [] );
-        expect( setRule ).to.eql( [
-            {
-                prop: 'direction',
-                msg: 'Animation direction must be one of normal, reverse, alternate, alternate-reverse, inherit, initial or unset',
-                val: 'reverse'
-            },
-            {
-                prop: 'animation-direction',
-                msg: 'Animation direction must be an array',
-                val: 'reverse'
-            } ] );
+        expect( setRule ).to.eql( { errors : [
+        {
+            prop: 'direction',
+            msg: 'Animation direction must be one of normal, reverse, alternate, alternate-reverse, inherit, initial or unset',
+            val: 'reverse'
+        },
+        {
+            prop: 'animation-direction',
+            msg: 'Animation direction must be an array',
+            val: 'reverse'
+        } ] } );
 
         setRule = animationRule.setDirection( ['reverse'] );
         expect( animationRule.getDirection() ).to.eql( ['reverse'] );
@@ -178,22 +178,22 @@ describe( 'Animation rule class', function()
     {
         let setRule = animationRule.setName( {} );
         expect( animationRule.getName() ).to.eql( [] );
-        expect( setRule ).to.eql( [
-            {
-                prop: 'requiredLength',
-                msg: 'Required values',
-                val: {}
-            },
-            {
-                prop: 'requiredStrings',
-                msg: 'Required string values',
-                val: {}
-            },
-            {
-                prop: 'animation-name',
-                msg: 'Animation name must be an array',
-                val: {}
-            } ] );
+        expect( setRule ).to.eql( { errors : [
+        {
+            prop: 'requiredLength',
+            msg: 'Required values',
+            val: {}
+        },
+        {
+            prop: 'requiredStrings',
+            msg: 'Required string values',
+            val: {}
+        },
+        {
+            prop: 'animation-name',
+            msg: 'Animation name must be an array',
+            val: {}
+        } ] } );
 
         setRule = animationRule.setName( ['myName'] );
         expect( animationRule.getName() ).to.eql( ['myName'] );
@@ -204,12 +204,12 @@ describe( 'Animation rule class', function()
     {
         let setRule = animationRule.setPlayState( ['stopped'] );
         expect( animationRule.getPlayState() ).to.eql( [] );
-        expect( setRule ).to.eql( [
-            {
-                prop: 'playState',
-                msg: 'Animation play state must be one of running, paused, inherit, initial or unset',
-                val: [ 'stopped' ]
-            } ] );
+        expect( setRule ).to.eql( { errors : [
+        {
+            prop: 'playState',
+            msg: 'Animation play state must be one of running, paused, inherit, initial or unset',
+            val: [ 'stopped' ]
+        } ] } );
 
         setRule = animationRule.setPlayState( ['paused'] );
         expect( animationRule.getPlayState() ).to.eql( ['paused'] );
@@ -220,12 +220,12 @@ describe( 'Animation rule class', function()
     {
         let setRule = animationRule.setTiming( ['eased'] );
         expect( animationRule.getTiming() ).to.eql( [] );
-        expect( setRule ).to.eql( [
-            {
-                prop: 'timing',
-                msg: 'Animation timing function must be a cubic bezier or step function or one of ease, ease-in, ease-out, ease-in-out, linear, step-start, step-end, initial, inherit or unset',
-                val: [ 'eased' ]
-            } ] );
+        expect( setRule ).to.eql( { errors : [
+        {
+            prop: 'timing',
+            msg: 'Animation timing function must be a cubic bezier or step function or one of ease, ease-in, ease-out, ease-in-out, linear, step-start, step-end, initial, inherit or unset',
+            val: [ 'eased' ]
+        } ] } );
 
         setRule = animationRule.setTiming( ['ease'] );
         expect( animationRule.getTiming() ).to.eql( ['ease'] );
@@ -236,12 +236,12 @@ describe( 'Animation rule class', function()
     {
         let setRule = animationRule.setDuration( [1] );
         expect( animationRule.getDuration() ).to.eql( [] );
-        expect( setRule ).to.eql( [
-            {
-                prop: 'duration',
-                msg: 'Animation duration must be a string of numbers followed by s or ms',
-                val: [ 1 ]
-            } ] );
+        expect( setRule ).to.eql( { errors : [
+        {
+            prop: 'duration',
+            msg: 'Animation duration must be a string of numbers followed by s or ms',
+            val: [ 1 ]
+        } ] } );
 
         setRule = animationRule.setDuration( ['1s'] );
         expect( animationRule.getDuration() ).to.eql( ['1s'] );
@@ -252,17 +252,17 @@ describe( 'Animation rule class', function()
     {
         let setRule = animationRule.setIterationCount( 3 );
         expect( animationRule.getIterationCount() ).to.eql( [] );
-        expect( setRule ).to.eql( [
-            {
-                prop: 'iterationCount',
-                msg: 'Animation iteration count must be infinite or a string of finite numbers',
-                val: 3
-            },
-            {
-                prop: 'animation-iteration-count',
-                msg: 'Animation iteration count must be an array',
-                val: 3
-            } ] );
+        expect( setRule ).to.eql( { errors : [
+        {
+            prop: 'iterationCount',
+            msg: 'Animation iteration count must be infinite or a string of finite numbers',
+            val: 3
+        },
+        {
+            prop: 'animation-iteration-count',
+            msg: 'Animation iteration count must be an array',
+            val: 3
+        } ] } );
 
         setRule = animationRule.setIterationCount( ['3', '4'] );
         expect( animationRule.getIterationCount() ).to.eql( ['3','4'] );
@@ -273,12 +273,12 @@ describe( 'Animation rule class', function()
     {
         let setRule = animationRule.setFillMode( ['forward'] );
         expect( animationRule.getFillMode() ).to.eql( [] );
-        expect( setRule ).to.eql( [
-            {
-                prop: 'fillMode',
-                msg: 'Animation fill mode must be one of both, none, forwards or backwards',
-                val: [ 'forward' ]
-            } ] );
+        expect( setRule ).to.eql( { errors : [
+        {
+            prop: 'fillMode',
+            msg: 'Animation fill mode must be one of both, none, forwards or backwards',
+            val: [ 'forward' ]
+        } ] } );
 
         setRule = animationRule.setFillMode( ['forwards'] );
         expect( animationRule.getFillMode() ).to.eql( ['forwards'] );

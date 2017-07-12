@@ -5,7 +5,7 @@ import Zoidberg from 'zoidberg';
 describe( 'Export Keyframes CSS', () =>
 {
 
-    let keyframes, testState1, testState2, testState3, testState4, testState5;
+    let keyframes;
 
     before( () =>
     {
@@ -15,12 +15,6 @@ describe( 'Export Keyframes CSS', () =>
         const keyframe3 = zoidberg.createKeyframe( { name : 'zoom', markers : ['20%', '50%'], props : { color : 'red', height : '5%' } } );
 
         keyframes = [keyframe1, keyframe2, keyframe3];
-
-        testState1 = { name : 'bounce' };
-        testState2 = { name : 'bounce', markers : ['10%'] };
-        testState3 = { name : 'jiggle' };
-        testState4 = [ { name : 'crossFade', markers : ['5%'], props : { height : '10px' } }, { name : 'crossFade', markers : ['100%'], props : { height : '20px' } } ];
-        testState5 = [keyframes[0].getState(), keyframes[1].getState()];
     } );
 
 
@@ -31,12 +25,17 @@ describe( 'Export Keyframes CSS', () =>
 
     it( 'if a state is passed that matches specific keyframes, should export those keyframes', () =>
     {
+        const testState1 = { name : 'bounce' };
+        const testState2 = { name : 'bounce', markers : ['10%'] };
+
         expect( exportKeyframeCss( undefined, testState1, keyframes ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n    40% {\n        width:                      10px;\n    }\n}'] );
         expect( exportKeyframeCss( undefined, testState2, keyframes ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n}'] );
     } );
 
     it( 'if a state is passed that matches no keyframes, should return an empty array', () =>
     {
+        const testState3 = { name : 'jiggle' };
+
         expect( exportKeyframeCss( undefined, {}, keyframes ) ).to.eql( [] );
         expect( exportKeyframeCss( undefined, testState3, keyframes ) ).to.eql( [] );
     } );
@@ -48,6 +47,9 @@ describe( 'Export Keyframes CSS', () =>
 
     it( 'if no collection is passed, should export the states of the passed keyframes', () =>
     {
+        const testState4 = [ { name : 'crossFade', markers : ['5%'], props : { height : '10px' } }, { name : 'crossFade', markers : ['100%'], props : { height : '20px' } } ];
+        const testState5 = [keyframes[0].getState(), keyframes[1].getState()];
+
         expect( exportKeyframeCss( {}, testState4 ) ).to.eql( [ '\n@keyframes crossFade {\n    5% {\n        height:                     10px;\n    }\n    100% {\n        height:                     20px;\n    }\n}' ] );
         expect( exportKeyframeCss( {}, testState5 ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n    40% {\n        width:                      10px;\n    }\n}' ] );
     } );

@@ -1,4 +1,4 @@
-import { getErrorState } from 'util/validator';
+import { validateDeep } from 'util/validator';
 import cloneDeep from 'lodash/cloneDeep';
 
 
@@ -46,9 +46,9 @@ export default function Factory ( state, subFactory )
     */
     const getErrors = () =>
     {
-        const errors = get( 'errors' );
+        const handler = get( 'errorHandler' );
 
-        return errors.length ? errors : undefined;
+        return handler.hasErrors() ? handler.get() : undefined;
     };
 
 
@@ -58,19 +58,16 @@ export default function Factory ( state, subFactory )
     * boolean, and an errors prop, which contains an array of current error
     * objects. Sets the updated errors in the state and returns the valid boolean.
     *
+    * @param {String}           prop                    prop to be validated
     * @param {*}                val                     value
-    * @param {String}           prop                    name of prop to be validated
     *
     * @return {Boolean}                                 true, if valid
     */
     const valid = ( prop, val ) =>
     {
-        const oldErrors = get( 'errors' );
-        const { valid, errors } = getErrorState( prop, val, oldErrors );
+        const handler = get( 'errorHandler' );
 
-        set( 'errors', errors );
-
-        return valid;
+        return validateDeep( prop, val, handler );
     };
 
 

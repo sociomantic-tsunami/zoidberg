@@ -1,5 +1,6 @@
 import mapKeys from 'lodash/mapKeys';
-import { getErrorState } from 'util/validator.js';
+import ErrorHandler from 'factory/errorHandler';
+import { validateDeep } from 'util/validator.js';
 
 
 /**
@@ -82,16 +83,17 @@ export const getStateHelper = ( rule, getters ) =>
 *
 * @param {Object}           options            options to set
 * @param {Object}           rule               callback constants
-* @param {callbackFn}       setters            getter callbacks
+* @param {callbackFn}       setters            setter callbacks
 * @param {callbackFn}       getErrors          error getter callback
 *
 * @return {Array|undefined}                    errors|undefined
 */
 export const setStateHelper = ( rule, setters, getErrors, options = {} ) =>
 {
-    const { valid, errors } = getErrorState( 'options', options );
+    const handler = ErrorHandler();
+    const valid   = validateDeep( 'options', options, handler );
 
-    if( ! valid ) return errors;
+    if( ! valid ) return handler.get();
 
     mapKeys( rule, ( val, i ) =>
     {
@@ -121,9 +123,7 @@ export const valueAtIndex = ( index, array ) =>
 
     if( index >= array.length )
     {
-        const newIndex = index - array.length;
-
-        return valueAtIndex( newIndex, array )
+        return valueAtIndex( index - array.length, array )
     }
 
     return array[index];
