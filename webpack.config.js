@@ -4,7 +4,7 @@ const resolve = relative => path.join( __dirname, relative );
 module.exports =
 {
     devtool : 'source-map',
-    entry   : resolve( '/src/js/index.js' ),
+    entry   : resolve( '/src/js/zoidberg.js' ),
     output  :
     {
         path          : resolve( '/dist' ),
@@ -35,5 +35,9 @@ module.exports =
                 plugins : ['transform-object-rest-spread']
             }
         } ]
+    },
+    node:
+    {
+        fs: 'empty'
     }
 };
