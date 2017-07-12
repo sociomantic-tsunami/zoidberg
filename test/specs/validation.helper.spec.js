@@ -1,3 +1,4 @@
+import { validation } from 'constant/validation.constant';
 import
 {
     isPercent,
@@ -115,8 +116,11 @@ describe( 'Validation helpers', () =>
 
     it( 'should return true if all elements in an array are valid ', () =>
     {
-        expect( validateArray( 'marker', ['10%', '20%'] ) ).to.be.true;
-        expect( validateArray( 'marker', ['10%', 0] ) ).to.be.false;
+        const { validator } = validation['marker'];
+        const iterator = validateArray( validator );
+
+        expect( iterator( ['10%', '20%'] ) ).to.be.true;
+        expect( iterator( ['10%', 0] ) ).to.be.false;
     } );
 
     it( 'should return true if value is a non empty string', () =>

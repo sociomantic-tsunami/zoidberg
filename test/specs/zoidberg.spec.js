@@ -248,13 +248,13 @@ describe( 'Zoidberg', () =>
         it( 'should return the css of the passed keyframe states, in the format of the passed options, or errors if they exist', () =>
         {
             expect( zoidberg.keyframesToCss( options, [testState4] ) ).to.eql( [ '\n@keyframes undefined {\n   1% {\n   }\n}' ] );
-            expect( zoidberg.keyframesToCss( options, [testState4, testState5] ) ).to.eql( [ { errors : [ { msg : 'Marker must be from, to or a string value with percent', prop : 'marker', val : [35] } ] } ] );
+            expect( zoidberg.keyframesToCss( options, [testState4, testState5] ) ).to.eql( { errors : [ { msg : 'Marker must be from, to or a string value with percent', prop : 'marker', val : [35] } ] } );
         } );
 
         it( 'should return the css of the passed rule states, in the format of the passed options, or errors if they exist', () =>
         {
             expect( zoidberg.rulesToCss( options, [testState6] ) ).to.eql( [ '\n     animation-name:bier;\n' ] );
-            expect( zoidberg.rulesToCss( options, [testState6, testState7] ) ).to.eql( [ { errors : [ { msg : 'Required string values', prop : 'requiredStrings', val : [77] } ] } ] );
+            expect( zoidberg.rulesToCss( options, [testState6, testState7] ) ).to.eql( { errors : [ { msg : 'Required string values', prop : 'requiredStrings', val : [77] } ] } );
         } );
 
         it( 'should call the AST parser with the correct arguments when exporting keyframe states or return errors if they exist', () =>
@@ -264,7 +264,7 @@ describe( 'Zoidberg', () =>
             expect( astExporterSpy.calledWith( [ '\n@keyframes undefined {\n    1% {\n    }\n}' ] ) ).to.be.true;
 
             zoidberg.keyframesToAst( [testState4, testState5] );
-            expect( zoidberg.keyframesToAst( [testState4, testState5] ) ).to.eql( [ { errors : [ { msg : 'Marker must be from, to or a string value with percent', prop : 'marker', val : [35] } ] } ] );
+            expect( zoidberg.keyframesToAst( [testState4, testState5] ) ).to.eql( { errors : [ { msg : 'Marker must be from, to or a string value with percent', prop : 'marker', val : [35] } ] } );
         } );
 
         it( 'should call the AST parser with the correct arguments when exporting rule states or return errors if they exist', () =>
@@ -274,7 +274,7 @@ describe( 'Zoidberg', () =>
             expect( astExporterSpy.calledWith( [ '.selector { \n        animation-name:             bier;\n }' ] ) ).to.be.true;
 
             zoidberg.rulesToAst( [testState6, testState7] );
-            expect( zoidberg.rulesToAst( [testState6, testState7] ) ).to.eql( [ { errors : [ { msg : 'Required string values', prop : 'requiredStrings', val : [77] } ] } ] );
+            expect( zoidberg.rulesToAst( [testState6, testState7] ) ).to.eql( { errors : [ { msg : 'Required string values', prop : 'requiredStrings', val : [77] } ] } );
         } );
 
     } );

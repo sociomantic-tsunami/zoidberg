@@ -6,7 +6,7 @@ import exportKeyframesCss from 'exporter/keyframe.css.exporter';
 import exportRulesCss from 'exporter/rule.css.exporter';
 import exportAst from 'exporter/ast.exporter';
 import { find, remove } from 'helper/zoidberg.helper';
-import { getCreateErrorStates } from 'util/validator';
+import { validateCreate } from 'util/validator';
 
 
 export default () =>
@@ -41,7 +41,7 @@ export default () =>
         const rule   = Rule();
         const errors = rule.setState( options );
 
-        if( errors ) return { errors };
+        if( errors ) return errors;
 
         rules = [ ...rules, rule];
 
@@ -62,7 +62,7 @@ export default () =>
         const keyframe = Keyframe();
         const errors   = keyframe.setState( options );
 
-        if( errors ) return { errors };
+        if( errors ) return errors;
 
         keyframes = [ ...keyframes, keyframe];
 
@@ -202,13 +202,13 @@ export default () =>
     * @param {Object}           options               formatting options
     * @param {Array}            states                states to export
     *
-    * @return {Array}                                 keyframes css
+    * @return {Object|Array}                          errors|keyframes css
     */
     const keyframesToCss = ( options, states ) =>
     {
-        const errors = getCreateErrorStates( Keyframe, states );
+        const errors = validateCreate( Keyframe, states );
 
-        if( errors.length ) return errors;
+        if( errors ) return errors;
 
         return exportKeyframesCss( options, states );
     };
@@ -222,13 +222,13 @@ export default () =>
     * @param {Object}           options               formatting options
     * @param {Array}            states                states to export
     *
-    * @return {Array}                                 rules css
+    * @return {Object|Array}                          errors|keyframes css
     */
     const rulesToCss = ( options, states ) =>
     {
-        const errors = getCreateErrorStates( Rule, states );
+        const errors = validateCreate( Rule, states );
 
-        if( errors.length ) return errors;
+        if( errors ) return errors;
 
         return exportRulesCss( options, states );
     };
@@ -242,14 +242,13 @@ export default () =>
     * @param {Object}           options               formatting options
     * @param {Array}            states                states to export
     *
-    * @return {Array}                                 keyframes ast
+    * @return {Object|Array}                          errors|keyframes ast
     */
     const keyframesToAst = states =>
     {
-        const css       = keyframesToCss( {}, states );
-        const hasErrors = css.length && css[0].errors;
+        const css = keyframesToCss( {}, states );
 
-        if( hasErrors ) return css;
+        if( css.errors ) return css;
 
         return exportAst( css );
     };
@@ -264,14 +263,13 @@ export default () =>
     * @param {Object}           options               formatting options
     * @param {Array}            states                states to export
     *
-    * @return {Array}                                 rules ast
+    * @return {Object|Array}                          errors|rules ast
     */
     const rulesToAst = states =>
     {
-        let css         = rulesToCss( {}, states );
-        const hasErrors = css.length && css[0].errors;
+        let css = rulesToCss( {}, states );
 
-        if( hasErrors ) return css;
+        if( css.errors ) return css;
 
         css = css.map( block => `.selector { ${ block } }` );
 

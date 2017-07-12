@@ -23,7 +23,7 @@ describe( 'Factory helpers', () =>
             set : function ( prop, val ) { return 'set' },
             get : function ( prop ) { return 'get' },
             valid : function ( prop, val ) { return val },
-            getErrors : function() { return [] }
+            getErrors : function() { return }
         };
 
         validSpy  = sinon.spy( mock, 'valid' );
@@ -159,7 +159,7 @@ describe( 'Factory helpers', () =>
 
         it( 'should return an error if the options passed are not valid', () =>
         {
-            expect( setStateHelper( rule, setFuncs, errorsSpy, false ) ).to.eql( [ { prop: 'options', msg: 'Options must be a plain object', val: false } ] );
+            expect( setStateHelper( rule, setFuncs, errorsSpy, false ) ).to.eql( { errors : [ { prop: 'options', msg: 'Options must be a plain object', val: false } ] } );
         } );
 
     } );
