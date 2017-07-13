@@ -56,7 +56,7 @@
     * [setIterationCount](#setIterationCount-api-anchor)
 
   * [Keyframe API](#keyframe-api-anchor)
-  
+
     <h5>Get</h5>
 
     * [getErrors](#getErrors-keyframe-api-anchor)
@@ -456,7 +456,7 @@ None.
 
 **Returns**
 
-*{Object}*: Rule state; each is an *{Object}*. The state is deeply cloned and includes empty *{Array}* values.
+*{Object}*: Rule state; each is an *{Array}*. The state is deeply cloned and includes empty *{Array}* values.
 
 ----
 
@@ -831,7 +831,11 @@ None.
 
 **Returns**
 
+<<<<<<< HEAD
 *{Object}*: Rule state; each is an *{Object}*. The state is deeply cloned and includes empty *{Array}* values.
+=======
+*{Object}*: Keyframe state; The state is deeply cloned.
+>>>>>>> Update api.md to correct wording, issue #33
 
 ----
 
@@ -867,7 +871,11 @@ None.
 
 **Returns**
 
+<<<<<<< HEAD
 *{Object}*: Css properties and values; each is a *{String}* key/value pair. `props` is deeply cloned and includes empty *{Object}* values.
+=======
+*{Object}*: Css properties and values; each is a *{String}* key/value pair. `props` is deeply cloned.
+>>>>>>> Update api.md to correct wording, issue #33
 
 
 ----
