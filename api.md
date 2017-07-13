@@ -775,26 +775,15 @@ Keyframe API
 ```js
 const {
     getErrors,
-    getEachRule,
     getState,
-    getDelay,
-    getDirection,
-    getDuration,
-    getFillMode,
     getName,
-    getPlayState,
-    getTiming,
-    getIterationCount,
+    getProps,
+    getMarkers,
     setState,
-    setDelay,
-    setDirection,
-    setDuration,
-    setFillMode,
     setName,
-    setPlayState,
-    setTiming,
-    setIterationCount
-} = myRule;
+    setProps,
+    setMarkers
+} = myKeyframe;
 ```
 
 Get
