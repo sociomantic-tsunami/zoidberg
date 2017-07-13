@@ -57,7 +57,9 @@
 
 ----
 
-Zoidberg API <a id="zoidberg-api-anchor"></a>
+<a id="zoidberg-api-anchor"></a>
+
+Zoidberg API 
 ============
 
 ```js
@@ -81,11 +83,12 @@ const {
 
 Create
 ------
+<a id="createRule-api-anchor"></a>
 
 ```js
 createRule( initialState )
 ```
-<a id="createRule-api-anchor"></a>
+
 Creates and returns a new rule. The new rule is stored an internal rule collection.
 
 **Arguments**
@@ -97,11 +100,12 @@ Creates and returns a new rule. The new rule is stored an internal rule collecti
 *{Object}*: Rule. If errors were present during the setting of `initialState`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
 
 ----
+<a id="createKeyframe-api-anchor"></a>
 
 ```js
 createKeyframe( initialState )
 ```
-<a id="createKeyframe-api-anchor"></a>
+
 Creates and returns a new keyframe. The new keyframe is stored in an internal keyframe collection.
 
 **Arguments**
@@ -116,11 +120,12 @@ Creates and returns a new keyframe. The new keyframe is stored in an internal ke
 
 Find
 ----
+<a id="findRules-api-anchor"></a>
 
 ```js
 findRules( searchState )
 ```
-<a id="findRules-api-anchor"></a>
+
 Finds rules in the internal rule collection that have a state which matches `searchState`.
 
 **Arguments**
@@ -132,11 +137,12 @@ Finds rules in the internal rule collection that have a state which matches `sea
 *{Array}*: Matching rules; each is an *{Object}*. If `searchState` was not valid or no matching rules are found, an empty *{Array}* is returned.
 
 ----
+<a id="findKeyframes-api-anchor"></a>
 
 ```js
 findKeyframes( searchState )
 ```
-<a id="findKeyframes-api-anchor"></a>
+
 Finds keyframes in the internal keyframe collection that have a state which matches `searchState`.
 
 **Arguments**
@@ -151,11 +157,12 @@ Finds keyframes in the internal keyframe collection that have a state which matc
 
 Remove
 ------
+<a id="removeRules-api-anchor"></a>
 
 ```js
 removeRules( searchState )
 ```
-<a id="removeRules-api-anchor"></a>
+
 Finds and removes rules in the internal rule collection that have a state which matches `searchState`.
 
 **Arguments**
@@ -167,11 +174,12 @@ Finds and removes rules in the internal rule collection that have a state which 
 *{Array}*: Removed rule states; each is an *{Object}*. If `searchState` was not valid or no matching rules are found, an empty *{Array}* is returned.
 
 ----
+<a id="removeKeyframes-api-anchor"></a>
 
 ```js
 removeKeyframes( searchState )
 ```
-<a id="removeKeyframes-api-anchor"></a>
+
 Finds and removes keyframes in the internal keyframe collection that have a state which matches `searchState`.
 
 **Arguments**
@@ -186,11 +194,12 @@ Finds and removes keyframes in the internal keyframe collection that have a stat
 
 Export
 ------
+<a id="findRulesToCss-api-anchor"></a>
 
 ```js
 findRulesToCss( options, searchState )
 ```
-<a id="findRulesToCss-api-anchor"></a>
+
 Finds and exports rules in the internal rule collection that have a state which matches `searchState`. Each rule is exported as a *{String}* of css.
 
 **Arguments**
@@ -209,11 +218,12 @@ Finds and exports rules in the internal rule collection that have a state which 
 *{Array}*: Rule css; each is a *{String}*. If `searchState` was not valid or no matching rules are found, an empty *{Array}* is returned.
 
 ----
+<a id="findKeyframesToCss-api-anchor"></a>
 
 ```js
 findKeyframesToCss( options, searchState )
 ```
-<a id="findKeyframesToCss-api-anchor"></a>
+
 Finds and exports keyframes in the interanl keyframe collection that have a state which matches `searchState`. Each keyframe is exported as a *{String}* of css.
 
 **Arguments**
@@ -232,11 +242,12 @@ Finds and exports keyframes in the interanl keyframe collection that have a stat
 *{Array}*: Keyframe css; each is a *{String}*. If `searchState` was not valid or no matching keyframes are found, an empty *{Array}* is returned.
 
 ----
+<a id="findRulesToAst-api-anchor"></a>
 
 ```js
 findRulesToAst( searchState )
 ```
-<a id="findRulesToAst-api-anchor"></a>
+
 Finds and exports rules in the internal rule collection that have a state which matches `searchState`. Each rule is exported as an ast *{Object}*.
 
 **Arguments**
@@ -248,11 +259,12 @@ Finds and exports rules in the internal rule collection that have a state which 
 *{Array}*: Rule ast; each is an *{Object}*. If `searchState` was not valid or no matching rules are found, an empty *{Array}* is returned.
 
 ----
+<a id="findKeyframesToAst-api-anchor"></a>
 
 ```js
 findKeyframesToAst( searchState )
 ```
-<a id="findKeyframesToAst-api-anchor"></a>
+
 Finds and exports keyframes in the internal keyframe collection that have a state which matches `searchState`. Each keyframe is exported as an ast *{Object}*.
 
 **Arguments**
@@ -264,11 +276,12 @@ Finds and exports keyframes in the internal keyframe collection that have a stat
 *{Array}*: Keyframe ast; each is an *{Object}*. If `searchState` was not valid or no matching keyframes are found, an empty *{Array}* is returned.
 
 ----
+<a id="rulesToCss-api-anchor"></a>
 
 ```js
 rulesToCss( options, states )
 ```
-<a id="rulesToCss-api-anchor"></a>
+
 Exports each rule state as a *{String}* of css.
 
 **Arguments**
@@ -286,12 +299,12 @@ Exports each rule state as a *{String}* of css.
 *{Array}*: Rule css; each is a *{String}*. If `states` was not valid or contained an invalid rule state, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
 
 ----
-
+<a id="keyframesToCss-api-anchor"></a>
 
 ```js
 keyframesToCss( options, states )
 ```
-<a id="keyframesToCss-api-anchor"></a>
+
 Exports each keyframe state as a *{String}* of css.
 
 **Arguments**
@@ -309,12 +322,12 @@ Exports each keyframe state as a *{String}* of css.
 *{Array}*: Keyframe css; each is a *{String}*. If `states` was not valid or contained an invalid keyframe state, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
 
 -----
-
+<a id="rulesToAst-api-anchor"></a>
 
 ```js
 rulesToAst( states )
 ```
-<a id="rulesToAst-api-anchor"></a>
+
 Exports each rule state as an ast *{Object}*.
 
 **Arguments**
@@ -326,11 +339,12 @@ Exports each rule state as an ast *{Object}*.
 *{Array}*: Rule ast; each is an *{Object}*. If `states` was not valid or contained an invalid rule state, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
 
 ----
+<a id="keyframesToAst-api-anchor"></a>
 
 ```js
 keyframesToAst( states )
 ```
-<a id="keyframesToAst-api-anchor"></a>
+
 Exports each keyframe state as an ast *{Object}*.
 
 **Arguments**
@@ -343,7 +357,9 @@ Exports each keyframe state as an ast *{Object}*.
 
 ----
 
-Rule API <a id="rule-api-anchor"></a>
+<a id="rule-api-anchor"></a>
+
+Rule API 
 ============
 
 ```js
@@ -373,11 +389,12 @@ const {
 
 Get
 ------
+<a id="getErrors-rule-api-anchor"></a>
 
 ```js
 getErrors()
 ```
-<a id="getErrors-rule-api-anchor"></a>
+
 Returns the current errors of a rule.
 
 **Arguments**
@@ -390,10 +407,12 @@ None.
 
 ----
 
+<a id="getEachRule-api-anchor"></a>
+
 ```js
 getEachRule()
 ```
-<a id="getEachRule-api-anchor"></a>
+
 Returns the current rule state broken into separate rule states, each with one value per property.
 
 **Arguments**
@@ -406,10 +425,12 @@ None.
 
 ----
 
+<a id="getState-rule-api-anchor"></a>
+
 ```js
 getState()
 ```
-<a id="getState-rule-api-anchor"></a>
+
 Returns the current state of a rule.
 
 **Arguments**
@@ -422,10 +443,12 @@ None.
 
 ----
 
+<a id="getDelay-api-anchor"></a>
+
 ```js
 getDelay()
 ```
-<a id="getDelay-api-anchor"></a>
+
 Returns the current `animation-delay` of a rule.
 
 **Arguments**
@@ -438,10 +461,12 @@ None.
 
 ----
 
+<a id="getDirection-api-anchor"></a>
+
 ```js
 getDirection()
 ```
-<a id="getDirection-api-anchor"></a>
+
 Returns the current `animation-direction` of a rule.
 
 **Arguments**
@@ -454,10 +479,12 @@ None.
 
 ----
 
+<a id="getDuration-api-anchor"></a>
+
 ```js
 getDuration()
 ```
-<a id="getDuration-api-anchor"></a>
+
 Returns the current `animation-duration` of a rule.
 
 **Arguments**
@@ -470,10 +497,12 @@ None.
 
 ----
 
+<a id="getFillMode-api-anchor"></a>
+
 ```js
 getFillMode()
 ```
-<a id="getFillMode-api-anchor"></a>
+
 Returns the current `animation-fill-mode` of a rule.
 
 **Arguments**
@@ -486,10 +515,12 @@ None.
 
 ----
 
+<a id="getName-rule-api-anchor"></a>
+
 ```js
 getName()
 ```
-<a id="getName-rule-api-anchor"></a>
+
 Returns the current `animation-name` of a rule.
 
 **Arguments**
@@ -518,10 +549,12 @@ None.
 
 ----
 
+<a id="getTiming-api-anchor"></a>
+
 ```js
 getTiming()
 ```
-<a id="getTiming-api-anchor"></a>
+
 Returns the current `animation-timing-function` of a rule.
 
 **Arguments**
@@ -534,10 +567,12 @@ None.
 
 ----
 
+<a id="getIterationCount-api-anchor"></a>
+
 ```js
 getIterationCount()
 ```
-<a id="getIterationCount-api-anchor"></a>
+
 Returns the current `animation-iteration-count` of a rule.
 
 **Arguments**
@@ -553,10 +588,12 @@ None.
 Set
 ----
 
+<a id="setState-rule-api-anchor"></a>
+
 ```js
 setState( state )
 ```
-<a id="setState-rule-api-anchor"></a>
+
 Sets the state of a rule.
 
 **Arguments**
@@ -569,10 +606,12 @@ Sets the state of a rule.
 
 ----
 
+<a id="setDelay-api-anchor"></a>
+
 ```js
 setDelay( delay )
 ```
-<a id="setDelay-api-anchor"></a>
+
 Sets the `animation-delay` of a rule.
 
 **Arguments**
@@ -585,10 +624,12 @@ Sets the `animation-delay` of a rule.
 
 ----
 
+<a id="setDirection-api-anchor"></a>
+
 ```js
 setDirection( direction )
 ```
-<a id="setDirection-api-anchor"></a>
+
 Sets the `animation-direction` of a rule.
 
 **Arguments**
@@ -601,10 +642,12 @@ Sets the `animation-direction` of a rule.
 
 ----
 
+<a id="setDuration-api-anchor"></a>
+
 ```js
 setDuration( duration )
 ```
-<a id="setDuration-api-anchor"></a>
+
 Sets the `animation-duration` of a rule.
 
 **Arguments**
@@ -617,10 +660,12 @@ Sets the `animation-duration` of a rule.
 
 ----
 
+<a id="setFillMode-api-anchor"></a>
+
 ```js
 setFillMode( fillMode )
 ```
-<a id="setFillMode-api-anchor"></a>
+
 Sets the `animation-fill-mode` of a rule.
 
 **Arguments**
@@ -633,10 +678,12 @@ Sets the `animation-fill-mode` of a rule.
 
 ----
 
+<a id="setName-rule-api-anchor"></a>
+
 ```js
 setName( name )
 ```
-<a id="setName-rule-api-anchor"></a>
+
 Sets the `animation-name` of a rule.
 
 **Arguments**
@@ -649,10 +696,12 @@ Sets the `animation-name` of a rule.
 
 ----
 
+<a id="setPlayState-api-anchor"></a>
+
 ```js
 setPlayState( playState )
 ```
-<a id="setPlayState-api-anchor"></a>
+
 Sets the `animation-play-state` of a rule.
 
 **Arguments**
@@ -665,10 +714,12 @@ Sets the `animation-play-state` of a rule.
 
 ----
 
+<a id="setTiming-api-anchor"></a>
+
 ```js
 setTiming( timing )
 ```
-<a id="setTiming-api-anchor"></a>
+
 Sets the `animation-timing-function` of a rule.
 
 **Arguments**
@@ -681,10 +732,12 @@ Sets the `animation-timing-function` of a rule.
 
 ----
 
+<a id="setIterationCount-api-anchor"></a>
+
 ```js
 setIterationCount( iterationCount )
 ```
-<a id="setIterationCount-api-anchor"></a>
+
 Sets the `animation-iteration-count` of a rule.
 
 **Arguments**
