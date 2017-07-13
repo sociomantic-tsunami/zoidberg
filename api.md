@@ -831,11 +831,7 @@ None.
 
 **Returns**
 
-<<<<<<< HEAD
-*{Object}*: Rule state; each is an *{Object}*. The state is deeply cloned and includes empty *{Array}* values.
-=======
 *{Object}*: Keyframe state; The state is deeply cloned.
->>>>>>> Update api.md to correct wording, issue #33
 
 ----
 
@@ -871,12 +867,7 @@ None.
 
 **Returns**
 
-<<<<<<< HEAD
-*{Object}*: Css properties and values; each is a *{String}* key/value pair. `props` is deeply cloned and includes empty *{Object}* values.
-=======
 *{Object}*: Css properties and values; each is a *{String}* key/value pair. `props` is deeply cloned.
->>>>>>> Update api.md to correct wording, issue #33
-
 
 ----
 
@@ -970,4 +961,4 @@ Sets the markers of a keyframe.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `merkers`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors were present during the setting of `markers`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
