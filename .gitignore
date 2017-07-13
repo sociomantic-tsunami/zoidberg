@@ -1,5 +1,6 @@
 node_modules/
 lib/
+dist/
 
 test/test.js
 test/test.js.map

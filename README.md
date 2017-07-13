@@ -25,6 +25,14 @@ Testing
 Run `npm run test`. Tests run via a webpack dev server and can be viewed in
 the browser at http://localhost:8080/test/test.html
 
+
+Demo
+===========
+
+Run `npm run demo`. Demo runs via a Python SimpleHTTPServer and will automatically
+open a browser window at http://localhost:8000/demo/
+
+
 Usage
 ============
 

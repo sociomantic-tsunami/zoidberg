@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Zoidberg Demo</title>
+        <style>
+        #box
+        {
+            width: 10px;
+            height: 10px;
+            position: absolute;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="box"></div>
+    </body>
+        <script type="text/javascript" src="../dist/zoidberg.js" charset="utf-8"></script>
+        <script type="text/javascript">
+
+            // Zoidberg
+            const myZoidberg = zoidberg.default();
+
+
+            // Rule
+            const
+            {
+                createRule,
+                createKeyframe,
+                rulesToCss,
+                findKeyframesToCss
+            } = myZoidberg;
+
+            const myRule = createRule();
+
+            myRule.setName( ['move'] );
+            myRule.setDuration( ['5s'] );
+            myRule.setIterationCount( ['infinite'] );
+            myRule.setDirection( ['alternate'] );
+            myRule.setTiming( ['ease-in-out'] );
+
+            console.log( 'myRule errors', myRule.getErrors() );
+
+
+            // Keyframes
+            const firstKeyframe = createKeyframe();
+
+            firstKeyframe.setName( 'move' );
+            firstKeyframe.setMarkers( ['0%'] );
+            firstKeyframe.setProps( { 'background-color': 'orange', 'left': '10px' } );
+
+            const middleKeyframeState =
+            {
+                name    : 'move',
+                markers : ['50%'],
+                props   : { 'background-color' : 'lightBlue' }
+            };
+
+            const middleKeyframe = createKeyframe( middleKeyframeState );
+            const lastKeyframe   = createKeyframe();
+
+            const lastKeyframeState =
+            {
+                name    : 'move',
+                markers : ['100%'],
+                props   : { 'background-color' : 'red', 'left': '100px' }
+            };
+
+            lastKeyframe.setState( lastKeyframeState );
+
+
+            // Export to Css
+            const ruleState   = myRule.getState();
+            const ruleCss     = rulesToCss( {}, [ruleState] );
+            const keyframeCss = findKeyframesToCss( {}, { name : 'move' } );
+
+
+            // Append (Example only)
+            const styleSheet = document.styleSheets[0];
+
+            styleSheet.insertRule( `#box { ${ ruleCss[0] } }`, 1 );
+            styleSheet.insertRule( `${ keyframeCss[0] }`, 2 );
+
+        </script>
+</html>
