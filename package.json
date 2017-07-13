@@ -11,7 +11,8 @@
     "test:server": "echo 'Run tests at: http://localhost:8080/test/test.html'; webpack-dev-server --config webpack.config.test.js",
     "test:watch": "webpack --watch --config webpack.config.test.js",
     "compile": "webpack --config webpack.config.js",
-    "watch": "webpack --watch --config webpack.config.js"
+    "watch": "webpack --watch --config webpack.config.js",
+    "demo": "npm run compile && open http://localhost:8000/demo && python -m SimpleHTTPServer 8000"
   },
   "dependencies": {
     "css": "^2.2.1"
