@@ -7,17 +7,17 @@
     * [createKeyframe](#createKeyframe-api-anchor)
 
     <h5>Find</h5>
-      
+
     * [findRules](#findRules-api-anchor)
     * [findKeyframes](#findKeyframes-api-anchor)
-    
+
     <h5>Remove</h5>
-      
+
     * [removeRules](#removeRules-api-anchor)
     * [removeKeyframes](#removeKeyframes-api-anchor)
-    
+
     <h5>Export</h5>
-      
+
     * [findRulesToCss](#findRulesToCss-api-anchor)
     * [findRulesToAst](#findRulesToAst-api-anchor)
     * [findKeyframesToCss](#findKeyframesToCss-api-anchor)
@@ -28,7 +28,7 @@
     * [keyframesToAst](#keyframesToAst-api-anchor)
 
   * [Rule API](#rule-api-anchor)
-  
+
     <h5>Get</h5>
 
     * [getErrors](#getErrors-rule-api-anchor)
@@ -55,11 +55,28 @@
     * [setTiming](#setTiming-api-anchor)
     * [setIterationCount](#setIterationCount-api-anchor)
 
+  * [Keyframe API](#keyframe-api-anchor)
+  
+    <h5>Get</h5>
+
+    * [getErrors](#getErrors-keyframe-api-anchor)
+    * [getState](#getState-keyframe-api-anchor)
+    * [getName](#getName-keyframe-api-anchor)
+    * [getProps](#getProps-api-anchor)
+    * [getMarkers](#getMarkers-api-anchor)
+
+    <h5>Set</h5>
+
+    * [setState](#setState-keyframe-api-anchor)
+    * [setName](#setName-keyframe-api-anchor)
+    * [setProps](#setProps-api-anchor)
+    * [setMarkers](#setMarkers-api-anchor)
+
 ----
 
 <a id="zoidberg-api-anchor"></a>
 
-Zoidberg API 
+Zoidberg API
 ============
 
 ```js
@@ -114,7 +131,7 @@ Creates and returns a new keyframe. The new keyframe is stored in an internal ke
 
 **Returns**
 
-*{Object}*: Keyframe. If errors were present during the setting of `initialState`, an *{Object}* is returned which includes an `error` property with an *{Array}* value containing the errors.
+*{Object}*: Keyframe. If errors were present during the setting of `initialState`, an error *{Object}* is returned which includes an `error` property with an *{Array}* value containing the errors.
 
 ----
 
@@ -359,7 +376,7 @@ Exports each keyframe state as an ast *{Object}*.
 
 <a id="rule-api-anchor"></a>
 
-Rule API 
+Rule API
 ============
 
 ```js
@@ -457,7 +474,7 @@ None.
 
 **Returns**
 
-*{Array}*: `animation-delay` values; each is a *{String}*. The state is deeply cloned and includes empty *{Array}* values.
+*{Array}*: `animation-delay` values; each is a *{String}*. `animation-delay` is deeply cloned and includes empty *{Array}* values.
 
 ----
 
@@ -475,7 +492,7 @@ None.
 
 **Returns**
 
-*{Array}*: `animation-direction` values; each is a *{String}*. The state is deeply cloned and includes empty *{Array}* values.
+*{Array}*: `animation-direction` values; each is a *{String}*. `animation-direction` is deeply cloned and includes empty *{Array}* values.
 
 ----
 
@@ -493,7 +510,7 @@ None.
 
 **Returns**
 
-*{Array}*: `animation-duration` values; each is a *{String}*. The state is deeply cloned and includes empty *{Array}* values.
+*{Array}*: `animation-duration` values; each is a *{String}*. `animation-duration` is deeply cloned and includes empty *{Array}* values.
 
 ----
 
@@ -511,7 +528,7 @@ None.
 
 **Returns**
 
-*{Array}*: `animation-fill-mode` values; each is a *{String}*. The state is deeply cloned and includes empty *{Array}* values.
+*{Array}*: `animation-fill-mode` values; each is a *{String}*. `animation-fill-mode` is deeply cloned and includes empty *{Array}* values.
 
 ----
 
@@ -529,7 +546,7 @@ None.
 
 **Returns**
 
-*{Array}*: `animation-name` values; each is a *{String}*. The state is deeply cloned and includes empty *{Array}* values.
+*{Array}*: `animation-name` values; each is a *{String}*. `animation-name` is deeply cloned and includes empty *{Array}* values.
 
 ----
 
@@ -545,7 +562,7 @@ None.
 
 **Returns**
 
-*{Array}*: `animation-play-state` values; each is a *{String}*. The state is deeply cloned and includes empty *{Array}* values.
+*{Array}*: `animation-play-state` values; each is a *{String}*. `animation-play-state` is deeply cloned and includes empty *{Array}* values.
 
 ----
 
@@ -563,7 +580,7 @@ None.
 
 **Returns**
 
-*{Array}*: `animation-timing-function` values; each is a *{String}*. The state is deeply cloned and includes empty *{Array}* values.
+*{Array}*: `animation-timing-function` values; each is a *{String}*. `animation-timing-function` is deeply cloned and includes empty *{Array}* values.
 
 ----
 
@@ -581,7 +598,7 @@ None.
 
 **Returns**
 
-*{Array}*: `animation-iteration-count` values; each is a *{String}*. The state is deeply cloned and includes empty *{Array}* values.
+*{Array}*: `animation-iteration-count` values; each is a *{String}*. `animation-iteration-count` is deeply cloned and includes empty *{Array}* values.
 
 ----
 
@@ -747,3 +764,202 @@ Sets the `animation-iteration-count` of a rule.
 **Returns**
 
 *{Object|Undefined}*: If errors were present during the setting of `iterationCount`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+
+----
+
+<a id="keyframe-api-anchor"></a>
+
+Keyframe API
+============
+
+```js
+const {
+    getErrors,
+    getEachRule,
+    getState,
+    getDelay,
+    getDirection,
+    getDuration,
+    getFillMode,
+    getName,
+    getPlayState,
+    getTiming,
+    getIterationCount,
+    setState,
+    setDelay,
+    setDirection,
+    setDuration,
+    setFillMode,
+    setName,
+    setPlayState,
+    setTiming,
+    setIterationCount
+} = myRule;
+```
+
+Get
+------
+<a id="getErrors-keyframe-api-anchor"></a>
+
+```js
+getErrors()
+```
+
+Returns the current errors of a keyframe.
+
+**Arguments**
+
+None.
+
+**Returns**
+
+*{Object|Undefined}*: If errors exist, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+
+----
+
+<a id="getState-keyframe-api-anchor"></a>
+
+```js
+getState()
+```
+
+Returns the current state of a keyframe.
+
+**Arguments**
+
+None.
+
+**Returns**
+
+*{Object}*: Rule state; each is an *{Object}*. The state is deeply cloned and includes empty *{Array}* values.
+
+----
+
+<a id="getName-keyframe-api-anchor"></a>
+
+```js
+getName()
+```
+
+Returns the current name of a keyframe.
+
+**Arguments**
+
+None.
+
+**Returns**
+
+*{String}*: Name value.
+
+----
+
+<a id="getProps-api-anchor"></a>
+
+```js
+getProps()
+```
+
+Returns the current props of a keyframe.
+
+**Arguments**
+
+None.
+
+**Returns**
+
+*{Object}*: Css properties and values; each is a *{String}* key/value pair. `props` is deeply cloned and includes empty *{Object}* values.
+
+
+----
+
+<a id="getMarkers-api-anchor"></a>
+
+```js
+getMarkers()
+```
+
+Returns the current markers of a keyframe.
+
+**Arguments**
+
+None.
+
+**Returns**
+
+*{Array}*: Marker values; each is a *{String}* value. `markers` is deeply cloned and includes empty *{Array}* values.
+
+----
+
+Set
+----
+
+<a id="setState-keyframe-api-anchor"></a>
+
+```js
+setState( state )
+```
+
+Sets the state of a keyframe.
+
+**Arguments**
+
+`state` *{Object}*: Must include at minimum a valid `name` property with a *{String}* value.
+
+**Returns**
+
+*{Object|Undefined}*: If errors were present during the setting of `state`, an error *{Object}* is returned which includes an `error` property with an *{Array}* value containing the errors.
+
+----
+
+<a id="setName-keyframe-api-anchor"></a>
+
+```js
+setName( name )
+```
+
+Sets the name of a keyframe.
+
+**Arguments**
+
+`name` *{String}*: Name value.
+
+**Returns**
+
+*{Object|Undefined}*: If errors were present during the setting of `name`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+
+----
+
+<a id="setProps-api-anchor"></a>
+
+```js
+setProps( props )
+```
+
+Sets the props of a keyframe.
+
+**Arguments**
+
+`props` *{Object}*: Css properties and values; each is a *{String}* key/value pair.
+
+**Returns**
+
+*{Object|Undefined}*: If errors were present during the setting of `props`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+
+
+----
+
+<a id="setMarkers-api-anchor"></a>
+
+```js
+setMarkers( markers )
+```
+
+Sets the markers of a keyframe.
+
+**Arguments**
+
+`markers` *{Array}*: Marker values; each is a *{String}*.
+
+**Returns**
+
+*{Object|Undefined}*: If errors were present during the setting of `merkers`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
