@@ -29,21 +29,21 @@
 
   * [Rule API](#rule-api-anchor)
   
-   <h5>Get</h5>
+    <h5>Get</h5>
 
     * [getErrors](#getErrors-rule-api-anchor)
     * [getEachRule](#getEachRule-api-anchor)
     * [getState](#getState-rule-api-anchor)
     * [getDelay](#getDelay-api-anchor)
     * [getDirection](#getDirection-api-anchor)
-    * [getDuration](#fgetDuration-api-anchor)
+    * [getDuration](#getDuration-api-anchor)
     * [getFillMode](#getFillMode-api-anchor)
     * [getName](#getName-rule-api-anchor)
     * [getPlayState](#getPlayState-api-anchor)
     * [getTiming](#getTiming-api-anchor)
     * [getIterationCount](#getIterationCount-api-anchor)
 
-   <h5>Set</h5>
+    <h5>Set</h5>
 
     * [setState](#setState-rule-api-anchor)
     * [setDelay](#setDelay-api-anchor)
