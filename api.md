@@ -72,6 +72,10 @@
     * [setProps](#setProps-api-anchor)
     * [setMarkers](#setMarkers-api-anchor)
 
+  * [Error API](#error-api-anchor)
+
+    * [Recieving an error object](#errorObject-api-anchor)
+
 ----
 
 <a id="zoidberg-api-anchor"></a>
@@ -951,3 +955,29 @@ Sets the markers of a keyframe.
 **Returns**
 
 *{Object|Undefined}*: If errors were present during the setting of `markers`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+
+----
+
+<a id="error-api-anchor"></a>
+
+Error API 
+==========
+
+<a id="errorObject-api-anchor"></a>
+
+Recieving an error object
+-------------------------
+
+```js
+{
+    error : [ { prop, msg, val } ]
+}
+```
+
+All errors returned in Zoidberg are an error *{Object}* which has an `error` property with an *{Array}* value containing the errors.
+
+Within the *{Array}* value, each error is an *{Object}*. This *{Object}* has three properties:
+
+* `prop` *{String}*: Property name associated with the error
+* `msg` *{String}*: Error message associated with the property
+* `val` *{Any}*: Value associated with the error
