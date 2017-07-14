@@ -110,7 +110,7 @@ Create
 createRule( initialState )
 ```
 
-Creates and returns a new rule. The new rule is stored an internal rule collection.
+Creates and returns a Rule. The Rule is stored an internal Rule collection.
 
 **Arguments**
 
@@ -118,7 +118,7 @@ Creates and returns a new rule. The new rule is stored an internal rule collecti
 
 **Returns**
 
-*{Object}*: Rule. If errors were present during the setting of `initialState`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
+*{Object}*: Rule. If errors were present during the setting of `initialState`, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
 
 ----
 <a id="createKeyframe-api-anchor"></a>
@@ -127,7 +127,7 @@ Creates and returns a new rule. The new rule is stored an internal rule collecti
 createKeyframe( initialState )
 ```
 
-Creates and returns a new keyframe. The new keyframe is stored in an internal keyframe collection.
+Creates and returns a Keyframe. The Keyframe is stored in an internal Keyframe collection.
 
 **Arguments**
 
@@ -135,7 +135,7 @@ Creates and returns a new keyframe. The new keyframe is stored in an internal ke
 
 **Returns**
 
-*{Object}*: Keyframe. If errors were present during the setting of `initialState`, an error *{Object}* is returned which includes an `error` property with an *{Array}* value containing the errors.
+*{Object}*: Keyframe. If errors were present during the setting of `initialState`, an Error *{Object}* is returned which includes an `error` property with an *{Array}* value containing the errors.
 
 ----
 
@@ -147,15 +147,15 @@ Find
 findRules( searchState )
 ```
 
-Finds rules in the internal rule collection that have a state which matches `searchState`.
+Finds Rules in the internal Rule collection that have a state which matches `searchState`.
 
 **Arguments**
 
-`searchState` *{Object}*: State to search for. Must contain valid rule state properties and values. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid Rule state properties and values. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 **Returns**
 
-*{Array}*: Matching rules; each is an *{Object}*. If `searchState` was not valid or no matching rules are found, an empty *{Array}* is returned.
+*{Array}*: Matching Rules; each is an *{Object}*. If `searchState` was falsy (ie. *{Undefined}*), the entire Rule collection is returned. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
 
 ----
 <a id="findKeyframes-api-anchor"></a>
@@ -164,15 +164,15 @@ Finds rules in the internal rule collection that have a state which matches `sea
 findKeyframes( searchState )
 ```
 
-Finds keyframes in the internal keyframe collection that have a state which matches `searchState`.
+Finds Keyframes in the internal Keyframe collection that have a state which matches `searchState`.
 
 **Arguments**
 
-`searchState` *{Object}*: State to search for. Must contain valid keyframe state properties and values. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid Keyframe state properties and values. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 **Returns**
 
-*{Array}*: Matching keyframes; each is an *{Object}*. If `searchState` was not valid or no matching rules are found, an empty *{Array}* is returned.
+*{Array}*: Matching keyframes; each is an *{Object}*. If `searchState` was falsy (ie. *{Undefined}*), the entire Keyframe collection is returned. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
 
 ----
 
@@ -184,15 +184,15 @@ Remove
 removeRules( searchState )
 ```
 
-Finds and removes rules in the internal rule collection that have a state which matches `searchState`.
+Finds and removes Rules in the internal Rule collection that have a state which matches `searchState`.
 
 **Arguments**
 
-`searchState` *{Object}*: State to search for. Must contain valid rule state properties and values. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid Rule state properties and values. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding Rule property.
 
 **Returns**
 
-*{Array}*: Removed rule states; each is an *{Object}*. If `searchState` was not valid or no matching rules are found, an empty *{Array}* is returned.
+*{Array}*: Removed Rule states; each is an *{Object}*. If `searchState` was falsy (ie. *{Undefined}*), the entire Rule collection is emptied and returned. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
 
 ----
 <a id="removeKeyframes-api-anchor"></a>
@@ -201,15 +201,15 @@ Finds and removes rules in the internal rule collection that have a state which 
 removeKeyframes( searchState )
 ```
 
-Finds and removes keyframes in the internal keyframe collection that have a state which matches `searchState`.
+Finds and removes Keyframes in the internal Keyframe collection that have a state which matches `searchState`.
 
 **Arguments**
 
-`searchState` *{Object}*: State to search for. Must contain valid keyframe state properties and values. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid Keyframe state properties and values. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 **Returns**
 
-*{Array}*: Removed keyframe states; each is an *{Object}*. If `searchState` was not valid or no matching keyframes are found, an empty *{Array}* is returned.
+*{Array}*: Removed Keyframe states; each is an *{Object}*. If `searchState` was falsy (ie. *{Undefined}*), the entire Keyframe collection is emptied and returned. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
 
 ----
 
@@ -218,49 +218,49 @@ Export
 <a id="findRulesToCss-api-anchor"></a>
 
 ```js
-findRulesToCss( options, searchState )
+findRulesToCss( searchState, formatOptions )
 ```
 
-Finds and exports rules in the internal rule collection that have a state which matches `searchState`. Each rule is exported as a *{String}* of css.
+Finds and exports Rules in the internal Rule collection that have a state which matches `searchState`. Each Rule is exported as a *{String}* of css.
 
 **Arguments**
 
-`options` *{Object}*:  Used for css formatting. Valid properties are:
+`formatOptions` *{Object}*:  Used for css formatting. Valid properties are:
 
 - `innerIndent` *{Number}*: indent within the curly brackets which hold a css property
 - `rpad` *{Number}*: padding from the right of a value to a css property
 - `shorthand` *{Boolean}*: if true, exports the first rule of each found rule *{Object}* in shorthand css animation form.
 
-`searchState` *{Object}*: State to search for. Must contain valid rule state properties and values. If `searchState` is undefined, the entire rule collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid Rule state properties and values. If `searchState` is falsy, the entire Rule collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 
 **Returns**
 
-*{Array}*: Rule css; each is a *{String}*. If `searchState` was not valid or no matching rules are found, an empty *{Array}* is returned.
+*{Array}*: Rule css; each is a *{String}*. If `searchState` was not valid, an empty object or no matching Rules are found, an empty *{Array}* is returned.
 
 ----
 <a id="findKeyframesToCss-api-anchor"></a>
 
 ```js
-findKeyframesToCss( options, searchState )
+findKeyframesToCss( searchState, formatOptions )
 ```
 
-Finds and exports keyframes in the interanl keyframe collection that have a state which matches `searchState`. Each keyframe is exported as a *{String}* of css.
+Finds and exports Keyframes in the internal Keyframe collection that have a state which matches `searchState`. Each Keyframe is exported as a *{String}* of css.
 
 **Arguments**
 
-`options` *{Object}*:  Used for css formatting. Valid properties are:
+`formatOptions` *{Object}*:  Used for css formatting. Valid properties are:
 
 - `outerIndent` *{Number}*: indent at the css property name
 - `innerIndent` *{Number}*: indent within the curly brackets which hold a css property
 - `rpad` *{Number}*: padding from the right of a value to a css property
 
-`searchState` *{Object}*: State to search for. Must contain valid keyframe state properties and values. If `searchState` is undefined, the entire keyframe collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid Keyframe state properties and values. If `searchState` is falsy, the entire Keyframe collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 
 **Returns**
 
-*{Array}*: Keyframe css; each is a *{String}*. If `searchState` was not valid or no matching keyframes are found, an empty *{Array}* is returned.
+*{Array}*: Keyframe css; each is a *{String}*. If `searchState` was falsy (ie. *{Undefined}*), the entire Keyframe collection is exported. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
 
 ----
 <a id="findRulesToAst-api-anchor"></a>
@@ -269,15 +269,15 @@ Finds and exports keyframes in the interanl keyframe collection that have a stat
 findRulesToAst( searchState )
 ```
 
-Finds and exports rules in the internal rule collection that have a state which matches `searchState`. Each rule is exported as an ast *{Object}*.
+Finds and exports Rules in the internal Rule collection that have a state which matches `searchState`. Each Rule is exported as an ast *{Object}*.
 
 **Arguments**
 
-`searchState` *{Object}*: State to search for. Must contain valid rule state properties and values. If `searchState` is undefined, the entire rule collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid Rule state properties and values. If `searchState` is falsy, the entire rule collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 **Returns**
 
-*{Array}*: Rule ast; each is an *{Object}*. If `searchState` was not valid or no matching rules are found, an empty *{Array}* is returned.
+*{Array}*: Rule ast; each is an *{Object}*. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
 
 ----
 <a id="findKeyframesToAst-api-anchor"></a>
@@ -286,61 +286,61 @@ Finds and exports rules in the internal rule collection that have a state which 
 findKeyframesToAst( searchState )
 ```
 
-Finds and exports keyframes in the internal keyframe collection that have a state which matches `searchState`. Each keyframe is exported as an ast *{Object}*.
+Finds and exports Keyframes in the internal Keyframe collection that have a state which matches `searchState`. Each Keyframe is exported as an ast *{Object}*.
 
 **Arguments**
 
-`searchState` *{Object}*: State to search for. Must contain valid keyframe state properties and values. If `searchState` is undefined, the entire keyframe collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
+`searchState` *{Object}*: State to search for. Must contain valid Keyframe state properties and values. If `searchState` is falsy, the entire Keyframe collection is exported. Partial matching is used for values that are an *{Object}*. For example, if the value is an *{Array}*, there will be a match if an *{Array}* value compared from a `searchState` property contains one or more of the same items as an *{Array}* value of a corresponding rule property.
 
 **Returns**
 
-*{Array}*: Keyframe ast; each is an *{Object}*. If `searchState` was not valid or no matching keyframes are found, an empty *{Array}* is returned.
+*{Array}*: Keyframe ast; each is an *{Object}*. If `searchState` was not valid, an empty object or no matching keyframes are found, an empty *{Array}* is returned.
 
 ----
 <a id="rulesToCss-api-anchor"></a>
 
 ```js
-rulesToCss( options, states )
+rulesToCss( states, formatOptions )
 ```
 
-Exports each rule state as a *{String}* of css.
+Exports each Rule state as a *{String}* of css.
 
 **Arguments**
 
-`options` *{Object}*:  Used for css formatting. Valid properties are:
+`formatOptions` *{Object}*:  Used for css formatting. Valid properties are:
 
 - `innerIndent` *{Number}*: indent within the curly brackets which hold a css property
 - `rpad` *{Number}*: padding from the right of a value to a css property
 - `shorthand` *{Boolean}*: if true, exports the first rule of each *{Object}* in shorthand css animation form.
 
-`states` *{Array}*: Rule states; each is an *{Object}*. Must be a valid rule state.
+`states` *{Array}*: Rule states; each is an *{Object}*. Must be a valid Rule state.
 
 **Returns**
 
-*{Array}*: Rule css; each is a *{String}*. If `states` was not valid or contained an invalid rule state, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
+*{Array}*: Rule css; each is a *{String}*. If `states` was not valid or contained an invalid Rule state, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
 
 ----
 <a id="keyframesToCss-api-anchor"></a>
 
 ```js
-keyframesToCss( options, states )
+keyframesToCss( states, formatOptions )
 ```
 
-Exports each keyframe state as a *{String}* of css.
+Exports each Keyframe state as a *{String}* of css.
 
 **Arguments**
 
-`options` *{Object}*:  Used for css formatting. Valid properties are:
+`formatOptions` *{Object}*:  Used for css formatting. Valid properties are:
 
 - `outerIndent` *{Number}*: indent at the css property name
 - `innerIndent` *{Number}*: indent within the curly brackets which hold a css property
 - `rpad` *{Number}*: padding from the right of a value to a css property
 
-`states` *{Array}*: Keyframe states; each is an *{Object}*. Must be a valid keyframe state.
+`states` *{Array}*: Keyframe states; each is an *{Object}*. Must be a valid Keyframe state.
 
 **Returns**
 
-*{Array}*: Keyframe css; each is a *{String}*. If `states` was not valid or contained an invalid keyframe state, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
+*{Array}*: Keyframe css; each is a *{String}*. If `states` was not valid or contained an invalid Keyframe state, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
 
 -----
 <a id="rulesToAst-api-anchor"></a>
@@ -349,7 +349,7 @@ Exports each keyframe state as a *{String}* of css.
 rulesToAst( states )
 ```
 
-Exports each rule state as an ast *{Object}*.
+Exports each Rule state as an ast *{Object}*.
 
 **Arguments**
 
@@ -357,7 +357,7 @@ Exports each rule state as an ast *{Object}*.
 
 **Returns**
 
-*{Array}*: Rule ast; each is an *{Object}*. If `states` was not valid or contained an invalid rule state, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
+*{Array}*: Rule ast; each is an *{Object}*. If `states` was not valid or contained an invalid Rule state, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
 
 ----
 <a id="keyframesToAst-api-anchor"></a>
@@ -366,15 +366,15 @@ Exports each rule state as an ast *{Object}*.
 keyframesToAst( states )
 ```
 
-Exports each keyframe state as an ast *{Object}*.
+Exports each Keyframe state as an ast *{Object}*.
 
 **Arguments**
 
-`states` *{Array}*: Keyframe states; each is an *{Object}*. Must be a valid keyframe state.
+`states` *{Array}*: Keyframe states; each is an *{Object}*. Must be a valid Keyframe state.
 
 **Returns**
 
-*{Array}*: Keyframe ast; each is an *{Object}*. If `states` was not valid or contained an invalid keyframe state, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
+*{Array}*: Keyframe ast; each is an *{Object}*. If `states` was not valid or contained an invalid Keyframe state, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors.
 
 ----
 
@@ -416,7 +416,7 @@ Get
 getErrors()
 ```
 
-Returns the current errors of a rule.
+Returns the current errors of a Rule.
 
 **Arguments**
 
@@ -424,7 +424,7 @@ None.
 
 **Returns**
 
-*{Object|Undefined}*: If errors exist, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors exist, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 ----
 
@@ -434,7 +434,7 @@ None.
 getEachRule()
 ```
 
-Returns the current rule state broken into separate rule states, each with one value per property.
+Returns the current Rule state broken into separate Rule states, each with one value per property.
 
 **Arguments**
 
@@ -442,7 +442,7 @@ None.
 
 **Returns**
 
-*{Array}*: Rule state; each is an *{Object}*. Breaks multiple animation property values each into a seperate rule state *{Object}*, for each property that has a non-empty *{Array}* value which contains a defined item. Follows the logic recommended by Mozilla for [multiple animation property values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations#Setting_multiple_animation_property_values).
+*{Array}*: Rule state; each is an *{Object}*. Breaks multiple animation property values each into a seperate Rule state *{Object}*, for each property that has a non-empty *{Array}* value which contains a defined item. Follows the logic recommended by Mozilla for [multiple animation property values](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations#Setting_multiple_animation_property_values).
 
 ----
 
@@ -452,7 +452,7 @@ None.
 getState()
 ```
 
-Returns the current state of a rule.
+Returns the current state of a Rule.
 
 **Arguments**
 
@@ -470,7 +470,7 @@ None.
 getDelay()
 ```
 
-Returns the current `animation-delay` of a rule.
+Returns the current `animation-delay` of a Rule.
 
 **Arguments**
 
@@ -488,7 +488,7 @@ None.
 getDirection()
 ```
 
-Returns the current `animation-direction` of a rule.
+Returns the current `animation-direction` of a Rule.
 
 **Arguments**
 
@@ -506,7 +506,7 @@ None.
 getDuration()
 ```
 
-Returns the current `animation-duration` of a rule.
+Returns the current `animation-duration` of a Rule.
 
 **Arguments**
 
@@ -524,7 +524,7 @@ None.
 getFillMode()
 ```
 
-Returns the current `animation-fill-mode` of a rule.
+Returns the current `animation-fill-mode` of a Rule.
 
 **Arguments**
 
@@ -542,7 +542,7 @@ None.
 getName()
 ```
 
-Returns the current `animation-name` of a rule.
+Returns the current `animation-name` of a Rule.
 
 **Arguments**
 
@@ -558,7 +558,8 @@ None.
 getPlayState()
 ```
 <a id="getPlayState-api-anchor"></a>
-Returns the current `animation-play-state` of a rule.
+
+Returns the current `animation-play-state` of a Rule.
 
 **Arguments**
 
@@ -576,7 +577,7 @@ None.
 getTiming()
 ```
 
-Returns the current `animation-timing-function` of a rule.
+Returns the current `animation-timing-function` of a Rule.
 
 **Arguments**
 
@@ -594,7 +595,7 @@ None.
 getIterationCount()
 ```
 
-Returns the current `animation-iteration-count` of a rule.
+Returns the current `animation-iteration-count` of a Rule.
 
 **Arguments**
 
@@ -615,7 +616,7 @@ Set
 setState( state )
 ```
 
-Sets the state of a rule.
+Sets the state of a Rule.
 
 **Arguments**
 
@@ -623,7 +624,7 @@ Sets the state of a rule.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `state`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors were present during the setting of `state`, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 ----
 
@@ -633,7 +634,7 @@ Sets the state of a rule.
 setDelay( delay )
 ```
 
-Sets the `animation-delay` of a rule.
+Sets the `animation-delay` of a Rule.
 
 **Arguments**
 
@@ -641,7 +642,7 @@ Sets the `animation-delay` of a rule.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `delay`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors were present during the setting of `delay`, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 ----
 
@@ -651,7 +652,7 @@ Sets the `animation-delay` of a rule.
 setDirection( direction )
 ```
 
-Sets the `animation-direction` of a rule.
+Sets the `animation-direction` of a Rule.
 
 **Arguments**
 
@@ -659,7 +660,7 @@ Sets the `animation-direction` of a rule.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `direction`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors were present during the setting of `direction`, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 ----
 
@@ -669,7 +670,7 @@ Sets the `animation-direction` of a rule.
 setDuration( duration )
 ```
 
-Sets the `animation-duration` of a rule.
+Sets the `animation-duration` of a Rule.
 
 **Arguments**
 
@@ -677,7 +678,7 @@ Sets the `animation-duration` of a rule.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `duration`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors were present during the setting of `duration`, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 ----
 
@@ -687,7 +688,7 @@ Sets the `animation-duration` of a rule.
 setFillMode( fillMode )
 ```
 
-Sets the `animation-fill-mode` of a rule.
+Sets the `animation-fill-mode` of a Rule.
 
 **Arguments**
 
@@ -695,7 +696,7 @@ Sets the `animation-fill-mode` of a rule.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `fillMode`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors were present during the setting of `fillMode`, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 ----
 
@@ -705,7 +706,7 @@ Sets the `animation-fill-mode` of a rule.
 setName( name )
 ```
 
-Sets the `animation-name` of a rule.
+Sets the `animation-name` of a Rule.
 
 **Arguments**
 
@@ -713,7 +714,7 @@ Sets the `animation-name` of a rule.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `name`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors were present during the setting of `name`, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 ----
 
@@ -723,7 +724,7 @@ Sets the `animation-name` of a rule.
 setPlayState( playState )
 ```
 
-Sets the `animation-play-state` of a rule.
+Sets the `animation-play-state` of a Rule.
 
 **Arguments**
 
@@ -731,7 +732,7 @@ Sets the `animation-play-state` of a rule.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `playState`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors were present during the setting of `playState`, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 ----
 
@@ -741,7 +742,7 @@ Sets the `animation-play-state` of a rule.
 setTiming( timing )
 ```
 
-Sets the `animation-timing-function` of a rule.
+Sets the `animation-timing-function` of a Rule.
 
 **Arguments**
 
@@ -749,7 +750,7 @@ Sets the `animation-timing-function` of a rule.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `timing`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors were present during the setting of `timing`, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 ----
 
@@ -759,7 +760,7 @@ Sets the `animation-timing-function` of a rule.
 setIterationCount( iterationCount )
 ```
 
-Sets the `animation-iteration-count` of a rule.
+Sets the `animation-iteration-count` of a Rule.
 
 **Arguments**
 
@@ -767,7 +768,7 @@ Sets the `animation-iteration-count` of a rule.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `iterationCount`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors were present during the setting of `iterationCount`, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 ----
 
@@ -798,7 +799,7 @@ Get
 getErrors()
 ```
 
-Returns the current errors of a keyframe.
+Returns the current errors of a Keyframe.
 
 **Arguments**
 
@@ -806,7 +807,7 @@ None.
 
 **Returns**
 
-*{Object|Undefined}*: If errors exist, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors exist, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 ----
 
@@ -816,7 +817,7 @@ None.
 getState()
 ```
 
-Returns the current state of a keyframe.
+Returns the current state of a Keyframe.
 
 **Arguments**
 
@@ -834,7 +835,7 @@ None.
 getName()
 ```
 
-Returns the current name of a keyframe.
+Returns the current name of a Keyframe.
 
 **Arguments**
 
@@ -852,7 +853,7 @@ None.
 getProps()
 ```
 
-Returns the current props of a keyframe.
+Returns the current props of a Keyframe.
 
 **Arguments**
 
@@ -870,7 +871,7 @@ None.
 getMarkers()
 ```
 
-Returns the current markers of a keyframe.
+Returns the current markers of a Keyframe.
 
 **Arguments**
 
@@ -891,7 +892,7 @@ Set
 setState( state )
 ```
 
-Sets the state of a keyframe.
+Sets the state of a Keyframe.
 
 **Arguments**
 
@@ -899,7 +900,7 @@ Sets the state of a keyframe.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `state`, an error *{Object}* is returned which includes an `error` property with an *{Array}* value containing the errors.
+*{Object|Undefined}*: If errors were present during the setting of `state`, an Error *{Object}* is returned which includes an `error` property with an *{Array}* value containing the errors.
 
 ----
 
@@ -909,7 +910,7 @@ Sets the state of a keyframe.
 setName( name )
 ```
 
-Sets the name of a keyframe.
+Sets the name of a Keyframe.
 
 **Arguments**
 
@@ -917,7 +918,7 @@ Sets the name of a keyframe.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `name`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors were present during the setting of `name`, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 ----
 
@@ -927,7 +928,7 @@ Sets the name of a keyframe.
 setProps( props )
 ```
 
-Sets the props of a keyframe.
+Sets the props of a Keyframe.
 
 **Arguments**
 
@@ -935,7 +936,7 @@ Sets the props of a keyframe.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `props`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors were present during the setting of `props`, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 
 ----
@@ -946,7 +947,7 @@ Sets the props of a keyframe.
 setMarkers( markers )
 ```
 
-Sets the markers of a keyframe.
+Sets the markers of a Keyframe.
 
 **Arguments**
 
@@ -954,18 +955,18 @@ Sets the markers of a keyframe.
 
 **Returns**
 
-*{Object|Undefined}*: If errors were present during the setting of `markers`, an error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
+*{Object|Undefined}*: If errors were present during the setting of `markers`, an Error *{Object}* is returned which has an `error` property with an *{Array}* value containing the errors. Otherwise, *{Undefined}* is returned.
 
 ----
 
 <a id="error-api-anchor"></a>
 
-Error API 
+Error API
 ==========
 
 <a id="errorObject-api-anchor"></a>
 
-Recieving an error object
+Recieving an Error object
 -------------------------
 
 ```js
@@ -974,9 +975,9 @@ Recieving an error object
 }
 ```
 
-All errors returned in Zoidberg are an error *{Object}* which has an `error` property with an *{Array}* value containing the errors.
+All errors returned in Zoidberg are an Error *{Object}* which has an `error` property with an *{Array}* value containing the errors.
 
-Within the *{Array}* value, each error is an *{Object}*. This *{Object}* has three properties:
+Within the *{Array}* value is one or more of an *{Object}*. This *{Object}* has three properties:
 
 * `prop` *{String}*: Property name associated with the error
 * `msg` *{String}*: Error message associated with the property

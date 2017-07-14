@@ -1,27 +1,27 @@
-import AnimationRule from 'factory/rule';
+import Rule from 'factory/rule';
 
 
-describe( 'Animation rule class', function()
+describe( 'Rule factory', function()
 {
 
-	let animationRule;
+	let rule;
 
     beforeEach( function()
     {
-        animationRule = AnimationRule();
+        rule = Rule();
     } );
 
-    it( 'should have get and methods for the state', () =>
+    it( 'should have get and set methods for the Rule state', () =>
     {
-        expect( animationRule ).to.be.an( 'object' );
-        expect( animationRule ).to.have.keys( 'getDelay', 'getErrors', 'getDirection',
+        expect( rule ).to.be.an( 'object' );
+        expect( rule ).to.have.keys( 'getDelay', 'getErrors', 'getDirection',
         'getFillMode', 'getPlayState', 'getName', 'getTiming', 'getIterationCount',
         'getDuration', 'setDelay', 'setDirection', 'setFillMode','setPlayState',
         'setName', 'setTiming', 'setIterationCount', 'setDuration', 'getState', 'setState',
         'getEachRule' );
     } );
 
-    it( 'should set the options of the current rule in the state, if passed', () =>
+    it( 'should set the state of a Rule', () =>
     {
         const options =
         {
@@ -31,7 +31,7 @@ describe( 'Animation rule class', function()
             'animation-play-state'      : ['running'],
             'animation-timing-function' : ['ease'],
         };
-        const testRule  = AnimationRule();
+        const testRule  = Rule();
         const setState  = testRule.setState( options );
         const ruleState = testRule.getState();
 
@@ -46,9 +46,9 @@ describe( 'Animation rule class', function()
         expect( setState ).to.be.undefined;
     } );
 
-    it( 'should return the current state of the animation rule', () =>
+    it( 'should return the state of a Rule', () =>
     {
-        const ruleState = animationRule.getState();
+        const ruleState = rule.getState();
 
         expect( ruleState['animation-delay'] ).to.eql( [] );
         expect( ruleState['animation-direction'] ).to.eql( [] );
@@ -63,7 +63,7 @@ describe( 'Animation rule class', function()
     it( 'should get an animation delay from the state', () =>
     {
         const options  = { 'animation-delay' : ['1ms', '2s'] };
-        const testRule = AnimationRule();
+        const testRule = Rule();
 
         testRule.setState( options );
         expect( testRule.getDelay() ).to.eql( ['1ms', '2s'] );
@@ -72,7 +72,7 @@ describe( 'Animation rule class', function()
     it( 'should get an animation direction from the state', () =>
     {
         const options  = { 'animation-direction' : ['normal', 'reverse'] };
-        const testRule = AnimationRule();
+        const testRule = Rule();
 
         testRule.setState( options );
         expect( testRule.getDirection() ).to.eql( ['normal', 'reverse'] );
@@ -81,7 +81,7 @@ describe( 'Animation rule class', function()
     it( 'should get an animation name from the state', () =>
     {
         const options  = { 'animation-name' : ['myAnimation'] };
-        const testRule = AnimationRule();
+        const testRule = Rule();
 
         testRule.setState( options );
         expect( testRule.getName() ).to.eql( ['myAnimation'] );
@@ -90,7 +90,7 @@ describe( 'Animation rule class', function()
     it( 'should get an animation play state from the state', () =>
     {
         const options  = { 'animation-play-state' : ['running'] };
-        const testRule = AnimationRule();
+        const testRule = Rule();
 
         testRule.setState( options );
         expect( testRule.getPlayState() ).to.eql( ['running'] );
@@ -99,7 +99,7 @@ describe( 'Animation rule class', function()
     it( 'should get an animation timing function from the state', () =>
     {
         const options  = { 'animation-timing-function' : ['ease-in'] };
-        const testRule = AnimationRule();
+        const testRule = Rule();
 
         testRule.setState( options );
         expect( testRule.getTiming() ).to.eql( ['ease-in'] );
@@ -108,7 +108,7 @@ describe( 'Animation rule class', function()
     it( 'should get an animation duration from the state', () =>
     {
         const options  = { 'animation-duration' : ['1s'] };
-        const testRule = AnimationRule();
+        const testRule = Rule();
 
         testRule.setState( options );
         expect( testRule.getDuration() ).to.eql( ['1s'] );
@@ -117,7 +117,7 @@ describe( 'Animation rule class', function()
     it( 'should get an animation iteration count from the state', () =>
     {
         const options  = { 'animation-iteration-count' : ['1'] };
-        const testRule = AnimationRule();
+        const testRule = Rule();
 
         testRule.setState( options );
         expect( testRule.getIterationCount() ).to.eql( ['1'] );
@@ -126,7 +126,7 @@ describe( 'Animation rule class', function()
     it( 'should get an animation fill mode from the state', () =>
     {
         const options  = { 'animation-fill-mode' : ['forwards'] };
-        const testRule = AnimationRule();
+        const testRule = Rule();
 
         testRule.setState( options );
         expect( testRule.getFillMode() ).to.eql( ['forwards'] );
@@ -134,8 +134,8 @@ describe( 'Animation rule class', function()
 
     it( 'should set a valid animation delay in the state', () =>
     {
-        let setRule = animationRule.setDelay( '9' );
-        expect( animationRule.getDelay() ).to.eql( [] );
+        let setRule = rule.setDelay( '9' );
+        expect( rule.getDelay() ).to.eql( [] );
         expect( setRule ).to.eql( { errors : [
         {
             prop: 'delay',
@@ -148,15 +148,15 @@ describe( 'Animation rule class', function()
             val: '9'
         } ] } );
 
-        setRule = animationRule.setDelay( ['9s'] );
-        expect( animationRule.getDelay() ).to.eql( ['9s'] );
+        setRule = rule.setDelay( ['9s'] );
+        expect( rule.getDelay() ).to.eql( ['9s'] );
         expect( setRule ).to.be.undefined;
     } );
 
     it( 'should set a valid animation direction in the state', () =>
     {
-        let setRule = animationRule.setDirection( 'reverse' );
-        expect( animationRule.getDirection() ).to.eql( [] );
+        let setRule = rule.setDirection( 'reverse' );
+        expect( rule.getDirection() ).to.eql( [] );
         expect( setRule ).to.eql( { errors : [
         {
             prop: 'direction',
@@ -169,15 +169,15 @@ describe( 'Animation rule class', function()
             val: 'reverse'
         } ] } );
 
-        setRule = animationRule.setDirection( ['reverse'] );
-        expect( animationRule.getDirection() ).to.eql( ['reverse'] );
+        setRule = rule.setDirection( ['reverse'] );
+        expect( rule.getDirection() ).to.eql( ['reverse'] );
         expect( setRule ).to.be.undefined;
     } );
 
     it( 'should set a valid animation name in the state', () =>
     {
-        let setRule = animationRule.setName( {} );
-        expect( animationRule.getName() ).to.eql( [] );
+        let setRule = rule.setName( {} );
+        expect( rule.getName() ).to.eql( [] );
         expect( setRule ).to.eql( { errors : [
         {
             prop: 'requiredLength',
@@ -195,15 +195,15 @@ describe( 'Animation rule class', function()
             val: {}
         } ] } );
 
-        setRule = animationRule.setName( ['myName'] );
-        expect( animationRule.getName() ).to.eql( ['myName'] );
+        setRule = rule.setName( ['myName'] );
+        expect( rule.getName() ).to.eql( ['myName'] );
         expect( setRule ).to.be.undefined;
     } );
 
     it( 'should set a valid animation play state in the state', () =>
     {
-        let setRule = animationRule.setPlayState( ['stopped'] );
-        expect( animationRule.getPlayState() ).to.eql( [] );
+        let setRule = rule.setPlayState( ['stopped'] );
+        expect( rule.getPlayState() ).to.eql( [] );
         expect( setRule ).to.eql( { errors : [
         {
             prop: 'playState',
@@ -211,15 +211,15 @@ describe( 'Animation rule class', function()
             val: [ 'stopped' ]
         } ] } );
 
-        setRule = animationRule.setPlayState( ['paused'] );
-        expect( animationRule.getPlayState() ).to.eql( ['paused'] );
+        setRule = rule.setPlayState( ['paused'] );
+        expect( rule.getPlayState() ).to.eql( ['paused'] );
         expect( setRule ).to.be.undefined;
     } );
 
     it( 'should set a valid animation timing function in the state', () =>
     {
-        let setRule = animationRule.setTiming( ['eased'] );
-        expect( animationRule.getTiming() ).to.eql( [] );
+        let setRule = rule.setTiming( ['eased'] );
+        expect( rule.getTiming() ).to.eql( [] );
         expect( setRule ).to.eql( { errors : [
         {
             prop: 'timing',
@@ -227,15 +227,15 @@ describe( 'Animation rule class', function()
             val: [ 'eased' ]
         } ] } );
 
-        setRule = animationRule.setTiming( ['ease'] );
-        expect( animationRule.getTiming() ).to.eql( ['ease'] );
+        setRule = rule.setTiming( ['ease'] );
+        expect( rule.getTiming() ).to.eql( ['ease'] );
         expect( setRule ).to.be.undefined;
     } );
 
     it( 'should set a valid animation duration in the state', () =>
     {
-        let setRule = animationRule.setDuration( [1] );
-        expect( animationRule.getDuration() ).to.eql( [] );
+        let setRule = rule.setDuration( [1] );
+        expect( rule.getDuration() ).to.eql( [] );
         expect( setRule ).to.eql( { errors : [
         {
             prop: 'duration',
@@ -243,15 +243,15 @@ describe( 'Animation rule class', function()
             val: [ 1 ]
         } ] } );
 
-        setRule = animationRule.setDuration( ['1s'] );
-        expect( animationRule.getDuration() ).to.eql( ['1s'] );
+        setRule = rule.setDuration( ['1s'] );
+        expect( rule.getDuration() ).to.eql( ['1s'] );
         expect( setRule ).to.be.undefined;
     } );
 
     it( 'should set a valid animation iteration count in the state', () =>
     {
-        let setRule = animationRule.setIterationCount( 3 );
-        expect( animationRule.getIterationCount() ).to.eql( [] );
+        let setRule = rule.setIterationCount( 3 );
+        expect( rule.getIterationCount() ).to.eql( [] );
         expect( setRule ).to.eql( { errors : [
         {
             prop: 'iterationCount',
@@ -264,15 +264,15 @@ describe( 'Animation rule class', function()
             val: 3
         } ] } );
 
-        setRule = animationRule.setIterationCount( ['3', '4'] );
-        expect( animationRule.getIterationCount() ).to.eql( ['3','4'] );
+        setRule = rule.setIterationCount( ['3', '4'] );
+        expect( rule.getIterationCount() ).to.eql( ['3','4'] );
         expect( setRule ).to.be.undefined;
     } );
 
     it( 'should set a valid animation fill mode in the state', () =>
     {
-        let setRule = animationRule.setFillMode( ['forward'] );
-        expect( animationRule.getFillMode() ).to.eql( [] );
+        let setRule = rule.setFillMode( ['forward'] );
+        expect( rule.getFillMode() ).to.eql( [] );
         expect( setRule ).to.eql( { errors : [
         {
             prop: 'fillMode',
@@ -280,8 +280,8 @@ describe( 'Animation rule class', function()
             val: [ 'forward' ]
         } ] } );
 
-        setRule = animationRule.setFillMode( ['forwards'] );
-        expect( animationRule.getFillMode() ).to.eql( ['forwards'] );
+        setRule = rule.setFillMode( ['forwards'] );
+        expect( rule.getFillMode() ).to.eql( ['forwards'] );
         expect( setRule ).to.be.undefined;
     } );
 
@@ -296,7 +296,7 @@ describe( 'Animation rule class', function()
             'animation-timing-function' : ['ease', 'ease-in', 'ease-out', 'linear'],
         };
 
-        const testRule    = AnimationRule();
+        const testRule    = Rule();
         const setState    = testRule.setState( options );
         const getEachRule = testRule.getEachRule();
 

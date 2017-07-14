@@ -31,7 +31,7 @@ export const keyframeMap =
 
 
 /**
-* Keys of the rule factory mapping
+* Keys of the Rule factory mapping
 *
 * @typedef {Array}
 */
@@ -39,7 +39,7 @@ const ruleKeys = Object.keys( ruleMap );
 
 
 /**
-* Keys of the keyframe factory mapping
+* Keys of the Keyframe factory mapping
 *
 * @typedef {Array}
 */
@@ -58,7 +58,7 @@ export const keyframeSetter = ['Markers', 'Name'];
 /**
 * Getter method suffixes
 *
-* @property {Array}         mapping.<factory type>        setter suffixes
+* @property {Array}         mapping.<factory type>       setter suffixes
 */
 export const ruleGetter = [ ...ruleKeys];
 export const keyframeGetter = [ ...keyframeKeys]

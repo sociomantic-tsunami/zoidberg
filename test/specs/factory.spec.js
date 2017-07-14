@@ -42,7 +42,7 @@ describe( 'Base Factory', () =>
         expect( factory.getState() ).to.eql( { nested : [ { nested : { nested : 'I am so nested', array : [] } } ] } );
     } );
 
-    it( 'should validate a prop by setting any new errors in the error handler and returning a boolean', () =>
+    it( 'should validate a prop by setting any errors in the error handler and returning a boolean', () =>
     {
         state   = { errorHandler : ErrorHandler() };
         factory = Factory( state, subFactory );

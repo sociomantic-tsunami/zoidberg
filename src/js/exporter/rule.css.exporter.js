@@ -7,23 +7,23 @@ import { buildProperty } from 'helper/exporter.helper';
 /**
 * Rules CSS exporter.
 *
-* @param {Object}           options                css formatting options
+* @param {Object}           states                 Rule states to export
+* @param {Object}           formatOptions          css formatting options
 * @property {Number}        options.outerIndent    top-level indent
 * @property {Number}        options.innerIndent    nested indent
 * @property {Number}        options.rpad           rpad between property and value
 * @property {Boolean}       options.shorthand      shorthand version, if it exists
-* @param {Object}           states                 states of factories to export
 *
 * @return {Array}                                   css
 */
-const exporter = ( options, states ) =>
+const exporter = ( states, formatOptions ) =>
 {
 
     /**
-    * Builds a shorthand rule using the first value of each property. Omits
-    * property values that are empty.
+    * Builds a shorthand css animation rule using the first value of each property.
+    * Omits property values that are empty arrays.
     *
-    * @return {Array}                               shorthand rule css
+    * @return {Array}                               shorthand animation rule css
     */
     const buildShorthandRule = () =>
     {
@@ -44,9 +44,10 @@ const exporter = ( options, states ) =>
 
 
     /**
-    * Builds a multiple rule, separating each value of a property by a comma.
+    * Builds a multiple css animation rule, separating each value of a property
+    * by a comma.
     *
-    * @return {Array}                               blocks of rule css
+    * @return {Array}                               blocks of animation rule css
     */
     const buildMultipleRules = () =>
     {
@@ -56,7 +57,7 @@ const exporter = ( options, states ) =>
 
             forOwn( rule, ( val, prop ) =>
             {
-                let builtProperty = buildProperty( prop, val, options );
+                let builtProperty = buildProperty( prop, val, formatOptions );
 
                 if( builtProperty ) properties += builtProperty;
             } );
@@ -66,7 +67,7 @@ const exporter = ( options, states ) =>
     }
 
 
-    return options.shorthand ? buildShorthandRule() : buildMultipleRules();
+    return formatOptions.shorthand ? buildShorthandRule() : buildMultipleRules();
 };
 
-export default ( options, state, collection ) => exporterMiddleware( options, state, exporter, collection );
+export default ( state, formatOptions, collection ) => exporterMiddleware( state, formatOptions, exporter, collection );

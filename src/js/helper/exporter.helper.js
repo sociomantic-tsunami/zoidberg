@@ -26,17 +26,17 @@ export const sortMarkers = states =>
 
 
 /**
-* Builds a CSS string property according to formatting.
+* Builds a css string property and value according to the formatting options.
 *
 * @param {String}        prop                      property name
 * @param {Array|String}  val                       property value
-* @param {Object}        options                   formatting options
+* @param {Object}        formatOptions             css formatting options
 *
-* @return {String}                                 CSS property value pair
+* @return {String}                                 css property/value pair
 */
-export const buildProperty = ( prop, val, options ) =>
+export const buildProperty = ( prop, val, formatOptions ) =>
 {
-    const { innerIndent, rpad } = options;
+    const { innerIndent, rpad } = formatOptions;
 
     if( isArray( val ) ) val = val.join( ', ' );
     if( val === '' || val === undefined ) return;

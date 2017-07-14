@@ -24,7 +24,7 @@ describe( 'Error Handler Factory', () =>
         expect( errorHandler.get() ).to.eql( errors1 );
     } );
 
-    it( 'should set errors states in the error handler', () =>
+    it( 'should set errors in the error handler', () =>
     {
         errorHandler.set( errors2 );
         expect( errorHandler.get() ).to.eql( { errors : [ ...errors1.errors, ...errors2.errors] } );

@@ -8,10 +8,10 @@ import cloneDeep from 'lodash/cloneDeep';
 * Contains utility methods for getting, setting and validation which are made
 * accessible to the sub-factory.
 *
-* @param {Object}      state                sub-factory state
-* @param {callbackFn}  subFactory           sub-factory callback
+* @param {Object}              state                  sub-factory state
+* @param {callbackFn}          subFactory             sub-factory callback
 *
-* @return {Object}                          exposed methods of the sub-factory
+* @return {Object}                                    sub-factory
 */
 export default function Factory ( state, subFactory )
 {
@@ -42,7 +42,7 @@ export default function Factory ( state, subFactory )
     /**
     * Gets the errors from the state.
     *
-    * @return {Array|undefined} errors                error objects or undefined
+    * @return {Error|undefined}                       Error|undefined
     */
     const getErrors = () =>
     {
@@ -58,10 +58,10 @@ export default function Factory ( state, subFactory )
     * boolean, and an errors prop, which contains an array of current error
     * objects. Sets the updated errors in the state and returns the valid boolean.
     *
-    * @param {String}           prop                    prop to be validated
-    * @param {*}                val                     value
+    * @param {String}           prop                  prop to be validated
+    * @param {*}                val                   value
     *
-    * @return {Boolean}                                 true, if valid
+    * @return {Boolean}                               true, if valid
     */
     const valid = ( prop, val ) =>
     {

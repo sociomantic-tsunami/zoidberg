@@ -58,7 +58,7 @@ describe( 'Factory helpers', () =>
             expect( setFuncs['setTime'] ).to.be.a( 'function' );
         } );
 
-        it( 'setter functions should call the passed valid method and set method if the valid method returns true', () =>
+        it( 'setter functions should call the valid method and set method if the valid method returns true', () =>
         {
             setFuncs['setDate']( false );
 
@@ -115,7 +115,7 @@ describe( 'Factory helpers', () =>
             getFuncs = addGetters( rule, getters, getSpy );
         } );
 
-        it( 'should call the get methods used to get the factorys state prop', () =>
+        it( 'should call the get methods used to get props of the factory state', () =>
         {
             const getDateSpy = sinon.spy( getFuncs, 'getDate' );
             const getTimeSpy = sinon.spy( getFuncs, 'getTime' );
@@ -126,7 +126,7 @@ describe( 'Factory helpers', () =>
             expect( getTimeSpy.callCount ).to.equal( 1 );
         } );
 
-        it( 'should return an object of the factorys state props and their values', () =>
+        it( 'should return an object of the props and values of the factory', () =>
         {
             const state = getStateHelper( rule, getFuncs );
             expect( state ).to.eql( { date : 'get', time : 'get', age: 'get' } );
@@ -144,7 +144,7 @@ describe( 'Factory helpers', () =>
             setFuncs = addSetters( rule, setters, setSpy, validSpy, errorsSpy );
         } );
 
-        it( 'should call the set methods used to set the factorys state prop if it exists in the options', () =>
+        it( 'should call the set methods used to set the props of the factory state', () =>
         {
             const setDateSpy = sinon.spy( setFuncs, 'setDate' );
             const setTimeSpy = sinon.spy( setFuncs, 'setTime' );
@@ -157,29 +157,9 @@ describe( 'Factory helpers', () =>
             expect( errorsSpy.callCount ).to.equal( 2 );
         } );
 
-        it( 'should return an error if the options passed are not valid', () =>
+        it( 'should return an Error if the state passed is not valid', () =>
         {
-            expect( setStateHelper( rule, setFuncs, errorsSpy, false ) ).to.eql( { errors : [ { prop: 'options', msg: 'Options must be a plain object', val: false } ] } );
-        } );
-
-    } );
-
-    describe( 'valueAtIndex', () =>
-    {
-
-        it( 'should return undefined it the array is empty', () =>
-        {
-            expect( valueAtIndex( 3, [] ) ).to.be.undefined;
-        } );
-
-        it( 'should recursively find the value at an index if the index is greater than the array length', () =>
-        {
-            expect( valueAtIndex( 7, ['first', 'second', 'third'] ) ).to.equal( 'second' );
-        } );
-
-        it( 'should return the value at the given index if the index is less than the array length', ()=>
-        {
-            expect( valueAtIndex( 2, ['first', 'second'] ) ).to.equal( 'first' );
+            expect( setStateHelper( rule, setFuncs, errorsSpy, false ) ).to.eql( { errors : [ { prop: 'state', msg: 'State must be a plain object', val: false } ] } );
         } );
 
     } );

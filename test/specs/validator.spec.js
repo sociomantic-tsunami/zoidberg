@@ -53,7 +53,7 @@ describe( 'Validator', () =>
             expect( validateCreate( Keyframe, [testState1] ) ).to.be.undefined;
         } );
 
-        it( 'should return an errors object if errors exist when setting a factory state', () =>
+        it( 'should return an Error if errors exist when setting a factory state', () =>
         {
             expect( validateCreate( Keyframe, [testState1, testState2] ) ).to.eql( { errors : [ { msg : 'Marker must be from, to or a string value with percent', prop : 'marker', val : [10] } ] } );
         } );

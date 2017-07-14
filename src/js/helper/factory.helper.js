@@ -5,8 +5,8 @@ import { validateDeep } from 'util/validator.js';
 
 /**
 * Returns an object of factory-specific generic set rules. Each set method
-* must pass validation in order to be set; each returns an array of error
-* objects or undefined.
+* must pass validation in order to be set; each returns an array of Errors or
+* undefined.
 *
 * @param {Object}           rule                  callback constants
 * @param {Object}           setters               set rules to add
@@ -79,28 +79,28 @@ export const getStateHelper = ( rule, getters ) =>
 
 
 /**
-* Sets all options in a state, if they are defined in options.
+* Sets all properties of a state, if they are defined.
 *
-* @param {Object}           options            options to set
+* @param {Object}           state              state to set
 * @param {Object}           rule               callback constants
 * @param {callbackFn}       setters            setter callbacks
 * @param {callbackFn}       getErrors          error getter callback
 *
-* @return {Array|undefined}                    errors|undefined
+* @return {Error|undefined}                   Error|undefined
 */
-export const setStateHelper = ( rule, setters, getErrors, options = {} ) =>
+export const setStateHelper = ( rule, setters, getErrors, state = {} ) =>
 {
     const handler = ErrorHandler();
-    const valid   = validateDeep( 'options', options, handler );
+    const valid   = validateDeep( 'state', state, handler );
 
     if( ! valid ) return handler.get();
 
     mapKeys( rule, ( val, i ) =>
     {
         const callbackFn = setters['set' + i];
-        const hasOption  = options.hasOwnProperty( val );
+        const hasProp    = state.hasOwnProperty( val );
 
-        if( hasOption ) callbackFn( options[val] );
+        if( hasProp ) callbackFn( state[val] );
     } );
 
     return getErrors();

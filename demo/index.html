@@ -70,8 +70,8 @@
 
             // Export to Css
             const ruleState   = myRule.getState();
-            const ruleCss     = rulesToCss( {}, [ruleState] );
-            const keyframeCss = findKeyframesToCss( {}, { name : 'move' } );
+            const ruleCss     = rulesToCss( [ruleState] );
+            const keyframeCss = findKeyframesToCss( { name : 'move' } );
 
 
             // Append (Example only)
