@@ -71,7 +71,7 @@ const KeyframeFactory = function ( set, get, valid, getErrors )
     *
     * @param {Object}           state                  Keyframe state
     *
-    * @return {Object|undefined}                       Error|undefined
+    * @return {Error|undefined}                       Error|undefined
     */
     const setState = state => setStateHelper( keyframeMap, setters, getErrors, state );
 

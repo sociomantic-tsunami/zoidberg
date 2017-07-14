@@ -42,7 +42,7 @@ export default function Factory ( state, subFactory )
     /**
     * Gets the errors from the state.
     *
-    * @return {Object|undefined}                       Error|undefined
+    * @return {Error|undefined}                       Error|undefined
     */
     const getErrors = () =>
     {

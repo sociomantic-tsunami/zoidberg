@@ -81,7 +81,7 @@ const RuleFactory = function ( set, get, valid, getErrors )
     *
     * @param {Object}           state                Rule state
     *
-    * @return {Array|undefined}                      Errors|undefined
+    * @return {Error|undefined}                      Error|undefined
     */
     const setState = state => setStateHelper( ruleMap, setters, getErrors, state );
 
