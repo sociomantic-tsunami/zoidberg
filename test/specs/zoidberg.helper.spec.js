@@ -36,6 +36,19 @@ describe( 'Zoidberg helpers', () =>
             expect( find( {}, ruleCollection ) ).to.eql( [] );
         } );
 
+        it( 'should return an empty array if the state to search for is invalid', () =>
+        {
+            expect( find( 9, ruleCollection ) ).to.eql( [] );
+        } );
+
+        it( 'should return the entire collection if the state to search for is falsy', () =>
+        {
+            expect( find( null, keyframeCollection ) ).to.eql( keyframeCollection );
+            expect( find( false, keyframeCollection ) ).to.eql( keyframeCollection );
+            expect( find( '', keyframeCollection ) ).to.eql( keyframeCollection );
+            expect( find( undefined, keyframeCollection ) ).to.eql( keyframeCollection );
+        } );
+
         it( 'should return a factory that partially matches the passed state object, otherwise an empty array', () =>
         {
             let popo = find( { name : 'popo' }, keyframeCollection );
@@ -68,29 +81,48 @@ describe( 'Zoidberg helpers', () =>
     describe( 'remove', () =>
     {
 
-        let testFactory;
+        let testFactory, collection, test1, test2, test3;
 
         before( () =>
         {
             testFactory = state =>
             {
-                const getState = () => state;
-
-                return { getState }
+                return { getState : () => state }
             };
 
         } );
 
+        beforeEach( () =>
+        {
+            test1 = testFactory( { colour : 'red' } );
+            test2 = testFactory( { colour : 'blue' } );
+            test3 = testFactory( { colour : 'green' } );
+
+            collection = [test1, test2, test3];
+        } );
+
         it( 'should remove factories from a collection and return the removed and remaining factories', () =>
         {
-            const test1 = testFactory( { colour : 'red' } );
-            const test2 = testFactory( { colour : 'blue' } );
-            const test3 = testFactory( { colour : 'green' } );
-            const collection = [test1, test2, test3];
-
             expect( remove( { colour : 'pink' }, collection ) ).to.eql( { removed : [], remaining : [test1, test2, test3] } );
             expect( remove( { colour : 'red' }, collection ) ).to.eql( { removed : [{ colour : 'red' }], remaining : [test2, test3] } );
+        } );
+
+        it( 'should return an empty array if the state to search for is empty', () =>
+        {
             expect( remove( {}, collection ) ).to.eql( { removed : [], remaining : [test1, test2, test3] } );
+        } );
+
+        it( 'should return an empty array if the state to search for is invalid', () =>
+        {
+            expect( remove( 9, collection ) ).to.eql( { removed : [], remaining : [test1, test2, test3] } );
+        } );
+
+        it( 'should return the entire collection if the state to search for is falsy', () =>
+        {
+            expect( remove( null, collection ) ).to.eql( { removed : [{ colour: 'red' }, { colour: 'blue' }, { colour: 'green' }], remaining : [] } );
+            expect( remove( false, collection ) ).to.eql( { removed : [{ colour: 'red' }, { colour: 'blue' }, { colour: 'green' }], remaining : [] } );
+            expect( remove( '', collection ) ).to.eql( { removed : [{ colour: 'red' }, { colour: 'blue' }, { colour: 'green' }], remaining : [] } );
+            expect( remove( undefined, collection ) ).to.eql( { removed : [{ colour: 'red' }, { colour: 'blue' }, { colour: 'green' }], remaining : [] } );
         } );
 
     } );

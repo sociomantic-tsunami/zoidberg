@@ -18,7 +18,7 @@ describe( 'Keyframe factory', () =>
         'getMarkers', 'getProps', 'setName', 'setMarkers', 'setProps' );
     } );
 
-    it( 'should set the name, markers and props of the current keyframe in the state, if passed in the options', () =>
+    it( 'should set the state of the Keyframe', () =>
     {
         const options       = { name : 'John', markers : ['10%'] };
         const testKeyframe  = Keyframe();
@@ -31,7 +31,7 @@ describe( 'Keyframe factory', () =>
         expect( setState ).to.be.undefined;
     } );
 
-    it( 'should return the current state of the keyframe', () =>
+    it( 'should return the state of the Keyframe', () =>
     {
         const state = keyframe.getState();
         expect( state ).to.eql( { name : '', markers : [], props : {} } );

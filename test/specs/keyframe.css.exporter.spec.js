@@ -18,12 +18,12 @@ describe( 'Export Keyframes CSS', () =>
     } );
 
 
-    it( 'if no state is passed, should export all keyframes', () =>
+    it( 'if no searchState is passed, should export all Keyframes', () =>
     {
         expect( exportKeyframeCss( undefined, undefined, keyframes ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n    40% {\n        width:                      10px;\n    }\n}', '\n@keyframes zoom {\n    20%, 50% {\n        color:                      red;\n        height:                     5%;\n    }\n}' ] );
     } );
 
-    it( 'if a state is passed that matches specific keyframes, should export those keyframes', () =>
+    it( 'if a searchState is passed that matches Keyframe states, should export those Keyframes', () =>
     {
         const testState1 = { name : 'bounce' };
         const testState2 = { name : 'bounce', markers : ['10%'] };
@@ -32,7 +32,7 @@ describe( 'Export Keyframes CSS', () =>
         expect( exportKeyframeCss( testState2, undefined, keyframes ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n}'] );
     } );
 
-    it( 'if a state is passed that matches no keyframes, should return an empty array', () =>
+    it( 'if a searchState is passed doesnt match any Keyframe states, should return an empty array', () =>
     {
         const testState3 = { name : 'jiggle' };
 
@@ -40,12 +40,12 @@ describe( 'Export Keyframes CSS', () =>
         expect( exportKeyframeCss( testState3, undefined, keyframes ) ).to.eql( [] );
     } );
 
-    it( 'if spacing related formatting options are passed, should space the css accordingly', () =>
+    it( 'if formatOptions are passed, should space the css accordingly', () =>
     {
         expect( exportKeyframeCss( undefined, { outerIndent : 6, innerIndent : 6, rpad : 15 }, keyframes ) ).to.eql( ['\n@keyframes bounce {\n      10% {\n      width:         50px;\n      }\n      40% {\n      width:         10px;\n      }\n}', '\n@keyframes zoom {\n      20%, 50% {\n      color:         red;\n      height:        5%;\n      }\n}'] );
     } );
 
-    it( 'if no collection is passed, should export the states of the passed keyframes', () =>
+    it( 'if no collection is passed, should export the states of given Keyframes', () =>
     {
         const testState4 = [ { name : 'crossFade', markers : ['5%'], props : { height : '10px' } }, { name : 'crossFade', markers : ['100%'], props : { height : '20px' } } ];
         const testState5 = [keyframes[0].getState(), keyframes[1].getState()];
