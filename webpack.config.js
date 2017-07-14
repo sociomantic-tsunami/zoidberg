@@ -22,19 +22,22 @@ module.exports =
     },
     module :
     {
-        loaders : [ {
-            test   : /.js$/,
-            loader : 'babel-loader',
-            exclude :
-            [
-                resolve( 'node_modules' )
-            ],
-            query  :
+        loaders :
+        [
             {
-                presets : ['es2015'],
-                plugins : ['transform-object-rest-spread']
+                test   : /\.js$/,
+                loader : 'babel-loader',
+                exclude :
+                [
+                    resolve( 'node_modules' )
+                ],
+                query  :
+                {
+                    presets : ['es2015'],
+                    plugins : ['transform-object-rest-spread']
+                }
             }
-        } ]
+        ]
     },
     node:
     {
