@@ -110,7 +110,7 @@ Create
 createRule( initialState )
 ```
 
-Creates and returns a new Rule. The new Rule is stored an internal Rule collection.
+Creates and returns a Rule. The Rule is stored an internal Rule collection.
 
 **Arguments**
 
@@ -127,7 +127,7 @@ Creates and returns a new Rule. The new Rule is stored an internal Rule collecti
 createKeyframe( initialState )
 ```
 
-Creates and returns a new Keyframe. The new Keyframe is stored in an internal Keyframe collection.
+Creates and returns a Keyframe. The Keyframe is stored in an internal Keyframe collection.
 
 **Arguments**
 
@@ -147,7 +147,7 @@ Find
 findRules( searchState )
 ```
 
-Finds rules in the internal Rule collection that have a state which matches `searchState`.
+Finds Rules in the internal Rule collection that have a state which matches `searchState`.
 
 **Arguments**
 
@@ -155,7 +155,7 @@ Finds rules in the internal Rule collection that have a state which matches `sea
 
 **Returns**
 
-*{Array}*: Matching Rules; each is an *{Object}*. If `searchState` was falsy (ie. undefined), the entire Rule collection is returned. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
+*{Array}*: Matching Rules; each is an *{Object}*. If `searchState` was falsy (ie. *{Undefined}*), the entire Rule collection is returned. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
 
 ----
 <a id="findKeyframes-api-anchor"></a>
@@ -172,7 +172,7 @@ Finds Keyframes in the internal Keyframe collection that have a state which matc
 
 **Returns**
 
-*{Array}*: Matching keyframes; each is an *{Object}*. If `searchState` was falsy (ie. undefined), the entire Keyframe collection is returned. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
+*{Array}*: Matching keyframes; each is an *{Object}*. If `searchState` was falsy (ie. *{Undefined}*), the entire Keyframe collection is returned. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
 
 ----
 
@@ -192,7 +192,7 @@ Finds and removes Rules in the internal Rule collection that have a state which 
 
 **Returns**
 
-*{Array}*: Removed Rule states; each is an *{Object}*. If `searchState` was falsy (ie. undefined), the entire Rule collection is emptied and returned. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
+*{Array}*: Removed Rule states; each is an *{Object}*. If `searchState` was falsy (ie. *{Undefined}*), the entire Rule collection is emptied and returned. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
 
 ----
 <a id="removeKeyframes-api-anchor"></a>
@@ -209,7 +209,7 @@ Finds and removes Keyframes in the internal Keyframe collection that have a stat
 
 **Returns**
 
-*{Array}*: Removed Keyframe states; each is an *{Object}*. If `searchState` was falsy (ie. undefined), the entire Keyframe collection is returned. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
+*{Array}*: Removed Keyframe states; each is an *{Object}*. If `searchState` was falsy (ie. *{Undefined}*), the entire Keyframe collection is emptied and returned. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
 
 ----
 
@@ -249,7 +249,7 @@ Finds and exports Keyframes in the internal Keyframe collection that have a stat
 
 **Arguments**
 
-`options` *{Object}*:  Used for css formatting. Valid properties are:
+`formatOptions` *{Object}*:  Used for css formatting. Valid properties are:
 
 - `outerIndent` *{Number}*: indent at the css property name
 - `innerIndent` *{Number}*: indent within the curly brackets which hold a css property
@@ -260,7 +260,7 @@ Finds and exports Keyframes in the internal Keyframe collection that have a stat
 
 **Returns**
 
-*{Array}*: Keyframe css; each is a *{String}*. If `searchState` was falsy (ie. undefined), the entire Keyframe collection is exported. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
+*{Array}*: Keyframe css; each is a *{String}*. If `searchState` was falsy (ie. *{Undefined}*), the entire Keyframe collection is exported. If `searchState` was not valid, an empty object or no matching rules are found, an empty *{Array}* is returned.
 
 ----
 <a id="findRulesToAst-api-anchor"></a>
@@ -300,14 +300,14 @@ Finds and exports Keyframes in the internal Keyframe collection that have a stat
 <a id="rulesToCss-api-anchor"></a>
 
 ```js
-rulesToCss( options, states )
+rulesToCss( states, formatOptions )
 ```
 
 Exports each Rule state as a *{String}* of css.
 
 **Arguments**
 
-`options` *{Object}*:  Used for css formatting. Valid properties are:
+`formatOptions` *{Object}*:  Used for css formatting. Valid properties are:
 
 - `innerIndent` *{Number}*: indent within the curly brackets which hold a css property
 - `rpad` *{Number}*: padding from the right of a value to a css property
@@ -323,14 +323,14 @@ Exports each Rule state as a *{String}* of css.
 <a id="keyframesToCss-api-anchor"></a>
 
 ```js
-keyframesToCss( options, states )
+keyframesToCss( states, formatOptions )
 ```
 
 Exports each Keyframe state as a *{String}* of css.
 
 **Arguments**
 
-`options` *{Object}*:  Used for css formatting. Valid properties are:
+`formatOptions` *{Object}*:  Used for css formatting. Valid properties are:
 
 - `outerIndent` *{Number}*: indent at the css property name
 - `innerIndent` *{Number}*: indent within the curly brackets which hold a css property
@@ -558,6 +558,7 @@ None.
 getPlayState()
 ```
 <a id="getPlayState-api-anchor"></a>
+
 Returns the current `animation-play-state` of a Rule.
 
 **Arguments**
