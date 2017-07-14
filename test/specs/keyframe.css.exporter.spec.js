@@ -28,21 +28,21 @@ describe( 'Export Keyframes CSS', () =>
         const testState1 = { name : 'bounce' };
         const testState2 = { name : 'bounce', markers : ['10%'] };
 
-        expect( exportKeyframeCss( undefined, testState1, keyframes ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n    40% {\n        width:                      10px;\n    }\n}'] );
-        expect( exportKeyframeCss( undefined, testState2, keyframes ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n}'] );
+        expect( exportKeyframeCss( testState1, undefined, keyframes ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n    40% {\n        width:                      10px;\n    }\n}'] );
+        expect( exportKeyframeCss( testState2, undefined, keyframes ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n}'] );
     } );
 
     it( 'if a state is passed that matches no keyframes, should return an empty array', () =>
     {
         const testState3 = { name : 'jiggle' };
 
-        expect( exportKeyframeCss( undefined, {}, keyframes ) ).to.eql( [] );
-        expect( exportKeyframeCss( undefined, testState3, keyframes ) ).to.eql( [] );
+        expect( exportKeyframeCss( {}, undefined, keyframes ) ).to.eql( [] );
+        expect( exportKeyframeCss( testState3, undefined, keyframes ) ).to.eql( [] );
     } );
 
     it( 'if spacing related formatting options are passed, should space the css accordingly', () =>
     {
-        expect( exportKeyframeCss( { outerIndent : 6, innerIndent : 6, rpad : 15 }, undefined, keyframes ) ).to.eql( ['\n@keyframes bounce {\n      10% {\n      width:         50px;\n      }\n      40% {\n      width:         10px;\n      }\n}', '\n@keyframes zoom {\n      20%, 50% {\n      color:         red;\n      height:        5%;\n      }\n}'] );
+        expect( exportKeyframeCss( undefined, { outerIndent : 6, innerIndent : 6, rpad : 15 }, keyframes ) ).to.eql( ['\n@keyframes bounce {\n      10% {\n      width:         50px;\n      }\n      40% {\n      width:         10px;\n      }\n}', '\n@keyframes zoom {\n      20%, 50% {\n      color:         red;\n      height:        5%;\n      }\n}'] );
     } );
 
     it( 'if no collection is passed, should export the states of the passed keyframes', () =>
@@ -50,8 +50,8 @@ describe( 'Export Keyframes CSS', () =>
         const testState4 = [ { name : 'crossFade', markers : ['5%'], props : { height : '10px' } }, { name : 'crossFade', markers : ['100%'], props : { height : '20px' } } ];
         const testState5 = [keyframes[0].getState(), keyframes[1].getState()];
 
-        expect( exportKeyframeCss( {}, testState4 ) ).to.eql( [ '\n@keyframes crossFade {\n    5% {\n        height:                     10px;\n    }\n    100% {\n        height:                     20px;\n    }\n}' ] );
-        expect( exportKeyframeCss( {}, testState5 ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n    40% {\n        width:                      10px;\n    }\n}' ] );
+        expect( exportKeyframeCss( testState4 ) ).to.eql( [ '\n@keyframes crossFade {\n    5% {\n        height:                     10px;\n    }\n    100% {\n        height:                     20px;\n    }\n}' ] );
+        expect( exportKeyframeCss( testState5 ) ).to.eql( ['\n@keyframes bounce {\n    10% {\n        width:                      50px;\n    }\n    40% {\n        width:                      10px;\n    }\n}' ] );
     } );
 
 } );

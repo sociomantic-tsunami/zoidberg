@@ -7,10 +7,10 @@ import { addSetters, addGetters, getStateHelper, setStateHelper } from 'helper/f
 /**
 * Keyframe State
 *
-* Returns a new keyframe state.
+* Returns a new Keyframe state.
 *
-* @return   {Object}                  keyframe state
-* @property {String}   state.name     name of the animation to which the keyframe belongs
+* @return   {Object}                  Keyframe state
+* @property {String}   state.name     name of the animation to which the Keyframe belongs
 * @property {Array}    state.props    time markers; can be from, to or a string percent value
 * @property {Array}    state.markers  css prop/value pairs
 * @property {Array}    state.errors   error objects containing prop, value and error messages
@@ -29,51 +29,51 @@ const KeyframeState = () =>
 /**
 * Keyframe Factory
 *
-* Creates a new keyframe object. A keyframe stores information about the keyframes
-* timemarker, styling properties and name. Styling properties are key/value pairs.
+* Creates a new Keyframe. A Keyframe stores information about the timemarker,
+* properties and name. Properties are key/value pairs.
 *
-* @param {callbackFn}      set              set callback
-* @param {callbackFn}      get              get callback
-* @param {callbackFn}      valid            validation callback
+* @param {callbackFn}          set                     set callback
+* @param {callbackFn}          get                     get callback
+* @param {callbackFn}          valid                   validation callback
 *
-* @return {Object}                          keyframe
+* @return {Object}                                     keyframe
 */
 const KeyframeFactory = function ( set, get, valid, getErrors )
 {
 
 
     /**
-    * Generic set methods for the keyframe factory state
+    * Generic set methods for the Keyframe factory state
     *
-    * @typedef  {Object}   getters
+    * @typedef {Object}        getters
     */
     const getters = addGetters( keyframeMap, keyframeGetter, get );
 
 
     /**
-    * Generic set methods for the keyframe factory state
+    * Generic set methods for the Keyframe factory state
     *
-    * @typedef  {Object}   setters
+    * @typedef {Object}        setters
     */
     const setters = addSetters( keyframeMap, keyframeSetter, set, valid, getErrors );
 
 
     /**
-    * Gets the state the current keyframe
+    * Gets the state the current Keyframe
     *
-    * @return {Object}          state                 current keyframe state
+    * @return {Object}                                 current Keyframe state
     */
     const getState = () => getStateHelper( keyframeMap, getters );
 
 
     /**
-    * Sets the state of the current keyframe
+    * Sets the state of the current Keyframe
     *
-    * @param {Object}           options                options to set
+    * @param {Object}           state                  Keyframe state
     *
-    * @return {Array|undefined}                        errors|undefined
+    * @return {Array|undefined}                        Errors|undefined
     */
-    const setState = options => setStateHelper( keyframeMap, setters, getErrors, options );
+    const setState = state => setStateHelper( keyframeMap, setters, getErrors, state );
 
 
     /**
@@ -83,7 +83,6 @@ const KeyframeFactory = function ( set, get, valid, getErrors )
     */
     setters.setProps = props =>
     {
-        // validation of CSS would happen here during a conditional set
         if( valid( 'props', props ) )
         {
             const oldProps = get( 'props' );

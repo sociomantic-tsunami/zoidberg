@@ -159,27 +159,7 @@ describe( 'Factory helpers', () =>
 
         it( 'should return an error if the options passed are not valid', () =>
         {
-            expect( setStateHelper( rule, setFuncs, errorsSpy, false ) ).to.eql( { errors : [ { prop: 'options', msg: 'Options must be a plain object', val: false } ] } );
-        } );
-
-    } );
-
-    describe( 'valueAtIndex', () =>
-    {
-
-        it( 'should return undefined it the array is empty', () =>
-        {
-            expect( valueAtIndex( 3, [] ) ).to.be.undefined;
-        } );
-
-        it( 'should recursively find the value at an index if the index is greater than the array length', () =>
-        {
-            expect( valueAtIndex( 7, ['first', 'second', 'third'] ) ).to.equal( 'second' );
-        } );
-
-        it( 'should return the value at the given index if the index is less than the array length', ()=>
-        {
-            expect( valueAtIndex( 2, ['first', 'second'] ) ).to.equal( 'first' );
+            expect( setStateHelper( rule, setFuncs, errorsSpy, false ) ).to.eql( { errors : [ { prop: 'state', msg: 'State must be a plain object', val: false } ] } );
         } );
 
     } );

@@ -9,23 +9,23 @@ import { sortMarkers, buildProperty } from 'helper/exporter.helper';
 /**
 * Keyframes CSS exporter.
 *
-* @param {Object}           options                css formatting options
-* @property {Number}        options.outerIndent    top-level indent
-* @property {Number}        options.innerIndent    nested indent
-* @property {Number}        options.rpad           rpad between property and value
-* @property {Boolean}       options.shorthand      shorthand version, if it exists
-* @param {Array}             states                 states of factories to export
+* @param {Array}            states                  Keyframe states to export
+* @param {Object}           formatOptions           css formatting options
+* @property {Number}        options.outerIndent     top-level indent
+* @property {Number}        options.innerIndent     nested indent
+* @property {Number}        options.rpad            rpad between property and value
+* @property {Boolean}       options.shorthand       shorthand version, if it exists
 *
 * @return {Array}                                   css
 */
-const exporter = ( options, states ) =>
+const exporter = ( states, formatOptions ) =>
 {
 
     /**
     * Builds an @keyframe css rule.
     *
-    * @param {Object}         group                  factory states grouped by name
-    * @param {String}         name                   name of keyframe
+    * @param {Object}         group                  Keyframe states grouped by name
+    * @param {String}         name                   name of Keyframe
     *
     * @return {String}                               @keyframe css rules
     */
@@ -45,20 +45,20 @@ const exporter = ( options, states ) =>
     /**
     * Builds a marker block statement with properties, if any.
     *
-    * @param {Object}      state                     state of factory
+    * @param {Object}      state                     Keyframe state
     *
     * @return {String}                               marker block
     */
     const buildMarkerBlock = state =>
     {
         const { markers, props } = state;
-        const leftIndent = padStart( '', options.outerIndent );
+        const leftIndent = padStart( '', formatOptions.outerIndent );
 
         let property = `\n${ leftIndent }${ markers.join( ', ' ) } {`;
 
         forOwn( props, ( val, prop ) =>
         {
-            let builtProperty = buildProperty( prop, val, options );
+            let builtProperty = buildProperty( prop, val, formatOptions );
 
             if( builtProperty ) property += builtProperty;
         } );
@@ -70,4 +70,4 @@ const exporter = ( options, states ) =>
     return map( groupBy( states, 'name' ), ( group, name ) => buildKeyframe( group, name ) );
 };
 
-export default ( options, state, collection ) => exporterMiddleware( options, state, exporter, collection );
+export default ( state, formatOptions, collection ) => exporterMiddleware( state, formatOptions, exporter, collection );

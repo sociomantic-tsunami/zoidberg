@@ -30,7 +30,8 @@ Demo
 ===========
 
 Run `npm run demo`. Demo runs via a Python SimpleHTTPServer and will automatically
-open a browser window at http://localhost:8000/demo/
+open a browser window at http://localhost:8000/demo/ It may be required to refresh
+the page.
 
 
 Usage

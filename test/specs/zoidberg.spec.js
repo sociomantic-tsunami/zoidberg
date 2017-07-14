@@ -211,16 +211,16 @@ describe( 'Zoidberg', () =>
 
         it( 'should return the css of keyframes that match the passed state, in the format of the passed options', () =>
         {
-            expect( zoidberg.findKeyframesToCss( options, testState1 ) ).to.eql( ['\n@keyframes joppe {\n   15% {\n     color:    blue;\n   }\n   20%, 10% {\n     color:    green;\n   }\n}'] );
-            expect( zoidberg.findKeyframesToCss( options ) ).to.eql( ['\n@keyframes jojo {\n   10% {\n     color:    red;\n   }\n}', '\n@keyframes john {\n   1% {\n   }\n}', '\n@keyframes joppe {\n   15% {\n     color:    blue;\n   }\n   20%, 10% {\n     color:    green;\n   }\n}'] );
-            expect( zoidberg.findKeyframesToCss( options, '' ) ).to.eql( [] );
+            expect( zoidberg.findKeyframesToCss( testState1, options ) ).to.eql( ['\n@keyframes joppe {\n   15% {\n     color:    blue;\n   }\n   20%, 10% {\n     color:    green;\n   }\n}'] );
+            expect( zoidberg.findKeyframesToCss( undefined, options ) ).to.eql( ['\n@keyframes jojo {\n   10% {\n     color:    red;\n   }\n}', '\n@keyframes john {\n   1% {\n   }\n}', '\n@keyframes joppe {\n   15% {\n     color:    blue;\n   }\n   20%, 10% {\n     color:    green;\n   }\n}'] );
+            expect( zoidberg.findKeyframesToCss( [], options ) ).to.eql( [] );
         } );
 
         it( 'should return the css of rules that match the passed state, in the format of the passed options', () =>
         {
-            expect( zoidberg.findRulesToCss( options, testState2 ) ).to.eql( ['\n     animation-delay:100ms;\n     animation-name:bretzel;\n', '\n     animation-delay:1s, 2s;\n     animation-name:bretzel;\n' ] );
-            expect( zoidberg.findRulesToCss( options, testState3 ) ).to.eql( ['\n     animation-delay:30ms;\n     animation-name:bier;\n' ] );
-            expect( zoidberg.findRulesToCss( options, false ) ).to.eql( [] );
+            expect( zoidberg.findRulesToCss( testState2, options ) ).to.eql( ['\n     animation-delay:100ms;\n     animation-name:bretzel;\n', '\n     animation-delay:1s, 2s;\n     animation-name:bretzel;\n' ] );
+            expect( zoidberg.findRulesToCss( testState3, options ) ).to.eql( ['\n     animation-delay:30ms;\n     animation-name:bier;\n' ] );
+            expect( zoidberg.findRulesToCss( {}, options ) ).to.eql( [] );
         } );
 
         it( 'should call the AST parser with the correct arguments when exporting keyframes', () =>
@@ -247,14 +247,14 @@ describe( 'Zoidberg', () =>
 
         it( 'should return the css of the passed keyframe states, in the format of the passed options, or errors if they exist', () =>
         {
-            expect( zoidberg.keyframesToCss( options, [testState4] ) ).to.eql( [ '\n@keyframes undefined {\n   1% {\n   }\n}' ] );
-            expect( zoidberg.keyframesToCss( options, [testState4, testState5] ) ).to.eql( { errors : [ { msg : 'Marker must be from, to or a string value with percent', prop : 'marker', val : [35] } ] } );
+            expect( zoidberg.keyframesToCss( [testState4], options ) ).to.eql( [ '\n@keyframes undefined {\n   1% {\n   }\n}' ] );
+            expect( zoidberg.keyframesToCss( [testState4, options, testState5] ) ).to.eql( { errors : [ { msg : 'Marker must be from, to or a string value with percent', prop : 'marker', val : [35] } ] } );
         } );
 
         it( 'should return the css of the passed rule states, in the format of the passed options, or errors if they exist', () =>
         {
-            expect( zoidberg.rulesToCss( options, [testState6] ) ).to.eql( [ '\n     animation-name:bier;\n' ] );
-            expect( zoidberg.rulesToCss( options, [testState6, testState7] ) ).to.eql( { errors : [ { msg : 'Required string values', prop : 'requiredStrings', val : [77] } ] } );
+            expect( zoidberg.rulesToCss( [testState6], options ) ).to.eql( [ '\n     animation-name:bier;\n' ] );
+            expect( zoidberg.rulesToCss( [testState6, options, testState7] ) ).to.eql( { errors : [ { msg : 'Required string values', prop : 'requiredStrings', val : [77] } ] } );
         } );
 
         it( 'should call the AST parser with the correct arguments when exporting keyframe states or return errors if they exist', () =>

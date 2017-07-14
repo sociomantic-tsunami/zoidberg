@@ -8,9 +8,9 @@ import { addSetters, addGetters, getStateHelper, setStateHelper, valueAtIndex } 
 /**
 * Rule State
 *
-* Returns a new animation rule state.
+* Returns a new Rule state.
 *
-* @return   {Object}                                       rule state
+* @return   {Object}                                       Rule state
 * @property {Array}    state['animation-delay']            when the animation should start
 * @property {Array}    state['animation-direction']        cycles in which the animation should play
 * @property {Array}    state['animation-duration']         time to complete one animation cycle
@@ -40,60 +40,60 @@ const RuleState = () =>
 /**
 * Animation Rule Factory
 *
-* Creates a new animation rule object. A animation rule stores information about
-* the animations general settings.
+* Creates a new Rule object. A Rule stores information about the general settings
+* of a css animation.
 *
-* @param {callbackFn}      set              set callback
-* @param {callbackFn}      get              get callback
-* @param {callbackFn}      valid            validation callback
+* @param {callbackFn}           set                   set callback
+* @param {callbackFn}           get                   get callback
+* @param {callbackFn}           valid                 validation callback
 *
-* @return {Object}                          animation rule
+* @return {Object}                                    Rule
 */
 const RuleFactory = function ( set, get, valid, getErrors )
 {
 
     /**
-    * Generic set methods for the rule factory state
+    * Generic set methods for the Rule factory state
     *
-    * @typedef  {Object}   getters
+    * @typedef  {Object}        getters
     */
     const getters = addGetters( ruleMap, ruleGetter, get );
 
 
     /**
-    * Generic set methods for the rule factory state
+    * Generic set methods for the Rule factory state
     *
-    * @typedef  {Object}   setters
+    * @typedef  {Object}        setters
     */
     const setters = addSetters( ruleMap, ruleSetter, set, valid, getErrors );
 
 
     /**
-    * Gets the state of the current rule
+    * Gets the state of the current Rule
     *
-    * @return {Object}                         state
+    * @return {Object}                                state
     */
     const getState = () => getStateHelper( ruleMap, getters );
 
 
     /**
-    * Sets the state of the current rule given the passed options
+    * Sets the state of the current Rule given the passed options
     *
-    * @param {Object}      options             options to set
+    * @param {Object}           state                Rule state
     *
-    * @return {Array|undefined}                errors|undefined
+    * @return {Array|undefined}                      Errors|undefined
     */
-    const setState = options => setStateHelper( ruleMap, setters, getErrors, options );
+    const setState = state => setStateHelper( ruleMap, setters, getErrors, state );
 
 
     /**
-    * Maps multiple animation rules to a single rule each. Based on the animation
-    * names which belong to the rule.  In such cases where there are not enough
-    * values of a certain animation property to give a separate value to each
-    * animation name, the values cycle from start to finish and are determined
-    * by valueAtIndex.
+    * Maps Rules with multiple animation properties to a single property/value
+    * pair each, based on the animation names which belong to the Rule. In
+    * cases where there are not enough values of an animation property to give a
+    * separate  value to each animation name, the values cycle from start to
+    * finish as determined by valueAtIndex.
     *
-    * @return {Array}                           rule objects
+    * @return {Array}                               Rules
     */
     const getEachRule = () =>
     {

@@ -216,10 +216,10 @@ export const validation =
         validator : isFinite
     },
 
-    'searchState' :
+    'state' :
     {
         validator : isPlainObject,
-        msg : 'Search state must be a plain object'
+        msg : 'State must be a plain object'
     },
 
     'options' :

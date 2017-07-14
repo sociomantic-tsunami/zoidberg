@@ -14,9 +14,11 @@ import { validate } from 'util/validator.js';
 *
 * @return {Array}                                 found rules
 */
-export const find = ( searchState = {}, collection ) =>
+export const find = ( searchState, collection ) =>
 {
-    const validSearch = validate( 'searchState', searchState );
+    if( ! searchState ) return [ ...collection];
+
+    const validSearch = validate( 'state', searchState );
 
     if( ! validSearch || isEmpty( searchState ) ) return [];
 
