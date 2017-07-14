@@ -86,7 +86,7 @@ export const getStateHelper = ( rule, getters ) =>
 * @param {callbackFn}       setters            setter callbacks
 * @param {callbackFn}       getErrors          error getter callback
 *
-* @return {Array|undefined}                    Errors|undefined
+* @return {Object|undefined}                   Error|undefined
 */
 export const setStateHelper = ( rule, setters, getErrors, state = {} ) =>
 {

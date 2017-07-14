@@ -126,7 +126,7 @@ describe( 'Factory helpers', () =>
             expect( getTimeSpy.callCount ).to.equal( 1 );
         } );
 
-        it( 'should return an object of the state of the factory, its props and values', () =>
+        it( 'should return an object of the props and values of the factory', () =>
         {
             const state = getStateHelper( rule, getFuncs );
             expect( state ).to.eql( { date : 'get', time : 'get', age: 'get' } );
@@ -144,7 +144,7 @@ describe( 'Factory helpers', () =>
             setFuncs = addSetters( rule, setters, setSpy, validSpy, errorsSpy );
         } );
 
-        it( 'should call the set methods used to set the props of the factory state, if it exists in the passed state', () =>
+        it( 'should call the set methods used to set the props of the factory state', () =>
         {
             const setDateSpy = sinon.spy( setFuncs, 'setDate' );
             const setTimeSpy = sinon.spy( setFuncs, 'setTime' );

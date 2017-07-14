@@ -7,7 +7,7 @@ import { addSetters, addGetters, getStateHelper, setStateHelper } from 'helper/f
 /**
 * Keyframe State
 *
-* Returns a new Keyframe state.
+* Returns a Keyframe state.
 *
 * @return   {Object}                  Keyframe state
 * @property {String}   state.name     name of the animation to which the Keyframe belongs
@@ -29,7 +29,7 @@ const KeyframeState = () =>
 /**
 * Keyframe Factory
 *
-* Creates a new Keyframe. A Keyframe stores information about the timemarker,
+* Creates a Keyframe. A Keyframe stores information about the timemarker,
 * properties and name. Properties are key/value pairs.
 *
 * @param {callbackFn}          set                     set callback
@@ -59,19 +59,19 @@ const KeyframeFactory = function ( set, get, valid, getErrors )
 
 
     /**
-    * Gets the state the current Keyframe
+    * Gets the state the Keyframe
     *
-    * @return {Object}                                 current Keyframe state
+    * @return {Object}                                 Keyframe state
     */
     const getState = () => getStateHelper( keyframeMap, getters );
 
 
     /**
-    * Sets the state of the current Keyframe
+    * Sets the state of the Keyframe
     *
     * @param {Object}           state                  Keyframe state
     *
-    * @return {Array|undefined}                        Errors|undefined
+    * @return {Object|undefined}                       Error|undefined
     */
     const setState = state => setStateHelper( keyframeMap, setters, getErrors, state );
 

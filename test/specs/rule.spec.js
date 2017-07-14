@@ -11,7 +11,7 @@ describe( 'Rule factory', function()
         rule = Rule();
     } );
 
-    it( 'should have get and methods for the Rule state', () =>
+    it( 'should have get and set methods for the Rule state', () =>
     {
         expect( rule ).to.be.an( 'object' );
         expect( rule ).to.have.keys( 'getDelay', 'getErrors', 'getDirection',

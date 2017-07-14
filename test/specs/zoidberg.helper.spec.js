@@ -31,17 +31,17 @@ describe( 'Zoidberg helpers', () =>
             ruleCollection = [rule1, rule2];
         } );
 
-        it( 'should return an empty array if the state to search for is empty', () =>
+        it( 'should return an empty array if the searchState is empty', () =>
         {
             expect( find( {}, ruleCollection ) ).to.eql( [] );
         } );
 
-        it( 'should return an empty array if the state to search for is invalid', () =>
+        it( 'should return an empty array if the searchState is invalid', () =>
         {
             expect( find( 9, ruleCollection ) ).to.eql( [] );
         } );
 
-        it( 'should return the entire collection if the state to search for is falsy', () =>
+        it( 'should return the entire collection if the searchState is falsy', () =>
         {
             expect( find( null, keyframeCollection ) ).to.eql( keyframeCollection );
             expect( find( false, keyframeCollection ) ).to.eql( keyframeCollection );
@@ -49,7 +49,7 @@ describe( 'Zoidberg helpers', () =>
             expect( find( undefined, keyframeCollection ) ).to.eql( keyframeCollection );
         } );
 
-        it( 'should return a factory that partially matches the passed state object, otherwise an empty array', () =>
+        it( 'should return a factory that partially matches the searchState, otherwise an empty array', () =>
         {
             let popo = find( { name : 'popo' }, keyframeCollection );
             expect( popo ).to.have.length( 2 );
@@ -107,17 +107,17 @@ describe( 'Zoidberg helpers', () =>
             expect( remove( { colour : 'red' }, collection ) ).to.eql( { removed : [{ colour : 'red' }], remaining : [test2, test3] } );
         } );
 
-        it( 'should return an empty array if the state to search for is empty', () =>
+        it( 'should return an empty array if the searchState is empty', () =>
         {
             expect( remove( {}, collection ) ).to.eql( { removed : [], remaining : [test1, test2, test3] } );
         } );
 
-        it( 'should return an empty array if the state to search for is invalid', () =>
+        it( 'should return an empty array if the searchState is invalid', () =>
         {
             expect( remove( 9, collection ) ).to.eql( { removed : [], remaining : [test1, test2, test3] } );
         } );
 
-        it( 'should return the entire collection if the state to search for is falsy', () =>
+        it( 'should return the entire collection if the searchState is falsy', () =>
         {
             expect( remove( null, collection ) ).to.eql( { removed : [{ colour: 'red' }, { colour: 'blue' }, { colour: 'green' }], remaining : [] } );
             expect( remove( false, collection ) ).to.eql( { removed : [{ colour: 'red' }, { colour: 'blue' }, { colour: 'green' }], remaining : [] } );

@@ -8,7 +8,7 @@ import { addSetters, addGetters, getStateHelper, setStateHelper, valueAtIndex } 
 /**
 * Rule State
 *
-* Returns a new Rule state.
+* Returns a Rule state.
 *
 * @return   {Object}                                       Rule state
 * @property {Array}    state['animation-delay']            when the animation should start
@@ -38,9 +38,9 @@ const RuleState = () =>
 
 
 /**
-* Animation Rule Factory
+* Rule Factory
 *
-* Creates a new Rule object. A Rule stores information about the general settings
+* Creates a Rule. A Rule stores information about the general settings
 * of a css animation.
 *
 * @param {callbackFn}           set                   set callback
@@ -69,15 +69,15 @@ const RuleFactory = function ( set, get, valid, getErrors )
 
 
     /**
-    * Gets the state of the current Rule
+    * Gets the state of the Rule
     *
-    * @return {Object}                                state
+    * @return {Object}                               Rule state
     */
     const getState = () => getStateHelper( ruleMap, getters );
 
 
     /**
-    * Sets the state of the current Rule given the passed options
+    * Sets the state of the Rule
     *
     * @param {Object}           state                Rule state
     *
@@ -87,7 +87,7 @@ const RuleFactory = function ( set, get, valid, getErrors )
 
 
     /**
-    * Maps Rules with multiple animation properties to a single property/value
+    * Maps a Rule with multiple animation properties to a single property/value
     * pair each, based on the animation names which belong to the Rule. In
     * cases where there are not enough values of an animation property to give a
     * separate  value to each animation name, the values cycle from start to

@@ -29,8 +29,8 @@ export default () =>
 
 
     /**
-    * Creates and returns new Rule. Must be initialized with a valid name.
-    * If not and/or other errors are present, returns a collection of Errors.
+    * Creates and returns a Rule. Must be initialized with a valid name.
+    * If not and/or other errors are present, returns an Error.
     *
     * @param {Object}           initialState          initial state of a Rule
     *
@@ -50,8 +50,8 @@ export default () =>
 
 
     /**
-    * Creates and returns a new Keyframe. Must be initialized with a valid name.
-    * If not and/or other errors are present, returns a collection of Errors.
+    * Creates and returns a Keyframe. Must be initialized with a valid name.
+    * If not and/or other errors are present, returns an Error.
     *
     * @param {Object}           initialState          initial state of a Keyframe
     *
@@ -71,8 +71,8 @@ export default () =>
 
 
     /**
-    * Finds Keyframes that have a state which matches the search state. If search
-    * state is falsy (ie. undefined), entire Keyframe collection is returned.
+    * Finds Keyframe states which match searchState. If searchState is falsy
+    * (ie. undefined), the entire Keyframe collection is returned.
     *
     * @param {Object}           searchState           Keyframe state to search for
     *
@@ -85,8 +85,8 @@ export default () =>
 
 
     /**
-    * Finds Rules that have a state which matches the search state. If search
-    * state is falsy (ie. undefined), entire Rule collection is returned.
+    * Finds Rule states that match the searchState. If searchState is falsy
+    * (ie. undefined), the  entire Rule collection is returned.
     *
     * @param {Object}           searchState           Rule state to search for
     *
@@ -99,8 +99,8 @@ export default () =>
 
 
     /**
-    * Removes Keyframes from the Keyframes collection. If search state is falsy
-    * (ie. undefined), entire Keyframe collection is emptied.
+    * Removes Keyframes from the Keyframes collection. If searchState is falsy
+    * (ie. undefined), the entire Keyframe collection is emptied and returned.
     *
     * @param {Object}           searchState           Keyframe state to search for
     *
@@ -117,8 +117,8 @@ export default () =>
 
 
     /**
-    * Removes Rules from the Rules collection. If search state is falsy
-    * (ie. undefined), entire Rule collection is emptied.
+    * Removes Rules from the Rules collection. If searchState is falsy
+    * (ie. undefined), the entire Rule collection is emptied and returned.
     *
     * @param {Object}           searchState           Rule state to search for
     *
@@ -135,8 +135,9 @@ export default () =>
 
 
     /**
-    * Exports the css of Keyframes that match the search state. If search state
-    * is falsy (ie. undefined), entire Keyframe collection is exported.
+    * Exports the css of Keyframes that have a state that matches searchState.
+    * If searchState is falsy (ie. undefined), the entire Keyframe collection is
+    * exported.
     *
     * @param {Object}           searchState           Keyframe state to search for
     * @param {Object}           formatOptions         css formatting options
@@ -150,8 +151,9 @@ export default () =>
 
 
     /**
-    * Exports the css of Rules that match the search state.If search state
-    * is falsy (ie. undefined), entire Rule collection is exported.
+    * Exports the css of Rules that have a state that matches the searchState.
+    * If searchState is falsy (ie. undefined), the entire Rule collection is
+    * exported.
     *
     * @param {Object}           searchState           Rule state to search for
     * @param {Object}           formatOptions         css formatting options
@@ -165,8 +167,9 @@ export default () =>
 
 
     /**
-    * Exports the ast of Keyframes that match the search state. If search state
-    * is falsy (ie. undefined), entire Keyframe collection is exported.
+    * Exports the ast of Keyframes that have a state that matches the searchState.
+    * If searchState is falsy (ie. undefined), the entire Keyframe collection is
+    * exported.
     *
     * @param {Object}           searchState           Keyframe state to search for
     *
@@ -181,9 +184,10 @@ export default () =>
 
 
     /**
-    * Exports the ast of rules that match the search state. If search state
-    * is falsy (ie. undefined), entire Rule collection is exported. Wraps each
-    * Rule css in a block statement with a generic selector to allow for ast export.
+    * Exports the ast of Rules that have a state that matches the searchState.
+    * If searchState is falsy (ie. undefined), the entire Rule collection is
+    * exported. Wraps each Rule css in a block statement with a generic selector
+    * to allow for ast export.
     *
     * @param {Object}           searchState           Rule state to search for
     *
@@ -200,8 +204,7 @@ export default () =>
 
     /**
     * Exports the css of the given Keyframes. If the states to export contain
-    * errors, returns an array of Errors. Otherwise, returns an array of css
-    * strings.
+    * errors, returns an Error. Otherwise, returns an array of css strings.
     *
     * @param {Array}            states                Keyframe states to export
     * @param {Object}           formatOptions         css formatting options
@@ -220,8 +223,7 @@ export default () =>
 
     /**
     * Exports the css of the given Rules. If the states to export contain
-    * errors, returns an array of the Errors. Otherwise, returns an array of css
-    * strings.
+    * errors, returns an Error. Otherwise, returns an array of css strings.
     *
     * @param {Array}            states                Rule states to export
     * @param {Object}           formatOptions         css formatting options
@@ -240,8 +242,7 @@ export default () =>
 
     /**
     * Exports the ast of the given Keyframes. If the states to export contain
-    * errors, returns an array of Errors. Otherwise, returns an array of ast
-    * objects.
+    * errors, returns an Error. Otherwise, returns an array of ast objects.
     *
     * @param {Array}            states                Keyframe states to export
     *
@@ -260,8 +261,8 @@ export default () =>
     /**
     * Exports the ast of the given Rules. Wraps each rule css in a block
     * statement with a generic selector to allow for ast export. If the states
-    * to export contain errors, returns an array of Errors. Otherwise, returns
-    * an array of ast objects.
+    * to export contain errors, returns an Errors. Otherwise, returns an array
+    * of ast objects.
     *
     * @param {Array}            states                Rule states to export
     *

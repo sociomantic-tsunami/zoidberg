@@ -97,12 +97,12 @@ describe( 'Zoidberg', () =>
             rule = zoidberg.createRule( { 'animation-name' : ['vovo'] } );
         } );
 
-        it( 'should find the Rule states that match the passed state', () =>
+        it( 'should find the Rule states that match the searchState', () =>
         {
             expect( zoidberg.findRules( { 'animation-name' : ['vovo'] } )[0] ).to.eql( rule );
         } );
 
-        it( 'should return an empty array if no Keyframe states are passed that match the passed state', ()=>
+        it( 'should return an empty array if no Keyframe states are passed that match the searchState', ()=>
         {
             expect( zoidberg.findRules( { 'animation-name' : ['bobo'] } ) ).to.eql( [] );
         } );
@@ -310,14 +310,14 @@ describe( 'Zoidberg', () =>
             astExporterSpy.reset();
         } );
 
-        it( 'should return the css of Keyframes that match the passed state, in the format of the passed formatOptions', () =>
+        it( 'should return the css of Keyframes that match the searchState, in the format of the passed formatOptions', () =>
         {
             expect( zoidberg.findKeyframesToCss( testState1, formatOptions ) ).to.eql( ['\n@keyframes joppe {\n   15% {\n     color:    blue;\n   }\n   20%, 10% {\n     color:    green;\n   }\n}'] );
             expect( zoidberg.findKeyframesToCss( undefined, formatOptions ) ).to.eql( ['\n@keyframes jojo {\n   10% {\n     color:    red;\n   }\n}', '\n@keyframes john {\n   1% {\n   }\n}', '\n@keyframes joppe {\n   15% {\n     color:    blue;\n   }\n   20%, 10% {\n     color:    green;\n   }\n}'] );
             expect( zoidberg.findKeyframesToCss( [], formatOptions ) ).to.eql( [] );
         } );
 
-        it( 'should return the css of Rules that match the passed state, in the format of the passed formatOptions', () =>
+        it( 'should return the css of Rules that match the searchState, in the format of the passed formatOptions', () =>
         {
             expect( zoidberg.findRulesToCss( testState2, formatOptions ) ).to.eql( ['\n     animation-delay:100ms;\n     animation-name:bretzel;\n', '\n     animation-delay:1s, 2s;\n     animation-name:bretzel;\n' ] );
             expect( zoidberg.findRulesToCss( testState3, formatOptions ) ).to.eql( ['\n     animation-delay:30ms;\n     animation-name:bier;\n' ] );
