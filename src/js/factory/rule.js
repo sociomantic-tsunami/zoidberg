@@ -1,3 +1,10 @@
+/**
+* This file is part of Zoidberg <https://github.com/sociomantic-tsunami/zoidberg/>
+* Copyright (c) 2017 sociomantic labs GmbH.
+* MIT License. See accompanying LICENSE.txt for details.
+*/
+
+
 import Factory from 'factory/factory';
 import ErrorHandler from 'factory/errorHandler';
 import reduce  from 'lodash/reduce';

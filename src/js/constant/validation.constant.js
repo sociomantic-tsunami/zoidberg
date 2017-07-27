@@ -1,3 +1,10 @@
+/**
+* This file is part of Zoidberg <https://github.com/sociomantic-tsunami/zoidberg/>
+* Copyright (c) 2017 sociomantic labs GmbH.
+* MIT License. See accompanying LICENSE.txt for details.
+*/
+
+
 import isArray from 'lodash/isArray';
 import isString from 'lodash/isString';
 import isPlainObject from 'lodash/isPlainObject';
