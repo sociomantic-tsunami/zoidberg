@@ -1,3 +1,10 @@
+/**
+* This file is part of Zoidberg <https://github.com/sociomantic-tsunami/zoidberg/>
+* Copyright (c) 2017 sociomantic labs GmbH.
+* MIT License. See accompanying LICENSE.txt for details.
+*/
+
+
 import reduce from 'lodash/reduce';
 import { find } from 'helper/zoidberg.helper';
 import { validate } from 'util/validator.js';

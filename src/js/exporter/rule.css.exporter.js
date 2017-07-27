@@ -1,3 +1,10 @@
+/**
+* This file is part of Zoidberg <https://github.com/sociomantic-tsunami/zoidberg/>
+* Copyright (c) 2017 sociomantic labs GmbH.
+* MIT License. See accompanying LICENSE.txt for details.
+*/
+
+
 import forOwn from 'lodash/forOwn';
 import { shorthandRuleOrder } from 'constant/exporter.constant';
 import exporterMiddleware from 'exporter/middleware.exporter';
