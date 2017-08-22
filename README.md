@@ -63,13 +63,13 @@ Creating a Zoidberg **does not** require the `new` keyword. A Zoidberg is not a 
 API Documentation
 =============
 
-Can be found [here](https://github.com/sociomantic/zoidberg/blob/master/api.md).
+Can be found [here](api.md).
 
 
 Change Log
 ============
 
-Can be found [here](https://github.com/sociomantic/zoidberg/blob/master/changelog.md).
+Can be found [here](changelog.md).
 
 
 Code of Conduct
