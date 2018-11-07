@@ -1,6 +1,6 @@
 /**
 * This file is part of Zoidberg <https://github.com/sociomantic-tsunami/zoidberg/>
-* Copyright (c) 2017 sociomantic labs GmbH.
+* Copyright (c) 2017 dunnhumby Germany GmbH.
 * MIT License. See accompanying LICENSE.txt for details.
 */
 
