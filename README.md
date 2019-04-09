@@ -1,3 +1,5 @@
+**NOTE:** This project is archived. Feel free to fork it if you want to continue the development.
+
 Description
 ===========
 
